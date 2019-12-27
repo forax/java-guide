@@ -1,9 +1,11 @@
 
+# Interface
 Java is a typed language, even if you don't explicitly write a type
 the compiler you compute the type of every variables
 Once you start to want to mix several records, you need to declare
 common type between records, such type are known as interface
 
+### The problem
 let say we have a Square and Rectangle, and both have a method surface
 ```java
 record Square(int side) {
@@ -25,11 +27,9 @@ var figures = List.of(new Square(2), new Rectangle(3, 4));
 
 try to loop over the elements of the figures to print the surface doesn't compile
 ```java
-//for(var figure: figures) {
-```
- System.out.println(figure.surface());
-```java
-//}
+/* for(var figure: figures) {
+     System.out.println(figure.surface());
+}*/
 ```
 
 The problem is that compiler try to find the type of the element of the list
@@ -67,7 +67,6 @@ for(var figure: figures) {
 }
 ```
 
-
 An interface is a common type that you need to declare when you want to
 call the same method on different records
 At runtime, when you call a method of the interface, the interpreter calls
@@ -75,6 +74,8 @@ the correct implementation (this is called polymorphism)
 
 Technically, we have already used interfaces, List is an interface too
 
+
+## Implementing an interface
 In Java, not only record can implement an interface, 
 you have three other syntax
 - anonymous class
@@ -90,6 +91,7 @@ Figure anotherFigure = new Figure() {
 };
 ```
 
+### Anonymous class
 An anonymous class allow you to only provide the code of the methods of the interface
 note that the syntax is a little weird because you may call new on a Figure but infact,
 you ask to create something that implements Figure not a figure by itself.
@@ -115,7 +117,8 @@ for(var figure: figures) {
 ```
 
 
-Lambda: in case of the interface is itself an interface with only one abstract method,
+### Lambda
+In case of the interface is itself an interface with only one abstract method,
 we calls that interface a functional interface, you have even a shorter syntax
 ```java
 Figure anotherFigure = () -> 4;
@@ -136,7 +139,8 @@ for(var figure: figures) {
 ```
 
 
-Method Reference: in case of the method already exists instead of 
+### Method Reference
+In case of the method already exists instead of 
 calling it inside a lambda, we can make a reference on it using the operator ::
 (notice that EquilaterlaTriangle doesn't implement Figure)
 ```java

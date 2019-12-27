@@ -115,12 +115,12 @@ var matrix = new double[][] { { 2.0, 3.0}, { 4.0, 5.0 } };
 // that you can call using the syntax SomeWhere.methodName(arg0, arg1, arg2)
 
 // by example to transform a String to an int, we call the method
-// parseInt stored in the type 'java.lang.Integer'
+// parseInt stored in the type *java.lang.Integer*
 var resultAsInt = java.lang.Integer.parseInt("42");
 System.out.println(resultAsInt);
 
 // or to transform an array to a text, there is the static method toString
-// on the type 'java.util.Arrays'
+// on the type *java.util.Arrays*
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
 

@@ -1,5 +1,5 @@
 # java-guide
-A guide of modern Java (Java 17)
+A guide to modern Java (Java 17)
 
 ## Content
 

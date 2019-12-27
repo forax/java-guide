@@ -145,7 +145,7 @@ System.out.println(binaryOp.applyAsInt(40, 2));
 
 
 // ## Lambda
-// Lambda syntax is similar to the switch syntax
+// Lambda syntax is similar to arrow part the switch syntax
 // - with 0 parameter: () -> expression
 // - with 1 parameter: x -> expression
 // - with 2 or more parameters: (a, b) -> expression

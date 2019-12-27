@@ -23,7 +23,7 @@ a variable declared in a block of code, can not be used outside that block
 ```
 value can not be used here !
 
-### Test with 'if'
+### Test with `if`
 ```java
 void oldEnough(int age) {
   if (age >= 21) {
@@ -33,7 +33,7 @@ void oldEnough(int age) {
 oldEnough(22);
 ```
 
-test with 'if ... else'
+### Test with `if ... else`
 ```java
 void oldEnough(int age) {
   if (age >= 21) {
@@ -90,7 +90,7 @@ System.out.println(doors("sedan"));
 ```
 
 test with a switch compatible with C
-you can not mix '->' and ':'
+(you can not mix `->` and `:` )
 ```java
 void vehicle(int wheels) {
   switch(wheels) {

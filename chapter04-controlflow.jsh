@@ -20,7 +20,7 @@ System.out.println(x);
 }
 // value can not be used here !
 
-// ### Test with 'if'
+// ### Test with `if`
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -28,7 +28,7 @@ void oldEnough(int age) {
 }
 oldEnough(22);
 
-// test with 'if ... else'
+// ### Test with `if ... else`
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -77,7 +77,7 @@ int doors(String kind) {
 System.out.println(doors("sedan"));
 
 // test with a switch compatible with C
-// you can not mix '->' and ':'
+// (you can not mix `->` and `:` )
 void vehicle(int wheels) {
   switch(wheels) {
     case 1:

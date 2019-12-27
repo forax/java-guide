@@ -2,9 +2,10 @@
 // then cut and paste the following lines to see how it works
 // To exit jshell type /exit
 
+// # Expression and Control Flow
 // Most of the control flow syntax of Java comes from C with some enhancements
 
-// Variables
+// ### Variables
 // if you explicitly type a variable you can declare a variable without initializing it
 int x;
 
@@ -19,7 +20,7 @@ System.out.println(x);
 }
 // value can not be used here !
 
-// test with 'if'
+// ### Test with 'if'
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -38,7 +39,7 @@ void oldEnough(int age) {
 oldEnough(17);
 
 
-// test with a switch statement
+// ### Test with a switch statement
 // default case is not mandatory
 void vehicle(int wheels) {
   switch(wheels) {
@@ -53,7 +54,7 @@ void vehicle(int wheels) {
 }
 vehicle(3);
 
-// test with a switch expression
+// ### Test with a switch expression
 // default case is mandatory
 String vehicle(int wheels) {
   return switch(wheels) {
@@ -96,6 +97,7 @@ void vehicle(int wheels) {
 vehicle(3);
 
 
+// ### Instanceof
 // instanceof test the class of a value at runtime
 // if instanceof succeeds, the value is stored in the variable
 // declared as last argument
@@ -114,7 +116,7 @@ System.out.println(maxPersons(new Car(4)));
 System.out.println(maxPersons(new Bus(32)));
 
 
-// while loop
+// ### while loop
 void printFirstIntegers(int n) {
   var i = 0;
   while(i < n) {
@@ -124,7 +126,7 @@ void printFirstIntegers(int n) {
 }
 printFirstIntegers(5);
 
-// for loop
+// ### for loop
 void printFirstIntegers(int n) {
   for(var i = 0; i < n; i++) {
     System.out.println(i);
@@ -132,19 +134,20 @@ void printFirstIntegers(int n) {
 }
 printFirstIntegers(5);
 
-// for loop on array or list
+// ### for loop on array or list
 var list = List.of("iron man", "captain america", "black panther");
 for(var value: list) {
   System.out.println(value);
 }
 
 
+// ### On loops
 // Most of the loops can also be abstracted using higher order constructs
 // if you don't understand that code know, don't panic, we will come back
 // to that later
 
-// using IntStream.range()
+// using `IntStream.range()`
 IntStream.range(0, 5).forEach(System.out::println);
 
-// using List.forEach()
+// using `List.forEach()`
 list.forEach(System.out::println);

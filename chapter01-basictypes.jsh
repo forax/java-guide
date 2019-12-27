@@ -6,27 +6,29 @@
 // - primitive types that are directly mapped to CPU basic types
 // - reference types that address of the object in memory
 
-// primitive types (written in lower case)
-// primitive types have no method
+// # primitive types 
+// primitive types, written in lower case, have no method
 
-// boolean (true|false)
+// ## boolean (true|false)
 var result = true;
 var anotherResult = false;
 
-// character
+// ## char (character)
 var firstLetter = 'j';
 
-// int (signed 32 bits integers)
+// ## int (signed 32 bits integer)
 var numberOfLegs = 2;
 
-// double (64 bits floatting point)
+// ## double (64 bits floating point)
 var cost = 3.78;
 
+// ## long and float
 // some more exotic types that requires a suffix ('L' or 'f')
 // long (64 bits integers) and float (32 bits floating point numbers)
 var longValue = 123L;
 var floatValue = 123.5f;
 
+// ## byte and short
 // you also have byte (a signed 8 bits integer) and short (a signed 16 bits short integer)
 // that are only useful to take less memory when defining an object
 record CompactHeader(byte tag, short version) {}
@@ -37,7 +39,7 @@ short value = 12;
 var result = value + value;
 
 
-// primitive conversions
+// # primitive conversions
 // You have automatic conversions if there is no loose of precision
 // unless it's to convert to double or float which you are always allowed.
 int intValue = 13;
@@ -50,9 +52,11 @@ int intValue = (int) longValue;
 System.out.println(intValue);
 
 
+// # Objects
 // All other types are objects, there are two special types, String and arrays
 // that are object but considered as built-in by the compiler
 
+// ## String
 // String that stores a text (a sequence of characters)
 var text = "hello"; 
 
@@ -72,6 +76,7 @@ System.out.println("hello".indexOf('l'));
 System.out.println("hello".indexOf('o'));
 
 
+// ## Array
 // arrays that use the syntax new type[]
 var intArray = new int[] {2, 3};
 
@@ -117,6 +122,7 @@ System.out.println(resultAsInt);
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
 
+// ## On arrays 
 // Also, we don't use array much in Java, we have more
 // powerful object like List, that we will see later 
 var intList = List.of(2, 3);

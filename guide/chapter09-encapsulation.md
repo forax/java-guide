@@ -148,9 +148,6 @@ class ModifiableLibrary {
     return "ModifiableLibrary " + books.toString();
   }
 }
-```
-
-```java
 var library = new ModifiableLibrary();
 library.add(new Book("DaVinci Code", "Dan Brown"));
 System.out.println(library);
@@ -176,5 +173,5 @@ to be compatible with the encapsulation principle
 
 To summarize, a class is a general mechanism to describe how things
 are implemented and make a separation between what is publicly visible
-and what is privately used to make the code to work.
+and what is privately used to make the code working.
 A record is a special case when the implementation is public.

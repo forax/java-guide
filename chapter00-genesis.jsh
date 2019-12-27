@@ -2,7 +2,7 @@
 // then cut and paste the following lines to see how it works
 // To exit jshell type /exit
 
-// A record is a user defined type
+// # A record is a user defined type
 // here Light is defined as containing two components: a color (typed as a String) and
 // an intensity (typed as a 64 bits floating number double) 
 record Light(String color, double intensity) {}
@@ -63,10 +63,8 @@ System.out.println(blueLight.equals(redLight));
 var anotherRedLight = new Light("red", 1.0);
 System.out.println(redLight.equals(anotherRedLight));
 
-
-// Let summarize what we have discovered
-// we can create user defined objects using the keyword "record"
-// A records has components that are the parameters used to create an object
+// # Summary
+// A record has components that are the parameters used to create an object
 // To create an object we use the operator 'new' followed by the arguments of the
 // record components in the same order
 // To interact with an object, we are using methods that are functions that you
@@ -74,4 +72,3 @@ System.out.println(redLight.equals(anotherRedLight));
 // A Record defines methods to access the value of a component, and also
 // toString() to get the textual representation of an object and
 // equals() to test if two objects are equals.
-

@@ -39,7 +39,7 @@ void oldEnough(int age) {
 oldEnough(17);
 
 
-// ### Test with a switch statement
+// ### Test with a `switch` statement
 // default case is not mandatory
 void vehicle(int wheels) {
   switch(wheels) {
@@ -54,7 +54,7 @@ void vehicle(int wheels) {
 }
 vehicle(3);
 
-// ### Test with a switch expression
+// ### Test with a `switch` expression
 // default case is mandatory
 String vehicle(int wheels) {
   return switch(wheels) {
@@ -76,7 +76,7 @@ int doors(String kind) {
 }
 System.out.println(doors("sedan"));
 
-// test with a switch compatible with C
+// ### Test with a `switch` compatible with C
 // (you can not mix `->` and `:` )
 void vehicle(int wheels) {
   switch(wheels) {
@@ -97,7 +97,7 @@ void vehicle(int wheels) {
 vehicle(3);
 
 
-// ### Instanceof
+// ### `instanceof`
 // instanceof test the class of a value at runtime
 // if instanceof succeeds, the value is stored in the variable
 // declared as last argument
@@ -116,7 +116,7 @@ System.out.println(maxPersons(new Car(4)));
 System.out.println(maxPersons(new Bus(32)));
 
 
-// ### while loop
+// ### `while` loop
 void printFirstIntegers(int n) {
   var i = 0;
   while(i < n) {
@@ -126,7 +126,7 @@ void printFirstIntegers(int n) {
 }
 printFirstIntegers(5);
 
-// ### for loop
+// ### `for` loop
 void printFirstIntegers(int n) {
   for(var i = 0; i < n; i++) {
     System.out.println(i);
@@ -134,7 +134,7 @@ void printFirstIntegers(int n) {
 }
 printFirstIntegers(5);
 
-// ### for loop on array or list
+// ### `for` loop on array or list
 var list = List.of("iron man", "captain america", "black panther");
 for(var value: list) {
   System.out.println(value);

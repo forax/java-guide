@@ -61,13 +61,13 @@ class build {
       insideCode = switch(kind) {
         case BLANK, TEXT -> {
           if (insideCode) {
-            text.append("'''");
+            text.append("```");
           }
           yield false;
         }
         case CODE -> {
           if (!insideCode) {
-            text.append("'''java");
+            text.append("```java");
           }
           yield true;
         }
@@ -80,7 +80,7 @@ class build {
     }
     
     if (insideCode) {
-      text.append("'''");
+      text.append("```");
     }
     return text.toString();
   }

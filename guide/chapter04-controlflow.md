@@ -3,37 +3,37 @@ Most of the control flow syntax of Java comes from C with some enhancements
 
 Variables
 if you explicitly type a variable you can declare a variable without initializing it
-'''java
+```java
 int x;
-'''
+```
 
 but a variable can be used only after being initialized
-'''java
+```java
 x = 3;
 System.out.println(x);
-'''
+```
 
 block of code
 a variable declared in a block of code, can not be used outside that block
-'''java
+```java
 {
   var value = 42;
 }
-'''
+```
 value can not be used here !
 
 test with 'if'
-'''java
+```java
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
   }
 }
 oldEnough(22);
-'''
+```
 
 test with 'if ... else'
-'''java
+```java
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -42,12 +42,12 @@ void oldEnough(int age) {
   }
 }
 oldEnough(17);
-'''
+```
 
 
 test with a switch statement
 default case is not mandatory
-'''java
+```java
 void vehicle(int wheels) {
   switch(wheels) {
     case 1 -> System.out.println("monocycle !");
@@ -60,11 +60,11 @@ void vehicle(int wheels) {
   }
 }
 vehicle(3);
-'''
+```
 
 test with a switch expression
 default case is mandatory
-'''java
+```java
 String vehicle(int wheels) {
   return switch(wheels) {
     case 1 -> "monocycle !";
@@ -74,10 +74,10 @@ String vehicle(int wheels) {
   };
 }
 System.out.println(vehicle(3));
-'''
+```
 
 you can switch on integers, strings and enums
-'''java
+```java
 int doors(String kind) {
   return switch(kind) {
     case "smart" -> 3;
@@ -86,11 +86,11 @@ int doors(String kind) {
   };
 }
 System.out.println(doors("sedan"));
-'''
+```
 
 test with a switch compatible with C
 you can not mix '->' and ':'
-'''java
+```java
 void vehicle(int wheels) {
   switch(wheels) {
     case 1:
@@ -108,13 +108,13 @@ void vehicle(int wheels) {
   }
 }
 vehicle(3);
-'''
+```
 
 
 instanceof test the class of a value at runtime
 if instanceof succeeds, the value is stored in the variable
 declared as last argument
-'''java
+```java
 record Car(int seats) {}
 record Bus(int capacity) {}
 int maxPersons(Object value) {
@@ -128,11 +128,11 @@ int maxPersons(Object value) {
 }
 System.out.println(maxPersons(new Car(4)));
 System.out.println(maxPersons(new Bus(32)));
-'''
+```
 
 
 while loop
-'''java
+```java
 void printFirstIntegers(int n) {
   var i = 0;
   while(i < n) {
@@ -141,25 +141,25 @@ void printFirstIntegers(int n) {
   }
 }
 printFirstIntegers(5);
-'''
+```
 
 for loop
-'''java
+```java
 void printFirstIntegers(int n) {
   for(var i = 0; i < n; i++) {
     System.out.println(i);
   }
 }
 printFirstIntegers(5);
-'''
+```
 
 for loop on array or list
-'''java
+```java
 var list = List.of("iron man", "captain america", "black panther");
 for(var value: list) {
   System.out.println(value);
 }
-'''
+```
 
 
 Most of the loops can also be abstracted using higher order constructs
@@ -167,11 +167,11 @@ if you don't understand that code know, don't panic, we will come back
 to that later
 
 using IntStream.range()
-'''java
+```java
 IntStream.range(0, 5).forEach(System.out::println);
-'''
+```
 
 using List.forEach()
-'''java
+```java
 list.forEach(System.out::println);
-'''
+```

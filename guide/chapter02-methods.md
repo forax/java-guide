@@ -5,38 +5,38 @@ The method syntax starts with the return type, the name of the method,
 then its parameters
 The first parameter named 'this' is a special keyword
 The keyword 'return' indicate how the return value is evaluated
-'''java
+```java
 record Rectangle(int width, int height) {
   boolean hasTheSameHeight(Rectangle this, Rectangle rectangle) {
     return this.height == rectangle.height;
   }
 }
-'''
+```
 
 a method is called on an instance (an object) of a record
 here rectangle1 and rectangle2 are instances of Rectangle
-'''java
+```java
 var rectangle1 = new Rectangle(2, 3);
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle1.hasTheSameHeight(rectangle2));
-'''
+```
 
 The value before the '.' (here rectangle1) is called the receiver,
 and is stored as the parameter 'this' for the method hasTheSameHeight(). 
 
 If you don't declare 'this' as first parameter, it is declared implicitly
 so the record Rectangle below is equivalent to the record Rectangle above
-'''java
+```java
 record Rectangle(int width, int height) {
   boolean hasTheSameHeight(Rectangle rectangle) {  // implicit this
     return this.height == rectangle.height;
   }
 }
-'''
+```
 
 also, if inside a method you access to a variable which is not a parameter
 it will be automatically prefixed by 'this.', so the code can be simplified to
-'''java
+```java
 record Rectangle(int width, int height) {
   boolean hasTheSameHeight(Rectangle rectangle) {
     return height == rectangle.height;   // no this.height needed !
@@ -45,18 +45,18 @@ record Rectangle(int width, int height) {
 var rectangle1 = new Rectangle(2, 3);
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle1.hasTheSameHeight(rectangle2));
-'''
+```
 
 
 There is also a special type named 'void' if the method return no value
-'''java
+```java
 record Person(String name) {
   void hello() {
     System.out.println("hello i'm " + name);
   }
 }
 new Person("duke").hello();
-'''
+```
 
 
 In Java, there are two kinds of methods, the one attached to an instance (the 'this')
@@ -67,32 +67,32 @@ Unlike an instance method, a static method has no 'this'
 by example, we can create a static method createSquare() that create a Rectangle
 with the same width and the same height
 
-'''java
+```java
 record Rectangle(int width, int height) {
   int surface() {
     return width * height;
   }
-'''
+```
   
-'''java
+```java
   static Rectangle createSquare(int side) {
     return new Rectangle(side, side);
   }
 }
-'''
+```
 
 because a static method is independent of an instance, you can not access to the
 record component inside a static method because the value of the component depends
 on the instance (rectangle1 and rectangle2 has not the same width or height).
 
 To call a static method, you call it on the record name
-'''java
+```java
  var square1 = Rectangle.createSquare(3);
  System.out.println(square1.surface());
-'''
+```
  
  
-'''java
+```java
  // static methods are also useful to share code
  // by example, to calculate the length of the diagonal of a Rectangle, one can write
 record Rectangle(int width, int height) {
@@ -102,10 +102,10 @@ record Rectangle(int width, int height) {
 }
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle2.diagonal());
-'''
+```
 
 it can also be written like this
-'''java
+```java
 record Rectangle(int width, int height) {
   double diagonal() {
     return Math.sqrt(pow2(width) + pow2(height));
@@ -116,12 +116,12 @@ record Rectangle(int width, int height) {
 }
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle2.diagonal());
-'''
+```
 
 
 In fact, there is already a static method named hypot in java.lang.Math
 that already calculate the hypotenuse, so Rectangle can be written like this
-'''java
+```java
 record Rectangle(int width, int height) {
   double diagonal() {
     return Math.hypot(width, height);
@@ -129,6 +129,6 @@ record Rectangle(int width, int height) {
 }
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle2.diagonal());
-'''
+```
 
 

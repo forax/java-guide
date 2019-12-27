@@ -6,7 +6,7 @@
 // - primitive types that are directly mapped to CPU basic types
 // - reference types that address of the object in memory
 
-// # primitive types 
+// # Primitive types 
 // primitive types, written in lower case, have no method
 
 // ## boolean (true|false)

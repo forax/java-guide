@@ -24,6 +24,7 @@ String colorName = "black";
 ```
 
 
+System.out.println()
 To print a value in Java we have a weird incantation System.out.println() that we will detail later
 ```java
 System.out.println(maxIntensity);
@@ -35,6 +36,9 @@ We will see later its exact meaning
 System.out.println(colorName);
 ```
 
+```java
+## Concatenation with +
+```
 If we want to print a text followed by a value, we use the operator '+'
 ```java
 System.out.println("the value of colorName is " + colorName);
@@ -57,14 +61,15 @@ var blueLightIntensity = blueLight.intensity();
 System.out.println(blueLightIntensity);
 ```
 
+## toString()
 By default a record knows how to transform itself into a String
 in Java, the method to transform an object to a String is named toString()
 ```java
 System.out.println(blueLight.toString());
 ```
 
-In fact, println calls toString() if the argument is an object
-so when using println, calling explicitly toString() is not necessary
+In fact, println() calls toString() if the argument is an object
+so when using println(), calling explicitly toString() is not necessary
 ```java
 System.out.println(blueLight);
 ```
@@ -74,6 +79,7 @@ Let's create another Light
 var redLight = new Light("red", 1.0);
 ```
 
+## equals()
 In Java, you can ask if two objects are equals, using the method equals(Object)
 the return value is a boolean (a primitive type that is either true or false)
 ```java
@@ -85,6 +91,16 @@ Let's create another red light
 var anotherRedLight = new Light("red", 1.0);
 System.out.println(redLight.equals(anotherRedLight));
 ```
+
+## hashCode()
+You can also ask have an integer summary (a hash) of any objects
+This is used to speed up data structures
+Two objects that are equals() must have the same hashCode()
+```java
+System.out.println(redLight.hashCode());
+System.out.println(anotherRedLight.hashCode());
+```
+
 
 # Summary
 A record has components that are the parameters used to create an object

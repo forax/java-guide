@@ -168,4 +168,4 @@ for(var figure: figures) {
 ```
 
 
-more about lambdas and method references in the following chapter
+More about lambdas and method references in the following chapter

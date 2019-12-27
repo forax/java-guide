@@ -1,6 +1,7 @@
 
 if you have not read the previous chapter on interfaces, starts by it first
 
+# Lambda and Method reference 
 Java unlike JavaScript or Python, don't let you pass a method as argument of a method
 without ceremony
 Let say i want to write a method that do either the sum of an array of values or the sum of their square,
@@ -52,6 +53,7 @@ so sumOf instead of a boolean that take a function as parameter more or less lik
 //}
 ```
 
+## Functional interface
 the question is what ??? is. The answer in simple in Java, if it can be either a value or another one,
 then it's an interface. Exactly like in the previous chapter, we have introduce an interface in
 between two records.
@@ -80,7 +82,7 @@ System.out.println(sumOf(array, x -> x * x));
 ```
 
 
-package java.util.function
+## Package java.util.function
 
 because it's not convenient to have to declare an interface every times you want to send
 a function as parameter, Java already provides a bunch of interfaces in the package
@@ -185,6 +187,7 @@ System.out.println(binaryOp.applyAsInt(40, 2));
 
 
 
+## Lambda
 Lambda syntax is similar to the switch syntax
 - with 0 parameter: () -> expression
 - with 1 parameter: x -> expression
@@ -208,7 +211,7 @@ DoubleUnaryOperator op = (double x) -> 2.0 * x;
 ```
 
 
-Method references
+## Method references
 there are 5 kinds of method references
 a reference to an instance method 
 ```java

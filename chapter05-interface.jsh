@@ -74,7 +74,7 @@ for(var figure: figures) {
 // - method reference
 
 // ### Anonymous class
-Figure anotherFigure = new Figure() {
+var anotherFigure = new Figure() {
   public double surface() {
     return 4;
   }

@@ -84,7 +84,7 @@ you have three other syntax
 
 ### Anonymous class
 ```java
-Figure anotherFigure = new Figure() {
+var anotherFigure = new Figure() {
   public double surface() {
     return 4;
   }

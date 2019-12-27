@@ -11,13 +11,13 @@ objects like String or Light that have a name that starts with an uppercase lett
 
 A primitive type is stored as value while an object is stored as
 a reference (the address of the object in memory)
-In Java, 'var' create a new variable
+In Java, `var` create a new variable
 ```java
 var maxIntensity = 1.0;   // it's a value
 var colorName = "black";  // it's a reference to String somewhere in memory
 ```
 
-you can also indicate the type instead of 'var'
+you can also indicate the type instead of `var`
 if you are using var, you are asking the compiler to find the type for you
 ```java
 String colorName = "black";
@@ -25,7 +25,7 @@ String colorName = "black";
 
 
 System.out.println()
-To print a value in Java we have a weird incantation System.out.println() that we will detail later
+To print a value in Java we have a weird incantation `System.out.println()` that we will detail later
 ```java
 System.out.println(maxIntensity);
 ```
@@ -37,19 +37,19 @@ System.out.println(colorName);
 ```
 
 ## Concatenation with +
-If we want to print a text followed by a value, we use the operator '+'
+If we want to print a text followed by a value, we use the operator `+`
 ```java
 System.out.println("the value of colorName is " + colorName);
 ```
 
-To create an object in memory, we use the operator new followed by the value of each record components
+To create an object in memory, we use the operator `new` followed by the value of each record components
 the following instruction create a Light with "blue" as color and 1.0 as intensity
 ```java
 var blueLight = new Light("blue", 1.0);
 ```
 
 To interact with an object in Java, we use methods, that are functions attached to an object.
-to call a method, we use the operator '.' followed by the name of the method and its arguments
+to call a method, we use the operator `.` followed by the name of the method and its arguments
 A record automatically declares methods to access its components so Light declares two methods
 color() and intensity()
 
@@ -91,8 +91,8 @@ System.out.println(redLight.equals(anotherRedLight));
 ```
 
 ## hashCode()
-You can also ask have an integer summary (a hash) of any objects
-This is used to speed up data structures
+You can also ask have an integer summary (a hash) of any object
+This is used to speed up data structures (hash table)
 Two objects that are equals() must have the same hashCode()
 ```java
 System.out.println(redLight.hashCode());
@@ -101,11 +101,11 @@ System.out.println(anotherRedLight.hashCode());
 
 
 # Summary
-A record has components that are the parameters used to create an object
-To create an object we use the operator 'new' followed by the arguments of the
+A `record` has components that are the parameters used to create an object
+To create an object we use the operator `new` followed by the arguments of the
 record components in the same order
 To interact with an object, we are using methods that are functions that you
-call on an object using the operator '.'
+call on an object using the operator `.`
 A Record defines methods to access the value of a component, and also
-toString() to get the textual representation of an object and
-equals() to test if two objects are equals.
+`toString()` to get the textual representation of an object and
+`equals()` to test if two objects are equals.

@@ -29,7 +29,7 @@ var cost = 3.78;
 ```
 
 ### long and float
-some more exotic types that requires a suffix ('L' or 'f')
+some more exotic types that requires a suffix (`L` or `f`)
 long (64 bits integers) and float (32 bits floating point numbers)
 ```java
 var longValue = 123L;
@@ -151,17 +151,17 @@ var matrix = new double[][] { { 2.0, 3.0}, { 4.0, 5.0 } };
 Because primitive types and arrays have (almost) no method,
 if you want to play with them you have to use static methods.
 A static method is a function that is declared on a type somewhere
-that you can call using the syntax SomeWhere.methodName(arg0, arg1, arg2)
+that you can call using the syntax `SomeWhere.methodName(arg0, arg1, arg2)`
 
 by example to transform a String to an int, we call the method
-parseInt stored in the type *java.lang.Integer*
+parseInt stored in the type `java.lang.Integer`
 ```java
 var resultAsInt = java.lang.Integer.parseInt("42");
 System.out.println(resultAsInt);
 ```
 
 or to transform an array to a text, there is the static method toString
-on the type *java.util.Arrays*
+on the type `java.util.Arrays`
 ```java
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);

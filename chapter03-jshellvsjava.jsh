@@ -2,9 +2,11 @@
 // then cut and paste the following lines to see how it works
 // To exit jshell type /exit
 
+// # Jshell vs Java
 // We are using jshell, jshell has mostly the same behavior as Java
-// but because it's interactive you can do more
+// but because it's interactive it can do more
 
+// ### Re-defining records or variables
 // you can define a record or a variable several times, jshell will use the most recent one
 record Point(int x, int y) { }
 var p = new Point(2, 3);
@@ -24,7 +26,7 @@ void hello() {
 }
 hello();
 
-
+// ### Special commands
 // you have a bunch of special command that starts with '/'
 // you can use /help if you want to know more
 

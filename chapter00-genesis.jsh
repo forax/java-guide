@@ -29,7 +29,7 @@ System.out.println(maxIntensity);
 // We will see later its exact meaning
 System.out.println(colorName);
 
-## Concatenation with +
+// ## Concatenation with +
 // If we want to print a text followed by a value, we use the operator '+'
 System.out.println("the value of colorName is " + colorName);
 

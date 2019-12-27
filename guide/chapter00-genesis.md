@@ -36,9 +36,7 @@ We will see later its exact meaning
 System.out.println(colorName);
 ```
 
-```java
 ## Concatenation with +
-```
 If we want to print a text followed by a value, we use the operator '+'
 ```java
 System.out.println("the value of colorName is " + colorName);

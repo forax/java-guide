@@ -42,15 +42,15 @@ Usually testing a condition in the middle of a computation is a code smell.
 There is a way to solve that, it's to take the part of the computation that change as parameter
 so sumOf instead of a boolean that take a function as parameter more or less like this
 ```java
-//int sumOf(int[] array, ??? function) {
-```
- var sum = 0;
- for(var value: array) {
-   sum = sum + function(value);
- }
- return sum;
-```java
-//}
+/*
+int sumOf(int[] array, ??? function) {
+  var sum = 0;
+  for(var value: array) {
+    sum = sum + function(value);
+  }
+  return sum;
+}
+*/
 ```
 
 ## Functional interface

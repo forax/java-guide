@@ -40,13 +40,15 @@ int sumOf(int[] array, boolean squareSum) {
 // Usually testing a condition in the middle of a computation is a code smell.
 // There is a way to solve that, it's to take the part of the computation that change as parameter
 // so sumOf instead of a boolean that take a function as parameter more or less like this
-//int sumOf(int[] array, ??? function) {
-//  var sum = 0;
-//  for(var value: array) {
-//    sum = sum + function(value);
-//  }
-//  return sum;
-//}
+/*
+int sumOf(int[] array, ??? function) {
+  var sum = 0;
+  for(var value: array) {
+    sum = sum + function(value);
+  }
+  return sum;
+}
+*/
 
 // ## Functional interface
 // the question is what ??? is. The answer in simple in Java, if it can be either a value or another one,

@@ -82,7 +82,7 @@ you have three other syntax
 - lambda
 - method reference
 
-anonymous class
+### Anonymous class
 ```java
 Figure anotherFigure = new Figure() {
   public double surface() {
@@ -91,7 +91,6 @@ Figure anotherFigure = new Figure() {
 };
 ```
 
-### Anonymous class
 An anonymous class allow you to only provide the code of the methods of the interface
 note that the syntax is a little weird because you may call new on a Figure but infact,
 you ask to create something that implements Figure not a figure by itself.

@@ -154,14 +154,14 @@ A static method is a function that is declared on a type somewhere
 that you can call using the syntax SomeWhere.methodName(arg0, arg1, arg2)
 
 by example to transform a String to an int, we call the method
-parseInt stored in the type java.lang.Integer
+parseInt stored in the type 'java.lang.Integer'
 ```java
 var resultAsInt = java.lang.Integer.parseInt("42");
 System.out.println(resultAsInt);
 ```
 
 or to transform an array to a text, there is the static method toString
-on the type java.util.Arrays
+on the type 'java.util.Arrays'
 ```java
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);

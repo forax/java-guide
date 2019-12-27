@@ -1,33 +1,34 @@
 
+# Basic Types
 Java has two kinds of type,
 - primitive types that are directly mapped to CPU basic types
 - reference types that address of the object in memory
 
-# Primitive types 
+## Primitive types 
 primitive types, written in lower case, have no method
 
-## boolean (true|false)
+### boolean (true|false)
 ```java
 var result = true;
 var anotherResult = false;
 ```
 
-## char (character)
+### char (character)
 ```java
 var firstLetter = 'j';
 ```
 
-## int (signed 32 bits integer)
+### int (signed 32 bits integer)
 ```java
 var numberOfLegs = 2;
 ```
 
-## double (64 bits floating point)
+### double (64 bits floating point)
 ```java
 var cost = 3.78;
 ```
 
-## long and float
+### long and float
 some more exotic types that requires a suffix ('L' or 'f')
 long (64 bits integers) and float (32 bits floating point numbers)
 ```java
@@ -35,7 +36,7 @@ var longValue = 123L;
 var floatValue = 123.5f;
 ```
 
-## byte and short
+### byte and short
 you also have byte (a signed 8 bits integer) and short (a signed 16 bits short integer)
 that are only useful to take less memory when defining an object
 ```java
@@ -50,7 +51,7 @@ var result = value + value;
 ```
 
 
-# primitive conversions
+### primitive conversions
 You have automatic conversions if there is no loose of precision
 unless it's to convert to double or float which you are always allowed.
 ```java
@@ -67,11 +68,11 @@ System.out.println(intValue);
 ```
 
 
-# Objects
+## Objects
 All other types are objects, there are two special types, String and arrays
 that are object but considered as built-in by the compiler
 
-## String
+### String
 String that stores a text (a sequence of characters)
 ```java
 var text = "hello"; 
@@ -101,7 +102,7 @@ System.out.println("hello".indexOf('o'));
 ```
 
 
-## Array
+### Array
 arrays that use the syntax new type[]
 ```java
 var intArray = new int[] {2, 3};
@@ -146,6 +147,7 @@ var matrix = new double[][] { { 2.0, 3.0}, { 4.0, 5.0 } };
 ```
 
 
+### Static methods
 Because primitive types and arrays have (almost) no method,
 if you want to play with them you have to use static methods.
 A static method is a function that is declared on a type somewhere
@@ -165,7 +167,8 @@ var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
 ```
 
-## On arrays 
+
+### On arrays 
 Also, we don't use array much in Java, we have more
 powerful object like List, that we will see later 
 ```java

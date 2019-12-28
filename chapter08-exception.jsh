@@ -144,9 +144,9 @@ var aRunnable = new Runnable() {
 };
 */
 
-// But the question is what to write in the `catch` block.
-// The trick is to still propagate the exception but by wrap it into an unchecked
-// exception. This trick is so common that the Java API already comes with existing
+// So here, we have to use a `try/catch` but we still want to propagate the exception.
+// The trick is wrap the checked exception into an unchecked exception.
+// This trick is so common that the Java API already comes with existing
 // classes to wrap common checked exceptions. For `IOException`, the unchecked
 // equivalent is `UncheckedIOException`. 
 

@@ -9,7 +9,7 @@
 // then its parameters
 // The first parameter named `this` is a special keyword indicating the value
 // before the `.`
-// The keyword 'return' indicate how the return value is evaluated
+// The keyword `return` indicates the return value of the method.
 record Rectangle(int width, int height) {
   boolean hasTheSameHeight(Rectangle this, Rectangle rectangle) {
     return this.height == rectangle.height;

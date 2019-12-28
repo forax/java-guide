@@ -165,26 +165,27 @@ DoubleUnaryOperator op = (double x) -> 2.0 * x;
 
 
 // ## Method references
-// there are 5 kinds of method references
-// a reference to an instance method 
+// There are 5 kinds of method references
+
+// 1. a reference to an instance method 
 BiPredicate<String,String> predicate = String::startsWith;
 System.out.println(predicate.test("hello", "hell"));
 
-// a bound reference to an instance method
+// 2. a bound reference to an instance method
 var text = "hello";
 IntSupplier supplier = text::length;
 System.out.println(supplier.getAsInt());
 
-// a reference to a static method
+// 3. a reference to a static method
 ToIntFunction<String> function = Integer::parseInt;
 System.out.println(function.applyAsInt("42"));
 
-// a reference to a new instance
+// 4. a reference to a new instance
 record Person(String name) {}
 Function<String, Person> factory = Person::new;
 System.out.println(factory.apply("John"));
 
-// a reference to a new array
+// 5. a reference to a new array
 IntFunction<String[]> arrayCreator = String[]::new;
 System.out.println(arrayCreator.apply(2));
 

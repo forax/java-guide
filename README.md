@@ -31,7 +31,7 @@ To get the examples, just clone this repository
 
 Then run jshell (at least Java 14 version)
 ```
-   jshell ----enable-preview
+   jshell --enable-preview
 ```
 
 Then you can copy paste the examples inside jshell and see by yourself.
@@ -39,10 +39,14 @@ Then you can copy paste the examples inside jshell and see by yourself.
 To quit use '/exit', to have have verbose error message '/set feedback verbose', otherwise to get the help '/help'
 
 
+## Work in progress
+
+This is a work in progress, don't hesitate to contribute, i'm waiting your pull request
+
+
 ### Build markdown files from jshell files
 
 Using java 14
-
 ```
-  java build/build.java
+  java --enable-preview build/build.java
 ```

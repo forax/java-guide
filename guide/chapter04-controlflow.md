@@ -166,7 +166,7 @@ for(var value: list) {
 
 ### On loops
 Most of the loops can also be abstracted using higher order constructs
-if you don't understand that code know, don't panic, we will come back
+if you don't understand that code now, don't panic, we will come back
 to that later
 
 using `IntStream.range()`

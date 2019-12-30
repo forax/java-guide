@@ -48,12 +48,12 @@ System.out.println(rectangle1.hasTheSameHeight(rectangle2));
 
 // ### void
 // There is also a special type named 'void' if the method return no value
-record Person(String name) {
+record Rectangle(int width, int height) {
   void hello() {
-    System.out.println("hello i'm " + name);
+    System.out.println("hello i'm " + width + " x " + height);
   }
 }
-new Person("duke").hello();
+new Rectangle(4, 5).hello();
 
 
 // ## instance methods vs static methods
@@ -66,7 +66,7 @@ new Person("duke").hello();
 // with the same width and the same height
 
 record Rectangle(int width, int height) {
-  int surface() {
+  int area() {
     return width * height;
   }
   
@@ -81,7 +81,7 @@ record Rectangle(int width, int height) {
 
 // To call a static method, you call it on the record name
  var square1 = Rectangle.createSquare(3);
- System.out.println(square1.surface());
+ System.out.println(square1.area());
  
  
  // ### static methods are useful to share code

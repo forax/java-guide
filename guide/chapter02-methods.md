@@ -54,12 +54,12 @@ System.out.println(rectangle1.hasTheSameHeight(rectangle2));
 ### void
 There is also a special type named 'void' if the method return no value
 ```java
-record Person(String name) {
+record Rectangle(int width, int height) {
   void hello() {
-    System.out.println("hello i'm " + name);
+    System.out.println("hello i'm " + width + " x " + height);
   }
 }
-new Person("duke").hello();
+new Rectangle(4, 5).hello();
 ```
 
 
@@ -74,7 +74,7 @@ with the same width and the same height
 
 ```java
 record Rectangle(int width, int height) {
-  int surface() {
+  int area() {
     return width * height;
   }
 ```
@@ -93,7 +93,7 @@ on the instance (rectangle1 and rectangle2 has not the same width or height).
 To call a static method, you call it on the record name
 ```java
  var square1 = Rectangle.createSquare(3);
- System.out.println(square1.surface());
+ System.out.println(square1.area());
 ```
  
  

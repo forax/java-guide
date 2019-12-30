@@ -9,14 +9,14 @@
 // common type between records, such type are known as interface
 
 // ### The problem
-// let say we have a Square and Rectangle, and both have a method surface
+// let say we have a Square and Rectangle, and both have a method `area()`
 record Square(int side) {
-  public double surface() {
+  public double area() {
     return side * side;
   }
 }
 record Rectangle(int width, int height) {
-  public double surface() {
+  public double area() {
     return width * height;
   }
 }
@@ -24,38 +24,38 @@ record Rectangle(int width, int height) {
 // let create a list of a square and a rectangle
 var figures = List.of(new Square(2), new Rectangle(3, 4));
 
-// try to loop over the elements of the figures to print the surface doesn't compile
+// try to loop over the elements of the figures to print the area doesn't compile
 /* for(var figure: figures) {
-     System.out.println(figure.surface());
+     System.out.println(figure.area());
 }*/
 
 // The problem is that compiler try to find the type of the element of the list
-// and find that they are java.lang.Object, and Object has no method surface()
+// and find that they are java.lang.Object, and Object has no method area()
 // so it doens't compile
 
 // the idea is to introduce a type Figure has a common type for Square and Rectangle
 interface Figure {
-  public double surface();
+  public double area();
 }
 
-// and declare that a Square and a Rectangle are a kind of Surface
+// and declare that a Square and a Rectangle are a kind of Figure
 // using the keyword 'implements'
 record Square(int side) implements Figure {
-  public double surface() {
+  public double area() {
     return side * side;
   }
 }
 record Rectangle(int width, int height) implements Figure {
-  public double surface() {
+  public double area() {
     return width * height;
   }
 }
 
 // Now, the list is correctly typed as a list of figure (List<Figure>)
-// so looping over the figures to call surface() works
+// so looping over the figures to call area() works
 var figures = List.of(new Square(2), new Rectangle(3, 4));
 for(var figure: figures) {
-  System.out.println(figure.surface());
+  System.out.println(figure.area());
 }
 
 // An interface is a common type that you need to declare when you want to
@@ -75,7 +75,7 @@ for(var figure: figures) {
 
 // ### Anonymous class
 var anotherFigure = new Figure() {
-  public double surface() {
+  public double area() {
     return 4;
   }
 };
@@ -84,12 +84,12 @@ var anotherFigure = new Figure() {
 // note that the syntax is a little weird because you may call new on a Figure but infact,
 // you ask to create something that implements Figure not a figure by itself.
 
-// you may think that this syntax is useless because you can not have the surface computed
+// you may think that this syntax is useless because you can not have the area computed
 // from the values of some components like with a record, but if you create an anonymous class
 // inside a method you can use the parameters of the method inside the anonymous class
 Figure rectangularTriangle(int width, int height) {
   return new Figure() {
-    public double surface() {
+    public double area() {
       return width * height / 2.0;
     }
   };
@@ -97,7 +97,7 @@ Figure rectangularTriangle(int width, int height) {
 
 var figures = List.of(new Square(2), rectangularTriangle(3, 4));
 for(var figure: figures) {
-  System.out.println(figure.surface());
+  System.out.println(figure.area());
 }
 
 
@@ -113,7 +113,7 @@ Figure rectangularTriangle(int width, int height) {
 
 var figures = List.of(new Square(2), rectangularTriangle(3, 4));
 for(var figure: figures) {
-  System.out.println(figure.surface());
+  System.out.println(figure.area());
 }
 
 
@@ -122,22 +122,22 @@ for(var figure: figures) {
 // calling it inside a lambda, we can make a reference on it using the operator ::
 // (notice that EquilaterlaTriangle doesn't implement Figure)
 record EquilateralTriangle(int side) {
-  double surface() {
+  double area() {
     return Math.sqrt(3) * side * side / 4.0;
   }
 }
 var equilateral = new EquilateralTriangle(2);
 
 // so instead of
-var figures = List.<Figure>of(new Square(2), () -> equilateral.surface());
+var figures = List.<Figure>of(new Square(2), () -> equilateral.area());
 for(var figure: figures) {
-  System.out.println(figure.surface());
+  System.out.println(figure.area());
 }
 
 // you can use a method reference
-var figures = List.<Figure>of(new Square(2), equilateral::surface);
+var figures = List.<Figure>of(new Square(2), equilateral::area);
 for(var figure: figures) {
-  System.out.println(figure.surface());
+  System.out.println(figure.area());
 }
 
 

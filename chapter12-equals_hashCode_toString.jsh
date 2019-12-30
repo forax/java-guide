@@ -146,6 +146,7 @@ record User(String name, int age, String login, char[] password) {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }
 }
+
 var user1 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 var user2 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 System.out.println(user1.equals(user2));

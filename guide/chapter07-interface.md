@@ -86,9 +86,6 @@ Like a record, an interface can have `static` methods
 ```java
 interface Figure {
   public abstract double area();
-```
-  
-```java
   public static Figure createASquare(int side) {
     return new Square(side);
   }
@@ -106,9 +103,6 @@ By example, we can write a method `isBig` that is true if the area is big enough
 ```java
 interface Figure {
   public abstract double area();
-```
-  
-```java
   public default boolean isBig() {
     return area() >= 10;
   }

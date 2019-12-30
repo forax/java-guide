@@ -76,7 +76,6 @@ for(var figure: figures) {
 // Like a record, an interface can have `static` methods
 interface Figure {
   public abstract double area();
-  
   public static Figure createASquare(int side) {
     return new Square(side);
   }
@@ -92,7 +91,6 @@ System.out.println(aSquare);
 // By example, we can write a method `isBig` that is true if the area is big enough.
 interface Figure {
   public abstract double area();
-  
   public default boolean isBig() {
     return area() >= 10;
   }

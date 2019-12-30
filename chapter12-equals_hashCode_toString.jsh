@@ -32,20 +32,16 @@
 
 class User {
   private final String name;
-  
   public User(String name) {
     this.name = Objects.requireNonNull(name);
   }
-  
   public boolean equals(Object o) {
     return o instanceof User user &&
       name.equals(user.name);
   }
-  
   public int hashCode() {
     return name.hashCode();
   }
-  
   public String toString() {
     return "User " + name;
   }
@@ -65,21 +61,17 @@ System.out.println(user1);
 class User {
   private final String name;
   private final int age;
-  
   public User(String name, int age) {
     this.name = Objects.requireNonNull(name);
     this.age = age;
   }
-  
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name);
   }
-  
   public int hashCode() {
     return name.hashCode() ^ age;
   }
-  
   public String toString() {
     return "User " + name + " " + age;
   }
@@ -99,24 +91,20 @@ class User {
   private final int age;
   private final String login;
   private final char[] password;
-  
   public User(String name, int age, String login, char[] password) {
     this.name = Objects.requireNonNull(name);
     this.age = age;
     this.login = Objects.requireNonNull(login);
     this.password = password.clone();
   }
-  
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name) &&
       login.equals(user.login) && Arrays.equals(password, user.password);
   }
-  
   public int hashCode() {
     return Objects.hash(name, age, login, Arrays.hashCode(password));
   }
-  
   public String toString() {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }
@@ -130,7 +118,7 @@ System.out.println(user2.hashCode());
 System.out.println(user1);
 
 
-// ## Record implementations
+// ## Record implementation
 
 // For a record, the method equals/hashCode() and toString() are already provided
 // so usually you don't have to provide a new implementation.
@@ -146,17 +134,14 @@ record User(String name, int age, String login, char[] password) {
     this.login = Objects.requireNonNull(login);
     this.password = password.clone();
   }
-  
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name) &&
       login.equals(user.login) && Arrays.equals(password, user.password);
   }
-  
   public int hashCode() {
     return Objects.hash(name, age, login, Arrays.hashCode(password));
   }
-  
   public String toString() {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }

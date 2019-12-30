@@ -30,28 +30,16 @@ We must write equals() and hashCode()
 ```java
 class User {
   private final String name;
-```
-  
-```java
   public User(String name) {
     this.name = Objects.requireNonNull(name);
   }
-```
-  
-```java
   public boolean equals(Object o) {
     return o instanceof User user &&
       name.equals(user.name);
   }
-```
-  
-```java
   public int hashCode() {
     return name.hashCode();
   }
-```
-  
-```java
   public String toString() {
     return "User " + name;
   }
@@ -75,29 +63,17 @@ than a call to equals().
 class User {
   private final String name;
   private final int age;
-```
-  
-```java
   public User(String name, int age) {
     this.name = Objects.requireNonNull(name);
     this.age = age;
   }
-```
-  
-```java
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name);
   }
-```
-  
-```java
   public int hashCode() {
     return name.hashCode() ^ age;
   }
-```
-  
-```java
   public String toString() {
     return "User " + name + " " + age;
   }
@@ -121,32 +97,20 @@ class User {
   private final int age;
   private final String login;
   private final char[] password;
-```
-  
-```java
   public User(String name, int age, String login, char[] password) {
     this.name = Objects.requireNonNull(name);
     this.age = age;
     this.login = Objects.requireNonNull(login);
     this.password = password.clone();
   }
-```
-  
-```java
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name) &&
       login.equals(user.login) && Arrays.equals(password, user.password);
   }
-```
-  
-```java
   public int hashCode() {
     return Objects.hash(name, age, login, Arrays.hashCode(password));
   }
-```
-  
-```java
   public String toString() {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }
@@ -163,7 +127,7 @@ System.out.println(user1);
 ```
 
 
-## Record implementations
+## Record implementation
 
 For a record, the method equals/hashCode() and toString() are already provided
 so usually you don't have to provide a new implementation.
@@ -180,23 +144,14 @@ record User(String name, int age, String login, char[] password) {
     this.login = Objects.requireNonNull(login);
     this.password = password.clone();
   }
-```
-  
-```java
   public boolean equals(Object o) {
     return o instanceof User user &&
       age == user.age && name.equals(user.name) &&
       login.equals(user.login) && Arrays.equals(password, user.password);
   }
-```
-  
-```java
   public int hashCode() {
     return Objects.hash(name, age, login, Arrays.hashCode(password));
   }
-```
-  
-```java
   public String toString() {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }

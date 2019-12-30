@@ -66,6 +66,7 @@ System.out.println(Double.NaN);
 
 // ### NaN
 // Not a Number is very weird, because by definition, it's the number which is not equals to itself
+
 // Don't use == to test NaN, it will not work
 System.out.println(Double.NaN == Double.NaN);
 

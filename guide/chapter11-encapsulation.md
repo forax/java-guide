@@ -52,15 +52,9 @@ A class defines
 ```java
 class Library {
   private final List<Book> books;
-```
-  
-```java
   public Library(List<Book> books) {
     this.books = List.copyOf(books);
   }
-```
-  
-```java
   public String toString() {
     return "Library " + books.toString();
   }
@@ -94,22 +88,13 @@ as element of a list or a map is not recommended
 ```java
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-```
-  
-```java
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-```
-  
-```java
   public void add(Book book) {
     Objects.requireNonNull(book);
     books.add(book);
   }
-```
-  
-```java
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }
@@ -128,28 +113,16 @@ and forget that it may expose the private list of books
 ```java
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-```
-  
-```java
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-```
-  
-```java
   public void add(Book book) {
     Objects.requireNonNull(book);
     books.add(book);
   }
-```
-  
-```java
   public List<Book> getBooks() {
     return books;
   }
-```
-  
-```java
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }
@@ -172,27 +145,15 @@ the less code you write the less bug you have.
 ```java
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-```
-  
-```java
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-```
-  
-```java
   public void add(Book book) {
     books.add(book);
   }
-```
-  
-```java
   public List<Book> getBooks() {
     return Collections.unmodifiableList(books);
   }
-```
-  
-```java
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }

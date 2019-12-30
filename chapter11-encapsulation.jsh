@@ -48,11 +48,9 @@ System.out.println(library);
 // ### Unmodifiable class
 class Library {
   private final List<Book> books;
-  
   public Library(List<Book> books) {
     this.books = List.copyOf(books);
   }
-  
   public String toString() {
     return "Library " + books.toString();
   }
@@ -82,16 +80,13 @@ System.out.println(library);
 // as element of a list or a map is not recommended
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-  
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-  
   public void add(Book book) {
     Objects.requireNonNull(book);
     books.add(book);
   }
-  
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }
@@ -108,20 +103,16 @@ System.out.println(library);
 // and forget that it may expose the private list of books
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-  
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-  
   public void add(Book book) {
     Objects.requireNonNull(book);
     books.add(book);
   }
-  
   public List<Book> getBooks() {
     return books;
   }
-  
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }
@@ -140,19 +131,15 @@ books.add(new Book("DaVinci Code", "Dan Brown"));
 // the less code you write the less bug you have.
 class ModifiableLibrary {
   private final ArrayList<Book> books;
-  
   public ModifiableLibrary() {
     books = new ArrayList<>();
   }
-  
   public void add(Book book) {
     books.add(book);
   }
-  
   public List<Book> getBooks() {
     return Collections.unmodifiableList(books);
   }
-  
   public String toString() {
     return "ModifiableLibrary " + books.toString();
   }

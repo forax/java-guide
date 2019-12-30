@@ -8,7 +8,7 @@
 // Once you start to want to mix several records, you need to declare
 // common type between records, such type are known as interface
 
-// ## The problem
+// ### The problem
 // let say we have a Square and Rectangle, and both have a method `area()`
 record Square(int side) {
   public double area() {
@@ -33,21 +33,13 @@ var figures = List.of(new Square(2), new Rectangle(3, 4));
 // and find that they are java.lang.Object, and Object has no method area()
 // so it doens't compile
 
-
-// ### Interface and abstract method
-// The idea is to introduce a type Figure has a common type for Square and Rectangle.
-// In Java, we use the keyword `interface` for that.
-
-// The method `area()` in Figure is not a classical method with some code because
-// the code is defined in Square and Rectangle. It's an `abstract` method.
-// The definition of the method is present but the code has to be implemented by the
-// records that implement the interface
+// the idea is to introduce a type Figure has a common type for Square and Rectangle
 interface Figure {
-  public abstract double area();
+  public double area();
 }
 
 // and declare that a Square and a Rectangle are a kind of Figure
-// using the keyword `implements`
+// using the keyword 'implements'
 record Square(int side) implements Figure {
   public double area() {
     return side * side;
@@ -59,9 +51,9 @@ record Rectangle(int width, int height) implements Figure {
   }
 }
 
-// Now, the list is correctly typed as a list of figure (`List<Figure>`)
-// so looping over the figures to call `area()` works
-List<Figure> figures = List.of(new Square(2), new Rectangle(3, 4));
+// Now, the list is correctly typed as a list of figure (List<Figure>)
+// so looping over the figures to call area() works
+var figures = List.of(new Square(2), new Rectangle(3, 4));
 for(var figure: figures) {
   System.out.println(figure.area());
 }
@@ -71,53 +63,50 @@ for(var figure: figures) {
 // At runtime, when you call a method of the interface, the interpreter calls
 // the correct implementation (this is called polymorphism)
 
+// Technically, we have already used interfaces, List is an interface too
 
-// ## Static method
-// Like a record, an interface can have `static` methods
-interface Figure {
-  public abstract double area();
-  
-  public static Figure createASquare(int side) {
-    return new Square(side);
+
+// ## Implementing an interface
+// In Java, not only record can implement an interface, 
+// you have three other syntax
+// - anonymous class
+// - lambda
+// - method reference
+
+// ### Anonymous class
+var anotherFigure = new Figure() {
+  public double area() {
+    return 4;
   }
+};
+
+// An anonymous class allow you to only provide the code of the methods of the interface
+// note that the syntax is a little weird because you may call new on a Figure but infact,
+// you ask to create something that implements Figure not a figure by itself.
+
+// you may think that this syntax is useless because you can not have the area computed
+// from the values of some components like with a record, but if you create an anonymous class
+// inside a method you can use the parameters of the method inside the anonymous class
+Figure rectangularTriangle(int width, int height) {
+  return new Figure() {
+    public double area() {
+      return width * height / 2.0;
+    }
+  };
+};
+
+var figures = List.of(new Square(2), rectangularTriangle(3, 4));
+for(var figure: figures) {
+  System.out.println(figure.area());
 }
-var aSquare = Figure.createASquare(3);
-System.out.println(aSquare);
 
-
-// ## Default method
-// Inside an interface, the instance methods are implicitly abstract,
-// if we want to declare a method with some code in it, we have to use
-// the keyword `default`.
-// By example, we can write a method `isBig` that is true if the area is big enough.
-interface Figure {
-  public abstract double area();
-  
-  public default boolean isBig() {
-    return area() >= 10;
-  }
-}
-System.out.println(new Square(2).isBig());
-System.out.println(new Rectangle(3, 4).isBig());
-
-// Because a default method is declared on the interface, all records that
-// implement that interface will have that method. Default methods are named like this
-// because if the record doesn't define the method itself, the method will be provided
-// by default. 
-
-
-// ## Functional interface
-// An interface with only one abstract method is equivalent to a function type.
-// We name this kind of interfaces, _functional_ interfaces.
-// They can be implemented by supplementary constructs.
 
 // ### Lambda
-// The parameter are declared in between the parenthesis and the body of the method
-// is declared after the arrow (like the expression switch).
+// In case of the interface is itself an interface with only one abstract method,
+// we calls that interface a functional interface, you have even a shorter syntax
 Figure anotherFigure = () -> 4;
 
-// and rewrite the method rectangularTriangle()
-// You can notice that a lambda can access to the parameter `width` and `height`
+// and rewrite the method rectangularTriangle() like this
 Figure rectangularTriangle(int width, int height) {
   return () -> width * height / 2.0;
 }

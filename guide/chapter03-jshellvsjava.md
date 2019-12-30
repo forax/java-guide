@@ -45,7 +45,7 @@ and you can import new package dynamically
 import java.util.zip.*
 ```
 
-note that unlike import in Pyhton or #include in C, Java import doesn't load any code,
+note that unlike import in Python or #include in C, Java import doesn't load any code,
 it says that is you search a name of a type, here are the packages to search.
 If a type appear in more than one package, an error will be reported and you will
 have to import the type explicitly (without any *)

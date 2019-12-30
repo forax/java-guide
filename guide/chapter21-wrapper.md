@@ -156,7 +156,7 @@ float f = (float) floatBox;
 System.out.println(f);
 ```
 
-### double -> java.lang.Double
+### java.lang.Double -> double
 ```java
 double d = ((Double) doubleBox).doubleValue();
 double d = (double) doubleBox; 
@@ -165,7 +165,7 @@ System.out.println(d);
 
 
 ## Beware of null
-trying to unbox null throws a NullPointerException
+Trying to unbox null throws a NullPointerException
 ```java
 Integer box = null;
 int i = (int) box;

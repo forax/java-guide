@@ -123,14 +123,14 @@ float f = ((Float) floatBox).floatValue();
 float f = (float) floatBox;
 System.out.println(f);
 
-// ### double -> java.lang.Double
+// ### java.lang.Double -> double
 double d = ((Double) doubleBox).doubleValue();
 double d = (double) doubleBox; 
 System.out.println(d);
 
 
 // ## Beware of null
-// trying to unbox null throws a NullPointerException
+// Trying to unbox null throws a NullPointerException
 Integer box = null;
 int i = (int) box;
 

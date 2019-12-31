@@ -3,7 +3,7 @@
 // To exit jshell type /exit
 
 // # Null and Optional
-//
+
 // In Java, any reference can be null which usually means that there is no object.
 // Trying to call a method or a field on null throws a `NullPointerException`.
 // It's not rare for a program written by a beginner to randomly stop due to a

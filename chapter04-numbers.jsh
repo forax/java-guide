@@ -8,6 +8,13 @@
 
 
 // ## Integers
+
+// ### Dividing by zero
+// If you try to divide by 0, you get an exception
+1 / 0
+1 % 0   // remainder of the division
+
+// ### Overflow
 // Given that integers are represented using a fixed number of bits,
 // there is a minimum/maximum number that can be represented
 System.out.println("max " + Integer.MAX_VALUE);
@@ -24,9 +31,26 @@ System.out.println(Integer.MIN_VALUE - 1);
 Math.addExact(Integer.MAX_VALUE, 1);
 Math.subtractExact(Integer.MIN_VALUE, 1);
 
-// If you try to divide by 0, you get an exception
-1 / 0
-1 % 0   // remainder of the division
+
+// You can notice that the minimum value is one less than the maximum value
+// in absolute value so `Math.abs()` has an overflow issue
+// because -Integer.MIN_VALUE is not Integer.MAX_VALUE
+System.out.println(Math.abs(Integer.MIN_VALUE));
+
+// When trying to find the middle between two values, the calculation may also overflow
+// so the result becomes nagative
+int middle(int value1, int value2) {
+  return (value1 + value2) / 2;
+}
+System.out.println(middle(Integer.MAX_VALUE, 1));
+
+// In this specific case, you can recover from the overflow by using
+// the triple shift operator `>>>` that doesn't consider the sign bit as a sign bit
+// but as a bit which is part of the value
+int middle(int value1, int value2) {
+  return (value1 + value2) >>> 1;
+}
+System.out.println(middle(Integer.MAX_VALUE, 1));
 
 
 // ## Double precision floating point numbers

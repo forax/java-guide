@@ -31,8 +31,9 @@ record Person(String name) {
   }
 }
 
-// It forces you to define a meaning of a name being null
-// It's better to refuse to create a Person with null as name.
+// It forces you to define a meaning of a name being null.
+
+// It's easier to refuse to create a Person with null as name.
 record Person(String name) {
   public Person {   // it's a compact constructor
     Objects.requireNonNull(name);
@@ -63,10 +64,14 @@ new Person(null);
 // The best way to not store null in a field (or a record component) is to reject any attempt
 // to call a public method with null as argument. So any public methods should call
 // `Objects.requireNonNull()` on all their arguments that are references.
-record Animal(String kind, int age) {
+record Animal(String kind, boolean wild) {
   public Animal {
     Objects.requireNonNull(kind);
-    // no need to do a requireNonNull on age, an int can not be null
+    // no need to do a requireNonNull on age, a boolean can not be null
+  }
+  public boolean isDangerousWith(Animal animal) {
+    Objects.requireNonNull(animal);
+    return wild || !kind.equals(animal.kind);
   }
 }
 

@@ -38,7 +38,6 @@ record Person(String name) {
   public Person {   // it's a compact constructor
     Objects.requireNonNull(name);
   }
-
   public String toString() {
     return "hello " + name.toString(); 
   }
@@ -89,12 +88,10 @@ record Animal(String kind, boolean wild) {
 public class Car {
   private final Person driver;  // may be null
   private final String color;
-  
   public Car(String color, Person driver) {
     this.color = Objects.requireNonNull(color);
     this.driver = driver;  // may be null
   }
-  
   public String color() {
     return color;
   }

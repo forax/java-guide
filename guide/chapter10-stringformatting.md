@@ -56,7 +56,7 @@ String concatenate(List<?> list) {
     string = string + separator + item;
     separator = ", ";
   } 
-  return builder.toString();
+  return string;
 }
 System.out.println(concatenate(strings));
 System.out.println(concatenate(friends));
@@ -100,7 +100,7 @@ using expandable buffer of strings (`StringJoiner.add` only accepts strings).
 String concatenate(List<?> list) {
   var joiner = new StringJoiner(", ");
   list.forEach(item -> joiner.add(item.toString()));
-  return builder.toString();
+  return joiner.toString();
 }
 System.out.println(concatenate(strings));
 System.out.println(concatenate(friends));

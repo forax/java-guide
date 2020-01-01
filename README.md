@@ -48,7 +48,7 @@ Then run jshell (at least Java 14 version)
 
 Then you can copy paste the examples inside jshell and see by yourself.
 
-To quit use '/exit', to have have verbose error message '/set feedback verbose', otherwise to get the help '/help'
+To quit use '/exit', to have verbose error messages '/set feedback verbose', otherwise to get the help type '/help'
 
 
 ## Work in progress

@@ -28,7 +28,7 @@ System.out.println(bob + ", " + ana + ", " + jul);
 ### Concatenation with String.format()
 If you want more control on the formatting, you can use `String.format`
 that reuse the C formatting style
-The main issue is that the method `format()` is quite slow.
+But the method `format()` is quite slow.
 ```java
 System.out.println(String.format("%s, %s, %s", bob, ana, jul));
 System.out.printf("%s, %s, %s\n", bob, ana, jul);
@@ -46,7 +46,7 @@ var friends = List.of(bob, ana, jul);
 
 ### Concatenation with a +
 Never use '+' in this case, because the compiler is not smart enough
-to reuse the same buffer of character for the whole loop, so it will
+to reuse the same buffer of characters for the whole loop, so it will
 create a new String for each loop trip.
 ```java
 String concatenate(List<?> list) {

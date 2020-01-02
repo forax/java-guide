@@ -83,8 +83,12 @@ record Animal(String kind, boolean wild) {
 }
 ```
 
-You may sometimes want to pass null to a public method but it should be a special case and
-it should be documented
+You may sometimes want to pass null to a public method or return null from a method
+but it should be an exceptional case and it should be documented
+
+A good example is `Map.get(key)` that is used a lot and is specified to return `null`
+if the key is not stored in the map. Prefer to use `Map.getOrDefault()` instead.
+See chapter 'list and map' for more information.
 
 
 ## Optional

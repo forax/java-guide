@@ -183,7 +183,8 @@ var list = getCredentials();
  String value = (String) list.get(0);
 */
 
-And the line above in comment
+// And the last line (commented) that was throwing a ClassCastException
+// now does not compile thank to the use of generics.
 
 
 // ## Bounds

@@ -37,8 +37,8 @@ In Java, the way to ensure the encapsulation principle is based on
 separating the API part (what the user code can use) from the implementation part
 (how the class is implemented).
 
-This separation is done by using a special syntax named __class__ that allow
-to precisely control what is part of the API and what is part of the impelemntation.
+This separation is done by using a special syntax named __class__ that allows
+to precisely control what is part of the API and what is part of the implementation.
 
 ## Class
 A class defines
@@ -179,5 +179,5 @@ record Library(List<Book> books) {
 
 To summarize, a class is a general mechanism to describe how things
 are implemented and make a separation between what is publicly visible
-and what is privately used to make the code working.
+and what is privately implemented to make the code working.
 A record is a special case when the implementation is public.

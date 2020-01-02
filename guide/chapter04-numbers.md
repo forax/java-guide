@@ -137,7 +137,7 @@ System.out.println(Double.isNaN(Double.NaN));
 
 ### Record and NaN
 When using an equals() to test if two double values are equals, the implementation
-of record as a special case so if the content is two NaNs, it works ! 
+of record has a special case so if each record contains a NaN, it works ! 
 
 ```java
 record MagicBeer(double content) { }

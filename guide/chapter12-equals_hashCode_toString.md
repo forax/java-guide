@@ -2,7 +2,12 @@
 # Implementing equals()/hashCode() and toString()
 
 ## Why equals()/hashCode() and toString() are important
-Those methods are important TODO
+Those methods are used by the data structures (list, map), by example,
+ArraysList.contains(value) uses value.equals(), HashMap.get(key) uses
+key.hashCode() and key.equals(). So most of the data structure doesn't
+work if equals()/hashCode() and toString() are not correctly written on
+one of the element
+
 
 ## Default implementations from java.lang.Object
 Object defines several methods and provide a default implementation for them
@@ -21,12 +26,10 @@ So the default implementations only ensure that an object is equals to itself.
 
 
 ## Writing your own equals()/hashCode()
-If we want to be able to use instances of a class into data structure like list or map,
-We must write equals() and hashCode()
-- equals() has to return false if it's not the right class, and
-  use the fields to see if their values are equals
-- hashCode() has to use the same fields to compute a hash value
-
+- equals must be valid for any object and returns false if it's not the right type
+  so it starts with an `instanceof` and use call equals() if the field value
+  is a reference.
+- hashCode() delegates to the hashCode of the field value
 ```java
 class User {
   private final String name;
@@ -57,8 +60,9 @@ System.out.println(user1);
 
 
 ## With two fields
-for equals(), it's better to first check the primitive fields because a primitive check is faster
-than a call to equals(). 
+- equals(), it's better to first check the primitive fields because a primitive check is faster
+  than a call to equals(). 
+- hashCode() can use the exclusive or `^` to mix the hash code.
 ```java
 class User {
   private final String name;
@@ -90,7 +94,10 @@ System.out.println(user1);
 ```
 
 
-### several fields
+### With several fields
+- equals(), as said in chapter 'basic_types', array.equals() doesn't work,
+  Arrays.equals() should be used instead
+- hashCode(), `Object.hash` compute the hash of several values separated by commas. 
 ```java
 class User {
   private final String name;

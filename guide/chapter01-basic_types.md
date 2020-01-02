@@ -78,7 +78,7 @@ String that stores a text (a sequence of characters)
 var text = "hello"; 
 ```
 
-Strings have a lot of methods
+Strings have a lot of methods, here is some of them
 length of a String
 ```java
 System.out.println("hello".length());
@@ -101,9 +101,30 @@ System.out.println("hello".indexOf('l'));
 System.out.println("hello".indexOf('o'));
 ```
 
+primitive to String
+The fastest and easy way to convert a primitive value to a String is
+to use the string concatenation (see chapter 'string formatting' for more)
+```java
+System.out.println("" + 3);
+System.out.println("" + 7.6);
+```
+
+String to primitive
+There are a bunch of static methods in Boolean, Integer or Double
+(see chapter 'wrapper' for more info) 
+```java
+System.out.println(Integer.parseInt("3"));
+System.out.println(Double.parseDouble("7.6"));
+```
+
 
 ### Array
-arrays that use the syntax new type[]
+an array initialized with zeros (false, 0, 0.0, etc)
+```java
+var intArray = new int[2];
+```
+
+arrays initialized with different values
 ```java
 var intArray = new int[] {2, 3};
 ```
@@ -134,8 +155,8 @@ var arrayLength = intArray.length;
 System.out.println(arrayLength);
 ```
 
-arrays have methods like toString() or equals()
-are not implemented correctly, we will see later why
+arrays have methods like toString() or equals() but
+they are not implemented correctly, we will see later why
 ```java
 System.out.println(intArray);
 System.out.println(intArray.equals(clonedArray));
@@ -160,11 +181,39 @@ var resultAsInt = java.lang.Integer.parseInt("42");
 System.out.println(resultAsInt);
 ```
 
-or to transform an array to a text, there is the static method toString
+To transform an array to a text, there is the static method toString
 on the type `java.util.Arrays`
 ```java
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
+```
+
+To initialize all the array cells (like memset in C)
+```java
+java.util.Arrays.fill(intArray, 17);
+```
+
+
+### Copy of arrays
+Copy of the content of one array inside another (like memcopy in C).
+By example, to copy 2 cells from intArray to newArray at position 1
+```java
+var newArray = new int[5];
+System.arraycopy(intArray, 0, newArray, 1, 2);
+System.out.println(java.util.Arrays.toString(newArray));
+```
+
+Duplicate an array to enlarge/shrink it
+```java
+var newArray = java.util.Arrays.copyOf(intArray, 4);
+System.out.println(java.util.Arrays.toString(newArray));
+```
+
+Copy a part of an array
+By example, to create a new array with 1 cell at position 0
+```java
+var newArray = java.util.Arrays.copyOfRange(intArray, 0, 1);
+System.out.println(java.util.Arrays.toString(newArray));
 ```
 
 
@@ -174,8 +223,4 @@ powerful object like List, that we will see later
 ```java
 var intList = List.of(2, 3);
 ```
-
-
-
-
 

@@ -2,8 +2,10 @@
 // then cut and paste the following lines to see how it works
 // To exit jshell type /exit
 
+// # List and Map
 // In Java, the most used data structures are List (and indexed list) and Map (a dictionary)
 
+// ## List
 // To create a simple list
 var numbers = List.of(1, 2, 3);
 
@@ -18,23 +20,15 @@ System.out.println(numbers.contains(4));
 // indexOf returns the first index of the element in the list
 System.out.println(numbers.indexOf(2));
 
-// to loop over the elements of a list, we have a special syntax using the keyword 'for'
-var countries = List.of("UK", "US", "France");
-for(var country: countries) {
-  System.out.println(country);
-}
-
-// you can also loop over the elements using a method forEach
-// if you don't understand this one, don't panic, we will see it later
-countries.forEach(country -> System.out.println(country));
-
-
-// a list also defines the method equals() and toString(), so
+// a list also defines the method equals()/hashCode() and toString(), so
 // you can print a list or test if two list are equals
-System.out.println(countries);
-System.out.println(numbers.equals(countries));
+var friends = List.of("cesar", "rosalie", "david");
+System.out.println(friends);
+System.out.println(friends.hashCode());
+System.out.println(friends.equals(numbers));
 
 
+// ### unmodifiable/modifiable list
 // in Java, depending on how you create a data structure it can be changed
 // after creation or not. Implementation that allow mutation after creation
 // are called modifiable
@@ -56,12 +50,21 @@ modifiableCountries.add("Poland");
 // to remove an element, we have the method remove()
 modifiableCountries.remove("UK");
 
-// an unmodifiable list or a modifiable list have the same set of methods,
-// so you can loop over the modiable list the same way
-for(var country: modifiableCountries) {
+
+// ### iterating
+// an unmodifiable list or a modifiable list have the same set of methods.
+// to loop over the elements of a list, we have a special syntax using the keyword 'for'
+var countries = List.of("UK", "US", "France");
+for(var country: countries) {
   System.out.println(country);
 }
 
+// you can also loop over the elements using a method forEach
+// if you don't understand this one, don't panic, we will see it later
+countries.forEach(country -> System.out.println(country));
+
+
+// ### conversions
 // To can create an unmodifiable list from a modifiable one with List.copyOf()
 var unmodifiableList = List.copyOf(modifiableCountries);
 System.out.println(unmodifiableList);
@@ -73,7 +76,7 @@ var modifiableList = new ArrayList<>(unmodifiableList);
 System.out.println(modifiableList);
 
 
-
+// ## Map
 // A Map associate a value to a key
 // To create a simple Map
 var petCost = Map.of("cat", 200, "dog", 350, "lion", 5000);
@@ -90,7 +93,30 @@ System.out.println(costOfAGirafe);
 var costOfAGirafe = petCost.getOrDefault("girafe", 0);
 System.out.println(costOfAGirafe);
 
-// you can not to a for loop directly on a Map
+// And like a list, a map defines the method equals()/hashCode() and toString()
+var lighter = Map.of("blue", "lightblue", "gray", "white");
+var darker = Map.of("blue", "darkblue", "gray", "black");
+System.out.println(lighter);
+System.out.println(darker.hashCode());
+System.out.println(lighter.equals(darker));
+
+
+// ### unmodifiable/modifiable
+// The Map create by Map.of() are non modifiable
+// To create a modifiable map, we use new HashMap to create the map
+// and map.put to put key/value in it
+var modifiableMap = new HashMap<String, String>();
+modifiableMap.put("blue", "lightblue");
+modifiableMap.put("gray", "white");
+System.out.println(modifiableMap);
+
+// Removing the key, remove the couple key/value
+modifiableMap.remove("blue");
+System.out.println(modifiableMap);
+
+
+// ### iterating, keySet(), entrySet()
+// you can not use a for loop directly on a Map
 // but you can do it on the set of keys
 for(var pet: petCost.keySet()) {
   System.out.println(pet);
@@ -108,25 +134,8 @@ petCost.forEach((pet, cost) -> {
   System.out.println(pet + " " + cost);
 });
 
-// And like a list, a map defines the method equals()/hashCode() and toString()
-var lighter = Map.of("blue", "lightblue", "gray", "white");
-var darker = Map.of("blue", "darkblue", "gray", "black");
-System.out.println(lighter);
-System.out.println(darker);
-System.out.println(lighter.equals(darker));
 
-// The Map create by Map.of() are non modifiable
-// To create a modifiable map, we use new HashMap to create the map
-// and map.put to put key/value in it
-var modifiableMap = new HashMap<String, String>();
-modifiableMap.put("blue", "lightblue");
-modifiableMap.put("gray", "white");
-System.out.println(modifiableMap);
-
-// Removing the key, remove the couple key/value
-modifiableMap.remove("blue");
-System.out.println(modifiableMap);
-
+// ### useful patterns
 // To make the Map acts as a cache, use computeIfAbsent
 record Person(String name, int age) { }
 var persons = List.of(new Person("Bob", 23), new Person("anna", 32), new Person("Bob", 12));
@@ -135,12 +144,14 @@ persons.forEach(person -> group.computeIfAbsent(person.name(), name -> new Array
                                 .add(person));
 System.out.println(group);
 
-// to count the number of occurences, use merge
+// to count the number of occurrence, use merge
 var letters = List.of("a", "b", "e", "b");
 var occurenceMap = new HashMap<String, Integer>();
 letters.forEach(letter -> occurenceMap.merge(letter, 1, Integer::sum));
 System.out.println(occurenceMap);
 
+
+// ### conversions
 // To create a unmodifiableMap from a modifiable map
 var unmodifiableMap = Map.copyOf(modifiableMap);
 System.out.println(unmodifiableMap);

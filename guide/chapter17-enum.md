@@ -62,9 +62,6 @@ enum FileListMode {
   NORMAL,
   DIRECTORY,  // trailing comma is allowed
   ;           // ends of the instances
-```
-  
-```java
   public String shortName() {
     return name().toLowerCase().substring(0, 3);
   }  
@@ -85,13 +82,8 @@ enum Modifier {
   private Modifier(int value) {
     this.value = value;
   }
-```
-  
-```java
+  // avoid to calls values() several times
   private static final List<Modifier> MODIFIERS = List.of(values());
-```
-  
-```java
   static int modifiersAsInt(Modifier... modifiers) {
     return Arrays.stream(modifiers).map(m -> m.value).reduce(0, (a, b) -> a | b);
   }
@@ -108,7 +100,7 @@ System.out.println("set: " + modifierSet);
 The implementation of `intAsModifierSet` can be a little more efficient, see below
 
 
-## Enum with abtract methods
+## Enum with abstract methods
 An enum can have abstract methods, in that case, all instances have to implement the missing method bodies
 using the same syntax as the anonymous class one
 In that case, the compiler generates one anonymous class per enum instance.
@@ -173,4 +165,24 @@ printAllPath(Path.of("."), FileListMode.DIRECTORY);
 ```
 
 
+## EnumSet and EnumMap
+There are one implementations of set (respectively map) specific if all values
+comes from the same enum because in that case ordinal() is a perfect hash function
+
+so a EnumSet is implemented
+- using only one long if there is less than 64 enum instances
+- using an array of longs if there are more instances
+because there are two implementations, you have to use factory methods
+that takes the enum class to get an instance of the set
+```java
+var emptySet = EnumSet.noneOf(Modifier.class);
+var enumSet = EnumSet.of(Modifier.PUBLIC, Modifier.FINAL);
+System.out.println(enumSet);
+```
+
+and EnumMap is implemented as an array of values, the index being the value of ordinal()
+```java
+var enumMap = new EnumMap<>(Map.of(Modifier.PUBLIC, "private", Modifier.FINAL, "final"));
+System.out.println(enumMap);
+```
 

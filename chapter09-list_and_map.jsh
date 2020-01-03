@@ -75,6 +75,12 @@ System.out.println(unmodifiableList);
 var modifiableList = new ArrayList<>(unmodifiableList);
 System.out.println(modifiableList);
 
+// ### useful patterns
+// To remove some elements depending on a predicate
+var elements = new ArrayList<>(List.of("table", "chair", "stool"));
+elements.removeIf(element -> element.charAt(0) == 'c');
+System.out.println(elements);
+
 
 // ## Map
 // A Map associate a value to a key
@@ -135,6 +141,16 @@ petCost.forEach((pet, cost) -> {
 });
 
 
+// ### conversions
+// To create a unmodifiableMap from a modifiable map
+var unmodifiableMap = Map.copyOf(modifiableMap);
+System.out.println(unmodifiableMap);
+
+// To create a modifiableMap from an unmodifiable map
+var modifiableMap = new HashMap<>(unmodifiableMap);
+System.out.println(modifiableMap);
+
+
 // ### useful patterns
 // To make the Map acts as a cache, use computeIfAbsent
 record Person(String name, int age) { }
@@ -150,14 +166,5 @@ var occurenceMap = new HashMap<String, Integer>();
 letters.forEach(letter -> occurenceMap.merge(letter, 1, Integer::sum));
 System.out.println(occurenceMap);
 
-
-// ### conversions
-// To create a unmodifiableMap from a modifiable map
-var unmodifiableMap = Map.copyOf(modifiableMap);
-System.out.println(unmodifiableMap);
-
-// To create a modifiableMap from an unmodifiable map
-var modifiableMap = new HashMap<>(unmodifiableMap);
-System.out.println(modifiableMap);
 
 // To do more transformations of lists and maps, the Stream API is richer

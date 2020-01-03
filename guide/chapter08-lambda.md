@@ -236,8 +236,8 @@ System.out.println(supplier.getAsInt());
 
 3. a reference to a static method
 
-   No instance here, so the parameter of the function
-   are the same as the parameter of the static method
+   No instance here, so the parameter of the function are the
+   same as the parameter of the static method
 ```java
 ToIntFunction<String> function = Integer::parseInt;
 System.out.println(function.applyAsInt("42"));
@@ -245,9 +245,8 @@ System.out.println(function.applyAsInt("42"));
 
 4. a reference to a new instance
 
-   The parameter of the function are the same as the
-   parameter of the constructor. The return type is
-   is class of the constructor
+   The parameter of the function are the same as the parameter of
+   the constructor. The return type is the class of the constructor
 ```java
 record Person(String name) {}
 Function<String, Person> factory = Person::new;

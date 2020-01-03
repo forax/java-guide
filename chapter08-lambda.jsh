@@ -168,35 +168,35 @@ DoubleUnaryOperator op = (double x) -> 2.0 * x;
 // There are 5 kinds of method references
 
 // 1. a reference to an instance method
-//   Seeing an instance method as a function means you have to
-//   take the type of `this` into account, here `startsWith` as
-//   one parameter but the function as two 
+//    Seeing an instance method as a function means you have to
+//    take the type of `this` into account, here `startsWith` as
+//    one parameter but the function as two 
 BiPredicate<String,String> predicate = String::startsWith;
 System.out.println(predicate.test("hello", "hell"));
 
 // 2. a bound reference to an instance method
-//   The value of this is fixed so the parameter of the function
-//   are the same as the parameter of the instance method
+//    The value of this is fixed so the parameter of the function
+//    are the same as the parameter of the instance method
 var text = "hello";
 IntSupplier supplier = text::length;
 System.out.println(supplier.getAsInt());
 
 // 3. a reference to a static method
-//   No instance here, so the parameter of the function
-//   are the same as the parameter of the static method
+//    No instance here, so the parameter of the function
+//    are the same as the parameter of the static method
 ToIntFunction<String> function = Integer::parseInt;
 System.out.println(function.applyAsInt("42"));
 
 // 4. a reference to a new instance
-//   The parameter of the function are the same as the
-//   parameter of the constructor. The return type is
-//   is class of the constructor
+//    The parameter of the function are the same as the
+//    parameter of the constructor. The return type is
+//    is class of the constructor
 record Person(String name) {}
 Function<String, Person> factory = Person::new;
 System.out.println(factory.apply("John"));
 
 // 5. a reference to a new array
-//   Same as above, the return type is the array.
+//    Same as above, the return type is the array.
 IntFunction<String[]> arrayCreator = String[]::new;
 System.out.println(arrayCreator.apply(2));
 

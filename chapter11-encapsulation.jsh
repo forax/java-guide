@@ -27,23 +27,25 @@ System.out.println(library);
 
 
 // ## Encapsulation principle
-// The encapsulation principle: the only way to change the value of an object
-// is to use one of the methods of this object.
+// In a pure functional language, the language doesn't allow you to
+// do side effect. In an OO language, if you want to survive, the idea is
+// to limit the functions that can do side effects to the instance methods.
 
-// In Java, the way to ensure the encapsulation principle is based on
-// separating the API part (what the user code can use) from the implementation part
-// (how the class is implemented).
+// This idea is named the encapsulation principle and is sum up by this sentence
+// > The only way to change the value of an object is to use one of the methods of this object.
+
+// In Java, the way to ensure the encapsulation principle is to do information hiding,
+// i.e. to separate the __public__ API part (what the user code can use) from the __private__
+// implementation part (how the class is implemented).
 
 // This separation is done by using a special syntax named __class__ that allows
-// to precisely control what is part of the API and what is part of the implementation.
+// to precisely control of the visibility of its members.
 
 // ## Class
 // A class defines
-// - a field (books) that is like a record component but not necessarily visible by the user code
-// - a constructor (Library), that guarantee that any objects will be correctly initialized
-// - fields and methods have a visibility (public/private) so it's easy to control
-//   what is visible from the outside and what is not.
-
+// - private fields that is like a record component but not visible by the user code
+// - a public constructor (Library), that guarantee that any objects will be correctly initialized
+// - public and private instance and static methods
 
 // ### Unmodifiable class
 class Library {
@@ -69,15 +71,14 @@ System.out.println(library);
 // in the constructor (and not changed afterward) so we are sure that in toString(),
 // the field 'books' has been initialized.
 
-// Unlike a record, the method equals/hashCode() and toString() are not provided and has
+// Unlike a record, the method equals()/hashCode() and toString() are not provided and has
 // to be hand written. We will see how to implement them later.
 
 
 // ### Modifiable class
-// The code above is an unmodifiable implementation of Library
-// that can be used as element of list or map.
+// The code above is an unmodifiable implementation of Library.
 // We can also write a mutable version with the caveat that using it
-// as element of a list or a map is not recommended
+// as element of a list or a map is not recommended.
 class ModifiableLibrary {
   private final ArrayList<Book> books;
   public ModifiableLibrary() {
@@ -98,7 +99,7 @@ library.add(new Book("Effective Java", "Joshua Bloch"));
 System.out.println(library);
 
 
-// ### Modifiable class and accessor
+// ### Modifiable class and accessors
 // An error sometime seen is to add a method to get the content of the library
 // and forget that it may expose the private list of books
 class ModifiableLibrary {
@@ -120,15 +121,13 @@ class ModifiableLibrary {
 
 // The following code breaks the encapsulation because you can 
 // modify the library without calling a method of the Library
-// (add is done on the List<Book> not on the Library)
+// (`add()` is called on the List<Book> not on the Library)
 var library = new ModifiableLibrary();
 var books = library.getBooks();
 books.add(new Book("DaVinci Code", "Dan Brown"));
 
 // One solution is to return a copy, or better a non modifiable view
 // of the internal list of books
-// The best solution being to not have a method `getBook()` at all,
-// the less code you write the less bug you have.
 class ModifiableLibrary {
   private final ArrayList<Book> books;
   public ModifiableLibrary() {
@@ -148,6 +147,10 @@ var library = new ModifiableLibrary();
 var books = library.getBooks();
 books.add(new Book("DaVinci Code", "Dan Brown"));
 
+// The best solution being to not have a method `getBook()` at all,
+// the less code you write the less bug you have.
+// So please don't write getters and setters unless you really need them.
+
 
 // ## Record constructor
 // Records also provides ways to customize the code to respect the
@@ -163,4 +166,4 @@ record Library(List<Book> books) {
 // To summarize, a class is a general mechanism to describe how things
 // are implemented and make a separation between what is publicly visible
 // and what is privately implemented to make the code working.
-// A record is a special case when the implementation is public.
+// A record is a special case when there is no separation, everything is public.

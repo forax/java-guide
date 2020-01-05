@@ -1,4 +1,4 @@
-FROM openjdk:15-jdk
+FROM openjdk:15-jdk.buster
 
 RUN apt-get update
 RUN apt-get install -y python3-pip

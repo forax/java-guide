@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Predicate;
 
 @SuppressWarnings("preview")
@@ -52,6 +53,20 @@ class build {
   interface EventHandler {
     default void startDocument(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
     default void endDocument(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
+    default void start(TextBuilder builder, LineKind kind) {
+      if (kind == LineKind.CODE) {
+        startCode(builder);
+      } else {
+        startText(builder);
+      }
+    }
+    default void end(TextBuilder builder, LineKind kind) {
+      if (kind == LineKind.CODE) {
+        endCode(builder);
+      } else {
+        endText(builder);
+      }
+    }
     default void startCode(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
     default void endCode(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
     default void startText(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
@@ -73,25 +88,27 @@ class build {
       inside = switch(kind) {
         case BLANK -> {
           if (inside == LineKind.CODE) {
-            handler.endCode(builder);
+            handler.end(builder, LineKind.CODE);
+          } else if (inside == LineKind.TEXT) {
+            handler.end(builder, LineKind.TEXT);
           }
-          yield (inside == LineKind.TEXT)? LineKind.TEXT: LineKind.BLANK;
+          yield kind;
         }
         case TEXT -> {
           if (inside == LineKind.CODE) {
-            handler.endCode(builder);
+            handler.end(builder, LineKind.CODE);
           }
           if (inside != LineKind.TEXT) {
-            handler.startText(builder);
+            handler.start(builder, LineKind.TEXT);
           }
           yield kind;
         }
         case CODE -> {
           if (inside == LineKind.TEXT) {
-            handler.endText(builder);
+            handler.end(builder, LineKind.TEXT);
           }
           if (inside != LineKind.CODE) {
-            handler.startCode(builder);
+            handler.start(builder, LineKind.CODE);
           }
           yield kind;
         }
@@ -103,10 +120,8 @@ class build {
       }
     }
     
-    if (inside == LineKind.CODE) {
-      handler.endCode(builder);
-    } else if (inside == LineKind.TEXT) {
-      handler.endText(builder);
+    if (inside != LineKind.BLANK) {
+      handler.end(builder, inside);
     }
     handler.endDocument(builder);
     return builder.toString();
@@ -129,14 +144,86 @@ class build {
     }));
   }
   
-  /*private static void writeJupyter(List<String> lines, Path to) throws IOException {
+  private static void writeJupyter(List<String> lines, Path to) throws IOException {
     writeString(to, transformTo(lines, new EventHandler() {
+      private final StringJoiner cells = new StringJoiner(",\n", "[", "]");
+      private StringJoiner content;
+      
+      @Override
+      public void start(TextBuilder builder, LineKind kind) {
+        content = new StringJoiner(", ", "[", "]");
+      }
+      
+      @Override
+      public void endCode(TextBuilder builder) {
+        cells.add(String.format(
+            """
+            {
+              "cell_type": "code",
+              "execution_count": null,
+              "metadata": {},
+              "outputs": [],
+              "source": %s
+            }
+            """,
+            content.toString()));
+        content = null;
+      }
+      
+      @Override
+      public void endText(TextBuilder builder) {
+        cells.add(String.format(
+            """
+            {
+              "cell_type": "markdown",
+              "metadata": {},
+              "source": %s
+            }
+            """,
+            content.toString()));
+        content = null;
+      }
+      
       @Override
       public void line(TextBuilder text, LineKind kind, String line) {
+        if (content == null) {  // skip lines at the end of the code
+          return;
+        }
         
+        content.add(switch(kind) {
+          case BLANK -> "\"\\n\"";
+          case CODE, TEXT -> "\"" + line.replace("\"", "\\\"") + "\\n\"";
+        });
+      }
+      
+      @Override
+      public void endDocument(TextBuilder builder) {
+        builder.append(String.format(
+          """
+          {
+            "cells": %s,
+            "metadata": {
+              "kernelspec": {
+                "display_name": "Java",
+                "language": "java",
+                "name": "java"
+              },
+              "language_info": {
+                "codemirror_mode": "java",
+                "file_extension": ".java",
+                "mimetype": "text/x-java-source",
+                "name": "Java",
+                "pygments_lexer": "java",
+                "version": "15"
+              }
+            },
+            "nbformat": 4,
+            "nbformat_minor": 2
+          }    
+          """, cells.toString()));
       }
     }));
-  }*/
+  }
   
   private static String removeExtension(String filename) {
     var index = filename.lastIndexOf('.');
@@ -163,7 +250,7 @@ class build {
 
       var lines = readAllLines(path);
       writeMarkDown(lines, markdownFolder.resolve(rawFilename + ".md"));
-      //writeJupyter(lines, jupyterFolder.resolve(rawFilename + ".ipynb"));
+      writeJupyter(lines, jupyterFolder.resolve(rawFilename + ".ipynb"));
     }
   }
   

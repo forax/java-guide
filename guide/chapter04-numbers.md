@@ -109,7 +109,7 @@ System.out.println(Double.NEGATIVE_INFINITY);
 
 Not A Number
 ```java
-System.out.println(1.0 / 0.0);
+System.out.println(0.0 / 0.0);
 System.out.println(Double.NaN);
 ```
 

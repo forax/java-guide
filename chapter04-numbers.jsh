@@ -11,8 +11,8 @@
 
 // ### Dividing by zero
 // If you try to divide by 0, you get an exception
-1 / 0
-1 % 0   // remainder of the division
+System.out.println(1 / 0);
+System.out.println(1 % 0);   // remainder of the division
 
 // ### Overflow
 // Given that integers are represented using a fixed number of bits,

@@ -15,8 +15,9 @@ USER root
 # Download the kernel release
 RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip > ijava-kernel.zip
 
-# Unpack and install the kernel
+# Unpack, patch kernel.json and install the kernel
 RUN unzip ijava-kernel.zip -d ijava-kernel \
+  && cp kernel.json ijava-kernel \
   && cd ijava-kernel \
   && python3 install.py --sys-prefix
 
@@ -37,6 +38,7 @@ RUN chown -R $NB_UID $HOME
 USER $NB_USER
 
 # Launch the notebook server
+ENV IJAVA_COMPILER_OPTS "--enable-preview --source=15"
 WORKDIR $HOME
 CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
 

@@ -9,19 +9,18 @@
 void printAll(List<Object> list) {
   list.forEach(System.out::println);
 }
-/*
-printAll(List.of("hello"));
-printAll(List.of(42, 777));
-*/
 
-// But none of these lines compile because generics in Java are invariant,
-// you can only call `printAll()` with a list of Object and not a list of String
+List<Integer> list = List.of(42, 777);
+printAll(list);
 
-// You may be confused because bot for a List<Object> or a List<String>,
+// This line doesn't compile because generics in Java are invariant,
+// you can only call `printAll()` with a list of Object and not a list of String.
+
+// You may be confused because both for a List<Object> and a List<String>,
 // you can get any items and see it as an Object.
 // But List<Object> also means that you can set() any cell with an Object,
 // something which is clearly not possible if it's a List<String>.
-// That's why generics in Java are invariant
+// That's why generics in Java are invariant.
 
 // ## `? extends`
 // The way to solve this problem is to say to the compiler, i want a list of Object

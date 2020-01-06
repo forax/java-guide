@@ -17,7 +17,7 @@ RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-
 
 # Unpack, patch kernel.json and install the kernel
 RUN unzip ijava-kernel.zip -d ijava-kernel \
-  && cp kernel.json ijava-kernel \
+  && cp kernel.json ijava-kernel/java \
   && cd ijava-kernel \
   && python3 install.py --sys-prefix
 

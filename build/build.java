@@ -186,7 +186,7 @@ class build {
       
       @Override
       public void line(TextBuilder text, LineKind kind, String line) {
-        if (content == null) {  // skip lines at the end of the code
+        if (content == null) {  // skip empty lines
           return;
         }
         

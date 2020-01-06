@@ -18,14 +18,7 @@ if you are using var, you are asking the compiler to find the type for you.
 String colorName = "black";
 ```
 
-### A record is a user defined type
-here Light is defined as containing two components: a color (typed as a String) and
-an intensity (typed as a 64 bits floating number double).
-```java
-record Light(String color, double intensity) {}
-```
-
-## System.out.println()
+### System.out.println()
 To print a value in Java we have a weird incantation `System.out.println()` that we will detail later.
 ```java
 System.out.println(maxIntensity);
@@ -42,14 +35,23 @@ If we want to print a text followed by a value, we use the operator `+`.
 System.out.println("the value of colorName is " + colorName);
 ```
 
-## Object creation with `new`
+
+## A record is a user defined type
+here Light is defined as containing two components: a color (typed as a String) and
+an intensity (typed as a 64 bits floating number double).
+```java
+record Light(String color, double intensity) {}
+```
+
+### Object creation with `new`
 To create an object in memory, we use the operator `new` followed by the value of each record components
 the following instruction create a Light with "blue" as color and 1.0 as intensity.
 ```java
 var blueLight = new Light("blue", 1.0);
+System.out.println(blueLight);
 ```
 
-## Record methods
+### Record methods
 To interact with an object in Java, we use methods, that are functions attached to an object.
 To call a method, we use the operator `.` followed by the name of the method and its arguments.
 A record automatically declares methods to access its components so Light declares two methods
@@ -57,39 +59,27 @@ color() and intensity().
 
 By example to get the intensity of the object blueLight
 ```java
-var blueLightIntensity = blueLight.intensity();
-System.out.println(blueLightIntensity);
+System.out.println(blueLight.intensity());
 ```
 
 ### toString()
 By default a record knows how to transform itself into a String
 in Java, the method to transform an object to a String is named toString().
-```java
-System.out.println(blueLight.toString());
-```
-
 In fact, println() calls toString() if the argument is an object
 so when using println(), calling explicitly toString() is not necessary.
 ```java
+System.out.println(blueLight.toString());
 System.out.println(blueLight);
 ```
 
 ### equals()
-Let's create another Light
-```java
-var redLight = new Light("red", 1.0);
-```
-
 In Java, you can ask if two objects are equals, using the method equals(Object).
-the return value is a boolean (a primitive type that is either true or false).
+The return value is a boolean (a primitive type that is either true or false).
 ```java
+var redLight = new Light("red", 0.5);
+var redLight2 = new Light("red", 0.5);
 System.out.println(blueLight.equals(redLight));
-```
-
-Let's create another red light
-```java
-var anotherRedLight = new Light("red", 1.0);
-System.out.println(redLight.equals(anotherRedLight));
+System.out.println(redLight.equals(redLight2));
 ```
 
 ### hashCode()
@@ -97,8 +87,10 @@ You can also ask to get an integer summary (a hash) of any objects.
 This is used to speed up data structures (hash tables).
 Two objects that are equals() must have the same hashCode().
 ```java
-System.out.println(redLight.hashCode());
-System.out.println(anotherRedLight.hashCode());
+var greenLight = new Light("green", 0.2);
+var greenLight2 = new Light("green", 0.2);
+System.out.println(greenLight.hashCode());
+System.out.println(greenLight2.hashCode());
 ```
 
 

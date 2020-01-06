@@ -33,8 +33,8 @@ The type system not trusting humans, we invent a notation
 void printAll(List<? extends Object> list) {
   list.forEach(System.out::println);
 }
-printAll(List.of("hello"));
-printAll(List.of(42, 777));
+List<Integer> list = List.of(42, 777);
+printAll(list);
 ```
 
 There is no class List<? extends Object> at runtime, it's just a type that can be
@@ -74,8 +74,8 @@ void printOptional(Optional<? extends Object> list) {
 void printOptional(Optional<?> list) {
   System.out.println(list.orElse(null));
 }
-printOptional(Optional.of("foo"));
-printOptional(Optional.empty());
+Optional<String> optional = Optional.of("foo");
+printOptional(optional);
 ```
 
 
@@ -88,9 +88,7 @@ this, you can not call it with a List<Object>
 void addOne(String s, List<String> list) {
   list.add(s);
 }
-/*
 addOne("foo", new ArrayList<Object>());
-*/
 ```
 
 Again, we have a notation for that, List<? super String>, it means
@@ -123,7 +121,7 @@ if you can use `? extends` or `? super`.
 
 You can note that this is similar to using List as parameter instead of using
 ArrayList. Using a type less precise allow the user code to call with
-geenrics with different type arguments.
+generics with different type arguments.
 
 Apart in case of overriding, never, never use a `? extends`/`? super` as
 a return type. Otherwise, every developers that use your method will have to
@@ -146,8 +144,8 @@ Instead of `printAll(List<? extends Object>)`, one can write
 <T extends Object> void printAll(List<T> list) {
   list.forEach(System.out::println);
 }
-printAll(List.of("hello"));
-printAll(List.of(42, 777));
+List<String> list = List.of("hello");
+printAll(list);
 ```
 
 But in Java, we prefer to not introduce a type variable if it's not necessary

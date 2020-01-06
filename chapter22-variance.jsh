@@ -31,8 +31,8 @@ printAll(list);
 void printAll(List<? extends Object> list) {
   list.forEach(System.out::println);
 }
-printAll(List.of("hello"));
-printAll(List.of(42, 777));
+List<Integer> list = List.of(42, 777);
+printAll(list);
 
 // There is no class List<? extends Object> at runtime, it's just a type that can be
 // a list of anything (`?` means any types) that is a subtype of Object at runtime.
@@ -66,8 +66,8 @@ void printOptional(Optional<? extends Object> list) {
 void printOptional(Optional<?> list) {
   System.out.println(list.orElse(null));
 }
-printOptional(Optional.of("foo"));
-printOptional(Optional.empty());
+Optional<String> optional = Optional.of("foo");
+printOptional(optional);
 
 
 // ## `? super`
@@ -78,9 +78,7 @@ printOptional(Optional.empty());
 void addOne(String s, List<String> list) {
   list.add(s);
 }
-/*
 addOne("foo", new ArrayList<Object>());
-*/
 
 // Again, we have a notation for that, List<? super String>, it means
 // a list of the supertype of a String.
@@ -108,7 +106,7 @@ void foo(List<? super String> list) {
 
 // You can note that this is similar to using List as parameter instead of using
 // ArrayList. Using a type less precise allow the user code to call with
-// geenrics with different type arguments.
+// generics with different type arguments.
 
 // Apart in case of overriding, never, never use a `? extends`/`? super` as
 // a return type. Otherwise, every developers that use your method will have to
@@ -130,8 +128,8 @@ void foo(List<? super String> list) {
 <T extends Object> void printAll(List<T> list) {
   list.forEach(System.out::println);
 }
-printAll(List.of("hello"));
-printAll(List.of(42, 777));
+List<String> list = List.of("hello");
+printAll(list);
 
 // But in Java, we prefer to not introduce a type variable if it's not necessary
 // You can also notice that it doesn't work with `? super` because <T super Whatever>

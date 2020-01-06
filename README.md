@@ -52,12 +52,17 @@ Then you can copy paste the examples inside jshell and see by yourself.
 To quit use '/exit', to enable verbose error messages '/set feedback verbose', otherwise to get the help type '/help'
 
 
+## Using Jupyter notebook (not yet fully implemented)
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
+
+
 ## Work in progress
 
 This is a work in progress, don't hesitate to contribute, i'm waiting your pull request
 
 
-### Build markdown files from jshell files
+### Build markdown and jupyter files from jshell files
 
 Using java 14
 ```

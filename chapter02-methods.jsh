@@ -93,7 +93,7 @@ record Rectangle(int width, int height) {
 var rectangle2 = new Rectangle(4, 3);
 System.out.println(rectangle2.diagonal());
 
-// it can also be written like this
+// it can also be written using a static method `pow2()` to share some code
 record Rectangle(int width, int height) {
   double diagonal() {
     return Math.sqrt(pow2(width) + pow2(height));

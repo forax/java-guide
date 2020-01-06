@@ -77,9 +77,6 @@ record Rectangle(int width, int height) {
   int area() {
     return width * height;
   }
-```
-  
-```java
   static Rectangle createSquare(int side) {
     return new Rectangle(side, side);
   }

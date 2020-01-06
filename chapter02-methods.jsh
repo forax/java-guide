@@ -69,7 +69,6 @@ record Rectangle(int width, int height) {
   int area() {
     return width * height;
   }
-  
   static Rectangle createSquare(int side) {
     return new Rectangle(side, side);
   }

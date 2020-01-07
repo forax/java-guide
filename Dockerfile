@@ -22,7 +22,6 @@ RUN unzip ijava-kernel.zip -d ijava-kernel \
   && python3 install.py --sys-prefix
 
 # Set up the user environment
-
 ENV NB_USER jovyan
 ENV NB_UID 1000
 ENV HOME /home/$NB_USER

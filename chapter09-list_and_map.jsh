@@ -8,6 +8,7 @@
 // ## List
 // To create a simple list
 var numbers = List.of(1, 2, 3);
+System.out.println(numbers);
 
 // a list is an indexed data structure that stores object in the order of insertions
 // get() access to an element given an index
@@ -34,7 +35,8 @@ System.out.println(friends.equals(numbers));
 // are called modifiable
 
 // by example, the list above (created with the static method of()) is not modifiable
-//countries.set(0, 'Poland')  // throws an UnsupportedOperationException
+var countries = List.of("UK", "US", "France");
+countries.set(0, 'Poland')  // throws an UnsupportedOperationException
 
 // To create a modifiable list, we use an ArrayList, created using the operator 'new'
 // and because because there is no element in the list, the compiler has no way to know
@@ -46,9 +48,11 @@ modifiableCountries.add("UK");
 modifiableCountries.add("US");
 modifiableCountries.add("France");
 modifiableCountries.add("Poland");
+System.out.println(modifiableCountries);
 
 // to remove an element, we have the method remove()
 modifiableCountries.remove("UK");
+System.out.println(modifiableCountries);
 
 
 // ### iterating
@@ -86,6 +90,7 @@ System.out.println(elements);
 // A Map associate a value to a key
 // To create a simple Map
 var petCost = Map.of("cat", 200, "dog", 350, "lion", 5000);
+System.out.println(petCost);
 
 // to get the value from a key
 var costOfADog = petCost.get("dog");

@@ -6,6 +6,7 @@ In Java, the most used data structures are List (and indexed list) and Map (a di
 To create a simple list
 ```java
 var numbers = List.of(1, 2, 3);
+System.out.println(numbers);
 ```
 
 a list is an indexed data structure that stores object in the order of insertions
@@ -42,7 +43,8 @@ are called modifiable
 
 by example, the list above (created with the static method of()) is not modifiable
 ```java
-//countries.set(0, 'Poland')  // throws an UnsupportedOperationException
+var countries = List.of("UK", "US", "France");
+countries.set(0, 'Poland')  // throws an UnsupportedOperationException
 ```
 
 To create a modifiable list, we use an ArrayList, created using the operator 'new'
@@ -58,11 +60,13 @@ modifiableCountries.add("UK");
 modifiableCountries.add("US");
 modifiableCountries.add("France");
 modifiableCountries.add("Poland");
+System.out.println(modifiableCountries);
 ```
 
 to remove an element, we have the method remove()
 ```java
 modifiableCountries.remove("UK");
+System.out.println(modifiableCountries);
 ```
 
 
@@ -112,6 +116,7 @@ A Map associate a value to a key
 To create a simple Map
 ```java
 var petCost = Map.of("cat", 200, "dog", 350, "lion", 5000);
+System.out.println(petCost);
 ```
 
 to get the value from a key

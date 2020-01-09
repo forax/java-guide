@@ -129,6 +129,7 @@ System.out.println(modifiableMap);
 // ### iterating, keySet(), entrySet()
 // you can not use a for loop directly on a Map
 // but you can do it on the set of keys
+var petCost = Map.of("cat", 200, "dog", 350, "lion", 5000);
 for(var pet: petCost.keySet()) {
   System.out.println(pet);
 }

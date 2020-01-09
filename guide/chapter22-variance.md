@@ -7,9 +7,6 @@ from those lists, we may write something like this
 void printAll(List<Object> list) {
   list.forEach(System.out::println);
 }
-```
-
-```java
 List<Integer> list = List.of(42, 777);
 printAll(list);
 ```
@@ -65,6 +62,8 @@ because you can store null in any Optional. So the following code compiles
 void printOptional(Optional<? extends Object> list) {
   System.out.println(list.orElse(null));
 }
+Optional<String> optional = Optional.of("foo");
+printOptional(optional);
 ```
 
 

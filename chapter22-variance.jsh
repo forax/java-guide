@@ -9,7 +9,6 @@
 void printAll(List<Object> list) {
   list.forEach(System.out::println);
 }
-
 List<Integer> list = List.of(42, 777);
 printAll(list);
 
@@ -59,6 +58,8 @@ void printOptional(Optional<? extends Object> list) {
 void printOptional(Optional<? extends Object> list) {
   System.out.println(list.orElse(null));
 }
+Optional<String> optional = Optional.of("foo");
+printOptional(optional);
 
 
 // ### `?`

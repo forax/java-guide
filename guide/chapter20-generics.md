@@ -15,6 +15,7 @@ List getCredentials() {
   list.add(new Pair("password", "password"));
   return list; 
 }
+System.out.println(getCredentials());
 ```
 
 And in another code, we want to use the method `getCredential()`, we may write
@@ -39,6 +40,7 @@ List as type if you interact with a code written before generics were introduced
 to Java (2004) but emits a warning saying you should not declare it that way.  
 
 
+## Generics
 There are two kinds of generics
 - parameterized class
 - parameterized method
@@ -124,6 +126,7 @@ List<Pair<String, String>> getCredentials() {
   list.add(new Pair<String, String>("password", "password"));
   return list; 
 }
+System.out.println(getCredentials());
 ```
 
 but it's quite verbose, so in Java, we have a mechanism called __inference__
@@ -136,10 +139,13 @@ from the type of the right of `=`.
 So instead of
 ```java
 List<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
+System.out.println(list);
 ```
+
 using `var` we get
 ```java
 var list = new ArrayList<Pair<String, String>>();
+System.out.println(list);
 ```
 
 ### inference when using `new`
@@ -152,6 +158,7 @@ Pair<String, String> pair = new Pair<String, String>("login", "admin");
 using the diamond syntax `<>`
 ```java
 Pair<String, String> pair = new Pair<>("login", "admin");
+System.out.println(pair);
 ```
 
 The left type can be also found when you do a `return` 
@@ -159,7 +166,9 @@ The left type can be also found when you do a `return`
 Pair<String, String> getOnePair() {
   return new Pair<>("login", "admin");
 }
+System.out.println(getOnePair());
 ```
+
 or using the type of the parameter of the method
 ```java
 var list = new ArrayList<Pair<String, String>>();
@@ -200,9 +209,25 @@ System.out.println(Utils.<String>chooseOne("foo", "bar"));
 
 
 ### Raw type
-Inference doesn't work if you forget the '<' '>' when declaring a type
 Types without the '<' '>', raw types in Java speak, are still supported
-to interact with old code but they doesn't work with inference
+to interact with old codes so you may by mistake forget the '<' '>' and
+have the declaration to compile.
+But it will be nasty when trying to use such type.
+
+The for-loop below doesn't compile because StringList is an AbstractList
+so a List of Object and not a List<String>
+```java
+class StringList extends AbstractList {  // should be AbstractList<String>
+  public int size() {
+    return 5;
+  }
+  public String get(int index) {
+    Objects.checkIndex(index, 5);
+    return "" + index;
+  }
+}
+for(String s: new StringList());
+```
 
 
 ### So using inference

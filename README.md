@@ -1,6 +1,10 @@
 # java-guide
 A guide to modern Java (Java 17)
 
+This is a Work in progress, it should be ready when the next LTS of Java (Java 17) will be released.
+
+All the codes run with Java 14 with the preview features enabled.
+
 ## Content
 
 0. [genesis.md](guide/chapter00-genesis.md)
@@ -59,17 +63,22 @@ You can run it directly in your browser (the startup is slow !)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
 
 ### locally on your laptop
-you need to have Python3 and Java 14 installed, then
+You need to have Python3 and Java 14 installed, then
+
+- clone this repository
+  ```
+    git clone http://github.com/forax/java-guide
+  ```
 - install [jupyter](https://jupyter.org/install)
   ```
     pip install notebook
   ```
-- install the [ijava 1.3.0](https://github.com/SpencerPark/IJava) kernel
+- install the [ijava 1.3.0](https://github.com/SpencerPark/IJava) kernel (from Spencer Park)
   ```
   wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip
   python3 install.py --sys-prefix
   ```
-- patch it with kernel.json
+- patch it with the repository file `kernel.json`
   list all kernels to see if the java kernel is installed
   ```
   jupyter kernelspec list
@@ -88,12 +97,10 @@ you need to have Python3 and Java 14 installed, then
   jupyter notebook
   ```
 
-## Work in progress
-
-This is a work in progress, don't hesitate to contribute, i'm waiting your pull request
-
 
 ### Build markdown and jupyter files from jshell files
+The markdown files (.md) and the jupyter files (.ipynb) are derived/generated
+from the jshell files using a small Java script.
 
 Using java 14
 ```

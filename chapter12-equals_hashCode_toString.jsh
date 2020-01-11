@@ -5,11 +5,13 @@
 // # Implementing equals()/hashCode() and toString()
 
 // ## Why equals()/hashCode() and toString() are important
-// Those methods are used by the data structures (list, map), by example,
-// ArraysList.contains(value) uses value.equals(), HashMap.get(key) uses
-// key.hashCode() and key.equals(). So most of the data structure doesn't
-// work if equals()/hashCode() and toString() are not correctly written on
-// one of the element
+// Those methods are used by the data structures (list, map) to implement operations
+// like add(), contains(), etc. So most of the data structure doesn't work
+// correctly if `equals()`/`hashCode()` and `toString()` are not correctly written
+// on the element.
+
+// By example, `ArraysList.contains(value)` uses `value.equals()`,
+// `HashMap.get(key)` uses both `key.hashCode()` and `key.equals()`.
 
 
 // ## Default implementations from java.lang.Object
@@ -21,7 +23,7 @@
 // - `int hashCode()`
 //   return a summary of the content of the object as an int
 //   the default implementation choose a random number when the object is created
-// - String toString()
+// - `String toString()`
 //   return a textual representation of the object
 //   the default implementation return a concatenation of the 
 
@@ -29,10 +31,10 @@
 
 
 // ## Writing your own equals()/hashCode()
-// - equals must be valid for any object and returns false if it's not the right type
-//   so it starts with an `instanceof` and use call equals() if the field value
+// - `equals()` must be valid for any object and returns false if it's not the right type
+//   so it starts with an `instanceof` and calls `equals()` if the field value
 //   is a reference.
-// - hashCode() delegates to the hashCode of the field value
+// - `hashCode()` delegates to the hashCode of the field value
 class User {
   private final String name;
   public User(String name) {
@@ -49,19 +51,17 @@ class User {
     return "User " + name;
   }
 }
-
 var user1 = new User("Bob");
 var user2 = new User("Bob");
 System.out.println(user1.equals(user2));
-System.out.println(user1.hashCode());
-System.out.println(user2.hashCode());
+System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);
 
 
 // ## With two fields
-// - equals(), it's better to first check the primitive fields because a primitive check is faster
-//   than a call to equals(). 
-// - hashCode() can use the exclusive or `^` to mix the hash code.
+// - `equals()`, it's better to first check the primitive fields because a primitive check
+//   is usually faster than a call to `equals()`. 
+// - `hashCode()` can use the exclusive or `^` to mix the hash code.
 class User {
   private final String name;
   private final int age;
@@ -80,12 +80,10 @@ class User {
     return "User " + name + " " + age;
   }
 }
-
 var user1 = new User("Bob", 31);
 var user2 = new User("Bob", 31);
 System.out.println(user1.equals(user2));
-System.out.println(user1.hashCode());
-System.out.println(user2.hashCode());
+System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);
 
 
@@ -116,30 +114,31 @@ class User {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }
 }
-
 var user1 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 var user2 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 System.out.println(user1.equals(user2));
-System.out.println(user1.hashCode());
-System.out.println(user2.hashCode());
+System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);
 
 
 // ## Record implementation
 
-// For a record, the method equals/hashCode() and toString() are already provided
+// For a record, the methods `equals()`/`hashCode()` and `toString()` are already provided
 // so usually you don't have to provide a new implementation.
 // But arrays are not correctly supported
-// - equals() will calls Object.equals() on the array instead of Arrays.equals()
-// - hashCode() will calls Object.hashCode() on the array instead of Arrays.hashCode()
+// - `equals()` will calls `Object.equals()` on the array instead of `Arrays.equals()`
+// - `hashCode()` will calls `Object.hashCode()` on the array instead of `Arrays.hashCode()`
 
-// So we have to provide an equals()/hashCode() and toString()
+// Here is an example of `equals()`/`hashCode()` and `toString()` if a field is an array
 record User(String name, int age, String login, char[] password) {
   public User(String name, int age, String login, char[] password) {
     this.name = Objects.requireNonNull(name);
     this.age = age;
     this.login = Objects.requireNonNull(login);
     this.password = password.clone();
+  }
+  public char[] password() { // don't show the password
+    return "*".repeat(password.length).toCharArray();
   }
   public boolean equals(Object o) {
     return o instanceof User user &&
@@ -153,11 +152,8 @@ record User(String name, int age, String login, char[] password) {
     return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
   }
 }
-
 var user1 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 var user2 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 System.out.println(user1.equals(user2));
-System.out.println(user1.hashCode());
-System.out.println(user2.hashCode());
+System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);
-

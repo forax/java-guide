@@ -13,15 +13,16 @@ var bob = new Friend("bob");
 var ana = new Friend("ana");
 var jul = new Friend("jul");
 
-// ## with a fixed number of values
+
+// ## With a fixed number of values
 // If there is a fixed number of value, the concatenation using '+' is the
 // most readable (ok, when your are used to) and the fastest 
+
 
 // ### Concatenation with +
 // Just do a '+' between the different values,
 // this code is heavily optimized and will allow only one String
-
-System.out.println(bob + ", " + ana + ", " + jul);
+System.out.println(bob.name() + ", " + ana.name() + ", " + jul.name());
 
 
 // ### Concatenation with String.format()
@@ -70,7 +71,7 @@ String concatenate(List<?> list) {
 System.out.println(concatenate(strings));
 System.out.println(concatenate(friends));
 
-// Just, don't use '+' inside a `append()`, if you already have a StringBuilder, use it !
+// > Don't use '+' inside a `append()`, you already have a StringBuilder, so use append() instead
 
 
 // ### Concatenation with String.join()
@@ -97,5 +98,6 @@ System.out.println(concatenate(friends));
 // ### Concatenation with a Stream
 // If you use a `Stream` and the collector `joining`, it will use a `StringJoiner` internally.
 
+import java.util.stream.Collectors;
 System.out.println(strings.stream().collect(Collectors.joining(", ")));
 System.out.println(friends.stream().map(Friend::toString).collect(Collectors.joining(", ")));

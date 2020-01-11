@@ -58,7 +58,7 @@ System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);
 
 
-// ## With two fields
+// ### With two fields
 // - `equals()`, it's better to first check the primitive fields because a primitive check
 //   is usually faster than a call to `equals()`. 
 // - `hashCode()` can use the exclusive or `^` to mix the hash code.

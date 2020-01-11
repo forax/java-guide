@@ -78,7 +78,7 @@ you need to have Python3 and Java 14 installed, then
   ```
   cp kernel.json /path/to/jupyter/kernels/java
   ```
-- set the env compiler option enabling preview feature
+- set the env compiler option enabling the preview features
   ```
   export IJAVA_COMPILER_OPTS="--enable-preview -source 14"
   ```

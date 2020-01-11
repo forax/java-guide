@@ -32,6 +32,7 @@ record Person(String name) {
     return "hello " + name.toString(); 
   }
 }
+System.out.println(new Person(null));
 ```
 
 It forces you to define a meaning of a name being null.
@@ -46,9 +47,6 @@ record Person(String name) {
     return "hello " + name.toString(); 
   }
 }
-```
-
-```java
 new Person(null);
 ```
 
@@ -74,14 +72,17 @@ to call a public method with null as argument. So any public methods should call
 record Animal(String kind, boolean wild) {
   public Animal {
     Objects.requireNonNull(kind);
-    // no need to do a requireNonNull on age, a boolean can not be null
+    // no need to do a requireNonNull on 'wild', a boolean can not be null
   }
   public boolean isDangerousWith(Animal animal) {
     Objects.requireNonNull(animal);
     return wild || !kind.equals(animal.kind);
   }
 }
+new Animal(null, true);
 ```
+
+### Map.get()
 
 You may sometimes want to pass null to a public method or return null from a method
 but it should be an exceptional case and it should be documented
@@ -95,7 +96,6 @@ See chapter 'list and map' for more information.
 Optional is a special class which means that a return value of a method may not be present.
 Unlike a usual object type that can be null, an Optional can be present or empty.
 It forces the user code be prepared to handle an empty Optional.
-Never store null in an Optional because it defeats its purpose.
 
 In the following code a `Car` has a color and optionally has a driver
 ```java
@@ -117,11 +117,10 @@ public class Car {
 
 Trying to call a method of `Person` on an `Optional`, obviously doesn't work
 ```java
-/*
-  var car = ...
-  var name = car.driver().name(); // doesn't compile
-*/
+var car = new Car("red", null);
+var name = car.driver().name(); // doesn't compile
 ```
+
 
 so the user code as to be changed to handle `Optional`, and the fact that
 an `Optional` can be empty
@@ -131,8 +130,7 @@ var name = car.driver().map(Person::name).orElse("autopilot");
 System.out.println(name);
 ```
 
-Don't use Optional for anything else than a return type
-
-
+> Don't use Optional for anything else than a return type
+> Never store null in an Optional because it defeats its purpose.
 
 

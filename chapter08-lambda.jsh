@@ -7,9 +7,10 @@
 // # Lambda and Method reference 
 // Java unlike JavaScript or Python, don't let you pass a method as argument of a method
 // without ceremony
+
 // Let say i want to write a method that do either the sum of an array of values or the sum of their square,
 // it can write if that way
-int sumOf(int[] array, boolean squareSum) {
+int sumOf(boolean squareSum, int... array) {
   var sum = 0;
   for(var value: array) {
     if (squareSum) {
@@ -20,9 +21,10 @@ int sumOf(int[] array, boolean squareSum) {
   }
   return sum;
 }
+System.out.println(sumOf(true, 1, 2, 3));
 
 // but you every values of the array, squareSum will have the same value so it's equivalent to write
-int sumOf(int[] array, boolean squareSum) {
+int sumOf(boolean squareSum, int... array) {
   var sum = 0;
   if (squareSum) {
     for(var value: array) {
@@ -35,13 +37,14 @@ int sumOf(int[] array, boolean squareSum) {
   }
   return sum;
 }
+System.out.println(sumOf(true, 1, 2, 3));
 
 // and at that point, you have code duplication.
 // Usually testing a condition in the middle of a computation is a code smell.
 // There is a way to solve that, it's to take the part of the computation that change as parameter
 // so sumOf instead of a boolean that take a function as parameter more or less like this
 /*
-int sumOf(int[] array, ??? function) {
+int sumOf(??? function, int... array) {
   var sum = 0;
   for(var value: array) {
     sum = sum + function(value);
@@ -58,8 +61,7 @@ int sumOf(int[] array, ??? function) {
 interface Fun {
   int apply(int value);
 }
-
-int sumOf(int[] array, Fun function) {
+int sumOf(Fun function, int[] array) {
   var sum = 0;
   for(var value: array) {
     sum = sum + function.apply(value);
@@ -69,19 +71,21 @@ int sumOf(int[] array, Fun function) {
 
 // then using the lambda syntax we have seeing in the previous chapter sumOf can be called
 var array = new int[] { 1, 2, 3 };
-System.out.println(sumOf(array, x -> x));
-System.out.println(sumOf(array, x -> x * x));
+System.out.println(sumOf(x -> x, array));
+System.out.println(sumOf(x -> x * x, array));
 
 
 // ## Package java.util.function
 
-// because it's not convenient to have to declare an interface every times you want to send
+// Because it's not convenient to have to declare an interface every times you want to send
 // a function as parameter, Java already provides a bunch of interfaces in the package
 // java.lang.function, so you often don't have to write your own
 // Moreover most interface also have variant for primitive types 
 
+import java.util.function.*;
+
 // java.lang.Runnable is equivalent to () -> void
-Runnable runnable = () -> { System.out.println("hello"); }
+Runnable runnable = () -> { System.out.println("hello"); };
 runnable.run();
 
 // Supplier<T> is equivalent to () -> T
@@ -114,7 +118,7 @@ System.out.println(fun.apply("function"));
 
 // IntFunction<T>, LongFunction<T> and DoubleFunction<T>
 IntFunction<String[]> arrayCreator = size -> new String[size];
-System.out.println(arrayCreator.apply(0));
+System.out.println(arrayCreator.apply(5).length);
 
 // ToIntFunction<T>, ToLongFunction<T> and ToDoubleFunction<T>
 ToIntFunction<String> stringLength = s -> s.length();
@@ -152,16 +156,19 @@ System.out.println(binaryOp.applyAsInt(40, 2));
 // - with 1 parameter: x -> expression
 // - with 2 or more parameters: (a, b) -> expression
 DoubleUnaryOperator op = x -> 2.0 * x;
+System.out.println(op.applyAsDouble(2));
 
 // instead of an expression, you can have statements between curly braces
 DoubleUnaryOperator op = x -> {
     return 2.0 * x;
   };
+System.out.println(op.applyAsDouble(2));
 
 // The types of the parameters are optional so you can declare them or not
 // if you don't declare them the parameter types of the abstract method
 // of the interface are used
 DoubleUnaryOperator op = (double x) -> 2.0 * x;
+System.out.println(op.applyAsDouble(2));
 
 
 // ## Method references
@@ -202,7 +209,7 @@ System.out.println(factory.apply("John"));
 
 //    Same as above, the return type is the array.
 IntFunction<String[]> arrayCreator = String[]::new;
-System.out.println(arrayCreator.apply(2));
+System.out.println(arrayCreator.apply(2).length);
 
 // A frequent error is to think that String::length is a reference
 // to a static method because the syntax is close to String.length()

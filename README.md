@@ -62,12 +62,31 @@ To quit use '/exit', to enable verbose error messages '/set feedback verbose', o
 You can run it directly in your browser (the startup is slow !)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
 
-### locally on your laptop
-You need to have Python3 and Java 14 installed, then
+
+### or using docker
+You need to have docker already installed, then
+
+- get the docker image from dockerhub
+  ```
+    docker pull forax/java-guide
+  ```
+- run the docker image in a container
+  ```
+    docker run -p 8888:8888 forax/java-guide
+  ```
+ - open your browser using the `tokenId` printed on the console
+   ```
+     firefox http://localhost:8888/?token=tokenId
+   ```
+
+
+### or install everything on your laptop
+You need to have python3 and Java 14 already installed, then
 
 - clone this repository
   ```
     git clone http://github.com/forax/java-guide
+    cd java-guide
   ```
 - install [jupyter](https://jupyter.org/install)
   ```

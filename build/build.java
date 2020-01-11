@@ -144,6 +144,31 @@ class build {
     }));
   }
   
+  private static String escape(String text) {
+    StringBuilder builder = null;
+    for(var i = 0; i < text.length(); i++) {
+      var c = text.charAt(i);
+      switch(c) {
+        case '"', '\\' -> {
+          if (builder == null) {
+            builder = new StringBuilder().append(text, 0, i);
+          }
+          builder.append(switch(c) {
+            case '"' -> "\\\"";
+            case '\\' -> "\\\\";
+            default -> throw new AssertionError();
+          });
+        }
+        default -> {
+          if (builder != null) {
+            builder.append(c);
+          }
+        }
+      }
+    }
+    return (builder == null)? text: builder.toString();
+  }
+  
   private static void writeJupyter(List<String> lines, Path to) throws IOException {
     writeString(to, transformTo(lines, new EventHandler() {
       private final StringJoiner cells = new StringJoiner(",\n", "[", "]");
@@ -192,7 +217,7 @@ class build {
         
         content.add(switch(kind) {
           case BLANK -> "\"\\n\"";
-          case CODE, TEXT -> "\"" + line.replace("\"", "\\\"") + "\\n\"";
+          case CODE, TEXT -> "\"" + escape(line) + "\\n\"";
         });
       }
       

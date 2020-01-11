@@ -59,8 +59,8 @@ To quit use '/exit', to enable verbose error messages '/set feedback verbose', o
 ## Using Jupyter notebook
 
 ### on the cloud
-You can run it directly in your browser (the startup is slow !)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
+You can run it directly in your browser
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master)
 
 
 ### or using docker

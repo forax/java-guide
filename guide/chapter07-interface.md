@@ -27,9 +27,9 @@ var figures = List.of(new Square(2), new Rectangle(3, 4));
 
 try to loop over the elements of the figures to print the area doesn't compile
 ```java
-/* for(var figure: figures) {
-     System.out.println(figure.area());
-}*/
+for(var figure: figures) {
+  System.out.println(figure.area());
+}
 ```
 
 The problem is that compiler try to find the type of the element of the list
@@ -126,7 +126,11 @@ They can be implemented by supplementary constructs.
 The parameter are declared in between the parenthesis and the body of the method
 is declared after the arrow (like the expression switch).
 ```java
+interface Figure {
+  public abstract double area();
+}
 Figure anotherFigure = () -> 4;
+System.out.println(anotherFigure.area());
 ```
 
 and rewrite the method rectangularTriangle()
@@ -135,13 +139,8 @@ You can notice that a lambda can access to the parameter `width` and `height`
 Figure rectangularTriangle(int width, int height) {
   return () -> width * height / 2.0;
 }
-```
-
-```java
-var figures = List.of(new Square(2), rectangularTriangle(3, 4));
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
+var triangle = rectangularTriangle(3, 4);
+System.out.println(triangle.area());
 ```
 
 
@@ -175,4 +174,4 @@ for(var figure: figures) {
 ```
 
 
-More about lambdas and method references in the following chapter
+More about lambdas and method references in the following chapter.

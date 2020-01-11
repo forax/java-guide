@@ -5,17 +5,20 @@
 // We have seen in a previous chapter that we can use classes to hide information. 
 // We can even declare classes inside a class.
 
-// # Internal classes
+// Several examples are using `range()`, so we are importing it first
+import static java.util.stream.IntStream.range;
 
-// There 4 kinds of internal classses
-// - internal classes of classes, _static_ or _inner_
-// - internal classes of methods, _anonymous_ or _named_
+// # Nested classes
 
-// ## Static internal class
-// A static internal class is a class declared inside another one.
-// Inside a class, like with fields and method, an internal class
+// There 4 kinds of nested classses
+// - nested classes of classes, _static_ or _inner_
+// - local classes of methods, _anonymous_ or _named_
+
+// ## Static nested class
+// A static nested class is a class declared inside another one.
+// Inside a class, like with fields and method, a nested class
 // can be private, public or package visible.
-// Using an internal class is a way to tidy things up.
+// Using a nested class is a way to tidy things up.
 // Here the name of the class is `Utils.Result`,
 public class Utils {
   public static class Result {
@@ -33,7 +36,7 @@ public class Utils {
     return new Result(array.length, Arrays.stream(array).sum());
   }
 }
-var array = IntStream.range(0, 20).mapToDouble(x -> x).toArray();
+var array = range(0, 20).mapToDouble(x -> x).toArray();
 System.out.println(Utils.findSumAndAverage(array).average());
 
 
@@ -56,7 +59,7 @@ System.out.println(Utils.findSumAndAverage(array).average());
 
 
 // ## Inner class (non static)
-// An inner class is a non-static internal class.
+// An inner class is a non-static nested class.
 // An inner class can access to the instance fields of the enclosing
 // class because an inner class is created on an instance of the
 // enclosing class.
@@ -122,8 +125,8 @@ System.out.println("b " + b);
 b.print();
 
 
-// ## Anonymous class of method
-// Java also allows to create class inside methods, with the twist
+// ## Local anonymous class of method
+// Java allows to create class inside methods, with the twist
 // that the class can access the local variables of the method if
 // the variable is initialized once (the compiler named those
 // variables _effectively final_).
@@ -165,22 +168,20 @@ System.out.println(list);
 
 // In the code below, if we try to type `box` as `Object`,
 // `box.sum` doesn't compile (Object has no field sum).
-/*
 Object box = new Object() {
   int sum;
 };
 System.out.println(box.sum);  // doesn't compile
-*/
 
 // If we are using var, it works !
 var box = new Object() {
   int sum;
 };
-IntStream.range(0, 10).forEach(value -> box.sum += value);
+range(0, 10).forEach(value -> box.sum += value);
 System.out.println(box.sum);
 
 
-// ## Named class of method
+// ## Local named class of method
 // The anonymous class syntax has a restriction, you can not
 // inherits/implements more than one type, if you want to both
 // inherits from a class and implement an interface like

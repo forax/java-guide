@@ -2,7 +2,7 @@
 # Expression and Control Flow
 Most of the control flow syntax of Java comes from C with some enhancements
 
-### Variables
+## Variables
 if you explicitly type a variable you can declare a variable without initializing it
 ```java
 int x;
@@ -17,11 +17,14 @@ System.out.println(x);
 block of code
 a variable declared in a block of code, can not be used outside that block
 ```java
-{
-  var value = 42;
-}
+ {
+   var value = 42;
+ }
+ // value can not be used here !
 ```
-value can not be used here !
+
+
+## If
 
 ### Test with `if`
 ```java
@@ -46,8 +49,11 @@ oldEnough(17);
 ```
 
 
+## Switch
+
 ### Test with a `switch` statement
-default case is not mandatory
+There are two forms of switch, a switch statement is a switch that doesn't
+produce a value. For those, the `default` case is not mandatory
 ```java
 void vehicle(int wheels) {
   switch(wheels) {
@@ -57,14 +63,15 @@ void vehicle(int wheels) {
     default -> {
       // if there are several lines
       System.out.println("whaat !");
-      }
+    }
   }
 }
 vehicle(3);
 ```
 
 ### Test with a `switch` expression
-default case is mandatory
+A switch that produces a valeur is a switch expresssion. Given that a
+value need to be produced, a `default` case is mandatory
 ```java
 String vehicle(int wheels) {
   return switch(wheels) {
@@ -83,14 +90,16 @@ int doors(String kind) {
   return switch(kind) {
     case "smart" -> 3;
     case "sedan", "hatchback" -> 5;
-    default -> -1;
+    default -> { throw new IllegalArgumentException(kind); }
   };
 }
 System.out.println(doors("sedan"));
 ```
 
 ### Test with a `switch` compatible with C
-(you can not mix `->` and `:` )
+You can use the C compatible switch too, using `:` instead of `->`
+(you can not mix them) but in that case don't forget to ends
+each case with a `break`.
 ```java
 void vehicle(int wheels) {
   switch(wheels) {
@@ -112,10 +121,11 @@ vehicle(3);
 ```
 
 
+## Instanceof
+
 ### `instanceof`
-instanceof test the class of a value at runtime
-if instanceof succeeds, the value is stored in the variable
-declared as last argument
+instanceof test the class of a value at runtime, if instanceof succeeds,
+the value is stored in the variable declared as last argument
 ```java
 record Car(int seats) {}
 record Bus(int capacity) {}
@@ -132,6 +142,22 @@ System.out.println(maxPersons(new Car(4)));
 System.out.println(maxPersons(new Bus(32)));
 ```
 
+### `instanceof` with no variable declaration
+if you don't need the variable declaration, you can omit it
+```java
+void printKind(Object value) {
+  if (value instanceof Car) {
+    System.out.println("it a car");
+  }
+  if (value instanceof Bus bus) {
+    System.out.println("it a bus");
+  }
+}
+printKind(new Car(4));
+```
+
+
+## Loops
 
 ### `while` loop
 ```java

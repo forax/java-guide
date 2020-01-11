@@ -57,8 +57,9 @@ To quit use '/exit', to enable verbose error messages '/set feedback verbose', o
 You can run it directly in your browser (the startup is slow !)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
 
-To use the notebooks on your laptop, you need to
-- install [jupyter)(https://jupyter.org/install)
+To use the notebooks on your locally laptop, you need to
+- to have Python3 and Java 14 installed
+- install [jupyter](https://jupyter.org/install)
   ```
     pip install notebook
   ```

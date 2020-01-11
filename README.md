@@ -52,10 +52,39 @@ Then you can copy paste the examples inside jshell and see by yourself.
 To quit use '/exit', to enable verbose error messages '/set feedback verbose', otherwise to get the help type '/help'
 
 
-## Using Jupyter notebook (not yet fully implemented)
+## Using Jupyter notebook
 
+You can run it directly in your browser (the startup is slow !)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
 
+To use the notebooks on your laptop, you need to
+- install [jupyter)(https://jupyter.org/install)
+  ```
+    pip install notebook
+  ```
+- install the [ijava 1.3.0](https://github.com/SpencerPark/IJava) kernel
+  ```
+  wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip
+  python3 install.py --sys-prefix
+  ```
+- patch it with kernel.json
+  list all kernels to see if the java kernel is installed
+  ```
+  jupyter kernelspec list
+  ```
+  then copy the file `kernel.json` to the java kernel directory
+  ```
+  cp kernel.json /path/to/jupyter/kernels/java
+  ```
+- set the env compiler option enabling preview feature
+  ```
+  export IJAVA_COMPILER_OPTS="--enable-preview -source 14"
+  ```
+- run the notebook
+  ```
+  cd jupyter
+  jupyter notebook
+  ```
 
 ## Work in progress
 

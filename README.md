@@ -54,11 +54,12 @@ To quit use '/exit', to enable verbose error messages '/set feedback verbose', o
 
 ## Using Jupyter notebook
 
+### on the cloud
 You can run it directly in your browser (the startup is slow !)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/forax/java-guide/master?filepath=jupyter)
 
-To use the notebooks on your locally laptop, you need to
-- to have Python3 and Java 14 installed
+### locally on your laptop
+you need to have Python3 and Java 14 installed, then
 - install [jupyter](https://jupyter.org/install)
   ```
     pip install notebook

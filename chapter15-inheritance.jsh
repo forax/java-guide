@@ -15,12 +15,12 @@ class B extends A {  // I want to reuse and augment the definition of A
 }
 
 // Precisely, inheritance is 3 different things grouped together 
-// - _subtyping_
-//    everywhere something is typed `A`, you can send a `B` instead
-// - _members inheritance_
-//    all instance members of `A` are copied in `B`
-// - _polymorphism_
-//    you can replace the code of a method from `A` to adapt it to `B`
+// - __subtyping__
+//   everywhere something is typed `A`, you can send a `B` instead
+// - __members inheritance__
+//   all instance members of `A` are copied in `B`
+// - __polymorphism__
+//   you can replace the code of a method from `A` to adapt it to `B`
 
 // ## Subtyping
 // Subtyping is the most important part of the inheritance, it allows to reuse
@@ -42,15 +42,15 @@ class B extends A {  // so B is a subtype of A
 var b = new B();
 sayHello(b);
 
-// _subtyping_ is very important, because it means that we can reuse a
+// __subtyping__ is very important, because it means that we can reuse a
 // method by calling it with several different types. And given that,
 // The more a method is used, the less buggy it is, _subtyping_ helps
 // to make applications more robust by sharing methods.
 
 
 // ## Polymorphism
-// _Polymorphism_ works with _subtyping_, _subtyping_ allow to call a
-// code with a subtype of the declared type. _Polymorphism_ allows to
+// Polymorphism works with __subtyping__, __subtyping__ allow to call a
+// code with a subtype of the declared type. Polymorphism allows to
 // adapt parts of the shared code to the subclass at runtime.
 
 // By example, let suppose we have a class able to 'enhance' a text
@@ -76,22 +76,22 @@ var enhancer = new StarEnhancer();
 sayHello(enhancer, "polymorphism");
 
 
-// So not only we can call `sayHello()` with a `StarEnhancer` (_subtyping_),
+// So not only we can call `sayHello()` with a `StarEnhancer` (__subtyping__),
 // but inside `sayHello()`, the method call to `enhance()` will call
 // the methode `StarEnhancer.enhance()` adapting the code of `hello()`
 // to the fact that at runtime the enhancer is in fact a `StarEnhancer`.
 
 // The mechanism that choose the `right` method in function of the object
-// at runtime is called _polymorphism_.
+// at runtime is called __polymorphism__.
 
 
 // ### Overriding
 // In the example above, `enhancer.enhance()` inside the method `sayHello()`
 // can call `Enhancer.enhance()` or `StarEnhancer.enhance()`.
-// We say that the method `enhance()` of  `StarEnhancer` _overrides_
+// We say that the method `enhance()` of  `StarEnhancer` __overrides__
 // the method `enhance()` of  `Enhancer`.
 
-// A method to _override_ another has to
+// A method to __override__ another has to
 // - have the same name
 // - have the same number of parameter
 // - can have a subtype as return type
@@ -154,7 +154,6 @@ class Animal {
 }
 class Lion extends Animal {
   boolean young;
-  
   void roar() {
     System.out.println(name + " roar");
   }
@@ -266,7 +265,7 @@ var palace = new Palace(100, 50);
 System.out.println(palace.price(2));
 
 
-// ### field protected
+// ### Field protected
 // In the code above, one can use the modifier `protected` too but
 // because a `protected` field is visible by any subclass even the one
 // the author of the subclass do not control. It means that the field
@@ -277,7 +276,7 @@ System.out.println(palace.price(2));
 
 // ## Relation with interfaces
 // Nowadays, inheritance is used less and less in Java because interface
-// provides _subtyping_ and _overriding_ without _members inheritance_.
+// provides __subtyping__ and __overriding__ without __members inheritance__.
 // Given that the later mechanism is the one causing trouble,
 // using an interface is often preferred to using inheritance.
 
@@ -308,7 +307,7 @@ System.out.println(palace.price(2));
 
 // ## Use delegation not inheritance
 // Sometimes people are using inheritance where they should not !
-// The worst occurrences is when people want _members inheritance_
+// The worst occurrences is when people want __members inheritance__
 // to avoid to write too many methods but forget that they get
 // all the methods even the one they don't want.
 
@@ -353,7 +352,7 @@ class Properties {
   }
 }
 var properties = new Properties();
-properties.setProperty("java", "best language ever");
+properties.setProperty("java", "best language ever, for life !");
 System.out.println(properties.getProperty("java", "??"));
 System.out.println(properties.getProperty("brainfuck", "??"));
 

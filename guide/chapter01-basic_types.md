@@ -124,9 +124,13 @@ an array initialized with zeros (false, 0, 0.0, etc)
 var intArray = new int[2];
 ```
 
-arrays initialized with different values
+An array initialized with some default values
+Because a value like `2` or `3` can be an numeric type
+(an `int`, a `long`, a `short`, etc)
+you have to specify the type of the array when you create it
 ```java
-var intArray = new int[] {2, 3};
+var intArray = new int[] {2, 3 };
+var longArray = new long[] { 2, 3 };
 ```
 
 you can use the operator [] to access or change the value
@@ -134,17 +138,12 @@ of an array at a specific index
 ```java
 System.out.println(intArray[0]);
 intArray[0] = 42;
+System.out.println(intArray[0]);
 ```
 
 trying to access an array out of its bound raised an exception
 ```java
-//intArray[-1] = 42;   // throws IndexOutOfBoundsException
-```
-
-arrays are objects but with only one method
-clone() duplicates an array
-```java
-var clonedArray = intArray.clone();
+intArray[-1] = 42;   // throws IndexOutOfBoundsException
 ```
 
 and a special syntax to get the length of an array
@@ -155,20 +154,23 @@ var arrayLength = intArray.length;
 System.out.println(arrayLength);
 ```
 
-arrays have methods like toString() or equals() but
+arrays have methods like \toString()` or `equals()` but
 they are not implemented correctly, we will see later why
 ```java
 System.out.println(intArray);
-System.out.println(intArray.equals(clonedArray));
+System.out.println(new int[] {42}.equals(new int[] {42}));
 ```
 
-you can also create arrays of several dimensions
+
+### On arrays 
+We don't use array much in Java, we have more
+powerful object like List, that we will see later 
 ```java
-var matrix = new double[][] { { 2.0, 3.0}, { 4.0, 5.0 } };
+var intList = List.of(2, 3);
 ```
 
 
-### Static methods
+## Static methods
 Because primitive types and arrays have (almost) no method,
 if you want to play with them you have to use static methods.
 A static method is a function that is declared on a type somewhere
@@ -187,40 +189,3 @@ on the type `java.util.Arrays`
 var text = java.util.Arrays.toString(intArray);
 System.out.println(text);
 ```
-
-To initialize all the array cells (like memset in C)
-```java
-java.util.Arrays.fill(intArray, 17);
-```
-
-
-### Copy of arrays
-Copy of the content of one array inside another (like memcopy in C).
-By example, to copy 2 cells from intArray to newArray at position 1
-```java
-var newArray = new int[5];
-System.arraycopy(intArray, 0, newArray, 1, 2);
-System.out.println(java.util.Arrays.toString(newArray));
-```
-
-Duplicate an array to enlarge/shrink it
-```java
-var newArray = java.util.Arrays.copyOf(intArray, 4);
-System.out.println(java.util.Arrays.toString(newArray));
-```
-
-Copy a part of an array
-By example, to create a new array with 1 cell at position 0
-```java
-var newArray = java.util.Arrays.copyOfRange(intArray, 0, 1);
-System.out.println(java.util.Arrays.toString(newArray));
-```
-
-
-### On arrays 
-Also, we don't use array much in Java, we have more
-powerful object like List, that we will see later 
-```java
-var intList = List.of(2, 3);
-```
-

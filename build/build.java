@@ -1,19 +1,28 @@
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.readAllLines;
 import static java.nio.file.Files.writeString;
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toUnmodifiableMap;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Properties;
+import java.util.Set;
 import java.util.StringJoiner;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("preview")
 class build {
-  static class TextBuilder {
+  final static class TextBuilder {
     private final StringBuilder builder = new StringBuilder();
     
     void append(String line) {
@@ -28,18 +37,22 @@ class build {
   
   enum LineKind {
     TEXT,
+    SECTION,
     BLANK,
-    CODE
+    CODE,
     ;
     
     String clean(String line) {
       return switch(this) {
       case BLANK, CODE -> line;
-      case TEXT -> line.substring(3); 
+      case TEXT, SECTION -> line.substring(3); 
       };
     }
     
     static LineKind kind(String line) {
+      if (line.startsWith("// #")) {
+        return SECTION;
+      }
       if (line.startsWith("// ")) {
         return TEXT;
       }
@@ -51,34 +64,40 @@ class build {
   }
   
   interface EventHandler {
-    default void startDocument(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    default void endDocument(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    default void start(TextBuilder builder, LineKind kind) {
-      if (kind == LineKind.CODE) {
-        startCode(builder);
-      } else {
-        startText(builder);
+    default void startDocument() { /*empty*/ }
+    default void endDocument() { /*empty*/ }
+    default void start(LineKind kind) {
+      switch(kind) {
+      case CODE -> startCode();
+      case TEXT -> startText();
+      case SECTION -> startSection();
+        //$CASES-OMITTED$
+      default -> throw new AssertionError();
       }
     }
-    default void end(TextBuilder builder, LineKind kind) {
-      if (kind == LineKind.CODE) {
-        endCode(builder);
-      } else {
-        endText(builder);
+    default void end(LineKind kind) {
+      switch(kind) {
+      case CODE -> endCode();
+      case TEXT -> endText();
+      case SECTION -> endSection();
+        //$CASES-OMITTED$
+      default -> throw new AssertionError();
       }
     }
-    default void startCode(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    default void endCode(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    default void startText(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    default void endText(@SuppressWarnings("unused") TextBuilder builder) { /*empty*/ }
-    void line(TextBuilder builder, LineKind kind, String line);
+    default void startCode() { /*empty*/ }
+    default void endCode() { /*empty*/ }
+    default void startText() { /*empty*/ }
+    default void endText() { /*empty*/ }
+    default void startSection() { /*empty*/ }
+    default void endSection() { /*empty*/ }
+    void line(LineKind kind, String line);
   }
   
-  private static String transformTo(List<String> lines, EventHandler handler) {
-    var builder = new TextBuilder();
-    handler.startDocument(builder);
+  private static void transformTo(List<String> lines, EventHandler handler) {
+    handler.startDocument();
     
     var inside = LineKind.BLANK;
+    var insideSection = false;
     var skipFirst = true;
     for(var line: lines) {
       var kind = LineKind.kind(line);   
@@ -87,28 +106,38 @@ class build {
       
       inside = switch(kind) {
         case BLANK -> {
-          if (inside == LineKind.CODE) {
-            handler.end(builder, LineKind.CODE);
-          } else if (inside == LineKind.TEXT) {
-            handler.end(builder, LineKind.TEXT);
+          if (inside == LineKind.CODE || inside == LineKind.TEXT) {
+            handler.end(inside);
           }
           yield kind;
         }
+        case SECTION -> {
+          if (inside == LineKind.CODE || inside == LineKind.TEXT) {
+            handler.end(inside);
+          }
+          if (insideSection) {
+            handler.end(LineKind.SECTION);
+          }
+          handler.start(LineKind.SECTION);
+          insideSection = true;
+          handler.start(LineKind.TEXT);
+          yield LineKind.TEXT;
+        }
         case TEXT -> {
           if (inside == LineKind.CODE) {
-            handler.end(builder, LineKind.CODE);
+            handler.end(LineKind.CODE);
           }
           if (inside != LineKind.TEXT) {
-            handler.start(builder, LineKind.TEXT);
+            handler.start(LineKind.TEXT);
           }
           yield kind;
         }
         case CODE -> {
           if (inside == LineKind.TEXT) {
-            handler.end(builder, LineKind.TEXT);
+            handler.end(LineKind.TEXT);
           }
           if (inside != LineKind.CODE) {
-            handler.start(builder, LineKind.CODE);
+            handler.start(LineKind.CODE);
           }
           yield kind;
         }
@@ -116,32 +145,36 @@ class build {
       
       skipFirst = skipFirst && kind == LineKind.TEXT;
       if (!skipFirst) {
-        handler.line(builder, kind, kind.clean(line));
+        handler.line(kind, kind.clean(line));
       }
     }
     
     if (inside != LineKind.BLANK) {
-      handler.end(builder, inside);
+      handler.end(inside);
     }
-    handler.endDocument(builder);
-    return builder.toString();
+    if (insideSection) {
+      handler.end(LineKind.SECTION);
+    }
+    handler.endDocument();
   }
   
-  private static void writeMarkDown(List<String> lines, Path to) throws IOException {
-    writeString(to, transformTo(lines, new EventHandler() {
+  static void writeMarkDown(List<String> lines, Path to) throws IOException {
+    var builder = new TextBuilder();
+    transformTo(lines, new EventHandler() {
       @Override
-      public void startCode(TextBuilder text) {
-        text.append("```java");
+      public void startCode() {
+        builder.append("```java");
       }
       @Override
-      public void endCode(TextBuilder text) {
-        text.append("```");
+      public void endCode() {
+        builder.append("```");
       }
       @Override
-      public void line(TextBuilder text, LineKind kind, String line) {
-        text.append(line);
+      public void line(LineKind kind, String line) {
+        builder.append(line);
       }
-    }));
+    });
+    writeString(to, builder.toString());
   }
   
   private static String escape(String text) {
@@ -169,18 +202,19 @@ class build {
     return (builder == null)? text: builder.toString();
   }
   
-  private static void writeJupyter(List<String> lines, Path to) throws IOException {
-    writeString(to, transformTo(lines, new EventHandler() {
+  static void writeJupyter(List<String> lines, Path to) throws IOException {
+    var builder = new TextBuilder();
+    transformTo(lines, new EventHandler() {
       private final StringJoiner cells = new StringJoiner(",\n", "[", "]");
       private StringJoiner content;
       
       @Override
-      public void start(TextBuilder builder, LineKind kind) {
+      public void start(LineKind kind) {
         content = new StringJoiner(", ", "[", "]");
       }
       
       @Override
-      public void endCode(TextBuilder builder) {
+      public void endCode() {
         cells.add(String.format(
             """
             {
@@ -196,7 +230,7 @@ class build {
       }
       
       @Override
-      public void endText(TextBuilder builder) {
+      public void endText() {
         cells.add(String.format(
             """
             {
@@ -210,19 +244,19 @@ class build {
       }
       
       @Override
-      public void line(TextBuilder text, LineKind kind, String line) {
+      public void line(LineKind kind, String line) {
         if (content == null) {  // skip empty lines
           return;
         }
         
         content.add(switch(kind) {
           case BLANK -> "\"\\n\"";
-          case CODE, TEXT -> "\"" + escape(line) + "\\n\"";
+          case CODE, TEXT, SECTION -> "\"" + escape(line) + "\\n\"";
         });
       }
       
       @Override
-      public void endDocument(TextBuilder builder) {
+      public void endDocument() {
         builder.append(String.format(
           """
           {
@@ -247,7 +281,108 @@ class build {
           }    
           """, cells.toString()));
       }
-    }));
+    });
+    writeString(to, builder.toString());
+  }
+  
+  static void writeJupyterSlideshow(List<String> lines, Path to) throws IOException {
+    var builder = new TextBuilder();
+    transformTo(lines, new EventHandler() {
+      private final StringJoiner cells = new StringJoiner(",\n", "[", "]");
+      private StringJoiner content;
+      private String textMetadata = "{}";
+      
+      @Override
+      public void start(LineKind kind) {
+        EventHandler.super.start(kind);
+        content = new StringJoiner(", ", "[", "]");
+      }
+      
+      @Override
+      public void startSection() {
+        textMetadata =
+            """
+            {
+              "slideshow": {
+                "slide_type": "slide"
+              }
+            }
+            """;
+      }
+      
+      @Override
+      public void endCode() {
+        cells.add(String.format(
+            """
+            {
+              "cell_type": "code",
+              "execution_count": null,
+              "metadata": {},
+              "outputs": [],
+              "source": %s
+            }
+            """,
+            content.toString()));
+        content = null;
+      }
+      
+      @Override
+      public void endText() {
+        cells.add(String.format(
+            """
+            {
+              "cell_type": "markdown",
+              "metadata": %s,
+              "source": %s
+            }
+            """,
+            textMetadata,
+            content.toString()));
+        textMetadata = "{}";
+        content = null;
+      }
+      
+      @Override
+      public void line(LineKind kind, String line) {
+        if (content == null) {  // skip empty lines
+          return;
+        }
+        
+        content.add(switch(kind) {
+          case BLANK -> "\"\\n\"";
+          case CODE, TEXT, SECTION -> "\"" + escape(line) + "\\n\"";
+        });
+      }
+      
+      @Override
+      public void endDocument() {
+        builder.append(String.format(
+          """
+          {
+            "cells": %s,
+            "metadata": {
+              "celltoolbar": "Slideshow",
+              "kernelspec": {
+                "display_name": "Java",
+                "language": "java",
+                "name": "java"
+              },
+              "language_info": {
+                "codemirror_mode": "java",
+                "file_extension": ".java",
+                "mimetype": "text/x-java-source",
+                "name": "Java",
+                "pygments_lexer": "java",
+                "version": "15"
+              }
+            },
+            "nbformat": 4,
+            "nbformat_minor": 2
+          }    
+          """, cells.toString()));
+      }
+    });
+    writeString(to, builder.toString());
   }
   
   private static String removeExtension(String filename) {
@@ -266,23 +401,34 @@ class build {
     return filename.substring(index + 1);
   }
   
-  private static void generate(List<Path> paths, Path markdownFolder, Path jupyterFolder) throws IOException {
-    createDirectories(markdownFolder);
-    createDirectories(jupyterFolder);
+  private interface Generator<T> {
+    void generate(List<String> lines, T attachment) throws IOException;
     
+    default Generator<T> and(Generator<T> generator) {
+      return (lines, attachment) -> {
+        generate(lines, attachment);
+        generator.generate(lines, attachment);
+      };
+    }
+    
+    static Generator<String> write(Generator<Path> writeMethod, Path folder, String extension) {
+      return (lines, rawFilename) -> writeMethod.generate(lines, folder.resolve(rawFilename + extension));
+    }
+  }
+  
+  private static void generate(List<Path> paths, Generator<String> generator) throws IOException {
     for(var path: paths) {
       var rawFilename = removeExtension(path.getFileName().toString());
 
       var lines = readAllLines(path);
-      writeMarkDown(lines, markdownFolder.resolve(rawFilename + ".md"));
-      writeJupyter(lines, jupyterFolder.resolve(rawFilename + ".ipynb"));
+      generator.generate(lines, rawFilename);
     }
   }
   
-  private static void generateIndex(List<Path> paths, Path destination) {
+  private static void generateIndex(List<Path> files, Path destination, String extension) {
     var index = 0;
-    for(var path: paths) {
-      var filename = removeExtension(path.getFileName().toString()) + ".md";
+    for(var file: files) {
+      var filename = removeExtension(file.getFileName().toString()) + extension;
       System.out.println(index + ". [" + shortName(filename) + "](" + destination.getFileName() + "/" + filename + ")");
       index++;
     }
@@ -294,12 +440,83 @@ class build {
     }
   }
   
-  public static void main(String[] args) throws IOException {
-    var markdownFolder = Path.of("guide");
-    var jupyterFolder = Path.of("jupyter");
+  private static /*record*/ class Config {
+    private enum Kind {
+      MARKDOWN(".md", build::writeMarkDown),
+      NOTEBOOK(".ipynb", build::writeJupyter),
+      SLIDESHOW(".ipynb", build::writeJupyterSlideshow),
+      ;
+      
+      private static final Map<String, Kind> NAME_MAP = stream(values()).collect(Collectors.toMap(k -> k.propertyName, k -> k));
+      
+      static Optional<Kind> of(String name) {
+        return Optional.ofNullable(NAME_MAP.get(name));
+      }
+      
+      private final String propertyName;
+      private final String extension;
+      private final Generator<Path> generator;
+      
+      private Kind(String extension, Generator<Path> generator) {
+        this.propertyName = name().toLowerCase();
+        this.extension = extension;
+        this.generator = generator;
+      }
+      
+      Path folder(Properties properties) {
+        return Path.of(getProperty(properties, propertyName + ".folder").orElse(propertyName));
+      }
+    }
     
-    var files = gatherFiles(Path.of("."), name -> name.endsWith(".jsh"));
-    generate(files, markdownFolder, jupyterFolder);
-    generateIndex(files, markdownFolder);
+    private static Optional<String> getProperty(Properties properties, String propertyName) {
+      return Optional.ofNullable(properties.getProperty(propertyName));
+    }
+    
+    private final Optional<Kind> index;
+    private final Set<Kind> kinds; 
+    private final Map<Kind, Path> folderMap;
+    
+    private Config(Optional<Kind> index, Set<Kind> kinds, Map<Kind, Path> folderMap) {
+      this.index = index;
+      this.kinds = kinds;
+      this.folderMap = folderMap;
+    }
+    
+    Path folder(Kind kind) {
+      return folderMap.get(kind);
+    }
+    
+    static Config load(Path propertyPath) throws IOException {
+      var properties = new Properties();
+      try(var reader = Files.newBufferedReader(propertyPath)) {
+        properties.load(reader);
+      }
+      
+      var generate = getProperty(properties, "generate").orElseThrow(() -> { throw new IllegalStateException("no property generate found"); }); 
+      var kinds = Arrays.stream(generate.split(",")).flatMap(name -> Kind.of(name).stream()).collect(toUnmodifiableSet());
+      var index = getProperty(properties, "index").flatMap(Kind::of);
+      var folderMap = Kind.NAME_MAP.values().stream().collect(toUnmodifiableMap(k -> k, k -> k.folder(properties)));
+      
+      return new Config(index, kinds, folderMap);
+    }
   }
-}
+  
+  public static void main(String[] args) throws IOException {
+    var config = Config.load(Path.of("build.property"));
+    
+    // create folders
+    for(var kind: config.kinds) {
+      createDirectories(config.folder(kind));
+    }
+    
+    // create generator
+    var generator = config.kinds.stream().map(k -> Generator.write(k.generator, config.folder(k), k.extension)).reduce(Generator::and).orElseThrow();
+
+    // gather files and generate    
+    var files = gatherFiles(Path.of("."), name -> name.endsWith(".jsh"));
+    generate(files, generator);
+    
+    // generate index
+    config.index.ifPresent(index -> generateIndex(files, config.folder(index), index.extension));
+  }
+} 

@@ -1,13 +1,14 @@
 # Configuation of build.java
 # 1. generate files
-# generate=x,y,z with x, y or z among markdown, jupyter and slideshow
+# generate=x,y,z with x, y or z among markdown, notebook and slideshow
 # 2. choose to generate an index (optional)
-# index=x with x among markdown, jupyter and slideshow
+# index=x with x among markdown, notebook and slideshow
 # 3. customize folders
 # markdown.folder=f with f a folder
-# jupyter.folder=f with f a folder
+# notebook.folder=f with f a folder
 # slideshow.folder=f with f a folder
 
-generate=markdown,jupyter
+generate=markdown,notebook
 index=markdown
 markdown.folder=guide
+notebook.folder=jupyter

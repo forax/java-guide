@@ -374,6 +374,9 @@ class build {
                 "name": "Java",
                 "pygments_lexer": "java",
                 "version": "15"
+              },
+              "rise": {
+                "autolaunch": true
               }
             },
             "nbformat": 4,

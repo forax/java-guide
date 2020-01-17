@@ -134,30 +134,27 @@ But arrays are not correctly supported
 
 Here is an example of `equals()`/`hashCode()` and `toString()` if a field is an array
 ```java
-record User(String name, int age, String login, char[] password) {
-  public User(String name, int age, String login, char[] password) {
-    this.name = Objects.requireNonNull(name);
-    this.age = age;
-    this.login = Objects.requireNonNull(login);
-    this.password = password.clone();
+record User(String login, char[] password) {
+  public User {
+    login = Objects.requireNonNull(login);
+    password = password.clone();
   }
   public char[] password() { // don't show the password
     return "*".repeat(password.length).toCharArray();
   }
   public boolean equals(Object o) {
     return o instanceof User user &&
-      age == user.age && name.equals(user.name) &&
       login.equals(user.login) && Arrays.equals(password, user.password);
   }
   public int hashCode() {
-    return Objects.hash(name, age, login, Arrays.hashCode(password));
+    return Objects.hash(login, Arrays.hashCode(password));
   }
   public String toString() {
-    return "User " + name + " " + age + " " + login + " " + "*".repeat(password.length);
+    return "User " + login + " " + "*".repeat(password.length);
   }
 }
-var user1 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
-var user2 = new User("Bob", 31, "bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
+var user1 = new User("bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
+var user2 = new User("bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
 System.out.println(user1.equals(user2));
 System.out.println(user1.hashCode() == user2.hashCode());
 System.out.println(user1);

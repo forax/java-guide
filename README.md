@@ -102,9 +102,9 @@ You need to have python3 and Java 14 already installed, then
   ```
   jupyter kernelspec list
   ```
-  then copy the file `kernel.json` to the java kernel directory
+  then copy the file `kernel.json` from the folder `docker` to the java kernel directory
   ```
-  cp kernel.json /path/to/jupyter/kernels/java
+  cp docker/kernel.json /path/to/jupyter/kernels/java
   ```
 - set the env compiler option enabling the preview features
   ```

@@ -1,4 +1,3 @@
-
 # Generics Variance
 Let say we have a list of String and a list of Integer and
 we want to write a method being able to print all the values

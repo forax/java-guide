@@ -1,4 +1,3 @@
-
 # Jshell vs Java
 We are using jshell, jshell has mostly the same behavior as Java
 but because it's interactive it can do more

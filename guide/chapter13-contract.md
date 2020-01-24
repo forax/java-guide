@@ -1,4 +1,3 @@
-
 # Contract
 
 ```java

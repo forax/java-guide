@@ -1,4 +1,3 @@
-
 # Genesis
 In Java, there is strong division between primitive types like double that are written in lower case and
 objects like String that have a name that starts with an uppercase letter.

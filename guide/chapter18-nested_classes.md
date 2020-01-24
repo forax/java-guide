@@ -1,4 +1,3 @@
-
 We have seen in a previous chapter that we can use classes to hide information. 
 We can even declare classes inside a class.
 

@@ -1,4 +1,3 @@
-
 # Implementing equals()/hashCode() and toString()
 
 ## Why equals()/hashCode() and toString() are important

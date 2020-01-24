@@ -1,4 +1,3 @@
-
 # Interface
 Java is a typed language, even if you don't explicitly write a type
 the compiler you compute the type of every variables

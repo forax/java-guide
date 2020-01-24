@@ -1,4 +1,3 @@
-
 In Java, there are already plenty of data structures already available
 there are grouped under the name the collection API.
 

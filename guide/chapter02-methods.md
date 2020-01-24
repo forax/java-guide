@@ -1,4 +1,3 @@
-
 # Methods
 Methods are action to execute on an object
 

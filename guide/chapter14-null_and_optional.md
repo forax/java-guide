@@ -1,4 +1,3 @@
-
 # Null and Optional
 
 In Java, any reference can be null which usually means that there is no object.

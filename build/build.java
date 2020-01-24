@@ -1,5 +1,4 @@
 import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.readAllLines;
 import static java.nio.file.Files.writeString;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
@@ -61,6 +60,10 @@ class build {
       }
       return CODE;
     }
+    
+    static Predicate<String> is(LineKind kind) {
+      return line -> kind(line) == kind;
+    }
   }
   
   interface EventHandler {
@@ -98,7 +101,6 @@ class build {
     
     var inside = LineKind.BLANK;
     var insideSection = false;
-    var skipFirst = true;
     for(var line: lines) {
       var kind = LineKind.kind(line);   
       
@@ -143,10 +145,7 @@ class build {
         }
       };
       
-      skipFirst = skipFirst && kind == LineKind.TEXT;
-      if (!skipFirst) {
-        handler.line(kind, kind.clean(line));
-      }
+      handler.line(kind, kind.clean(line));
     }
     
     if (inside != LineKind.BLANK) {
@@ -200,6 +199,13 @@ class build {
       }
     }
     return (builder == null)? text: builder.toString();
+  }
+  
+  private static String removeLastEscapedNewLine(String text) {
+    if (text.endsWith("\\n\"]")) {
+      return text.substring(0, text.length() - "\\n\"]".length()) + "\"]";
+    }
+    return text;
   }
   
   static void writeJupyter(List<String> lines, Path to) throws IOException {
@@ -322,7 +328,7 @@ class build {
               "source": %s
             }
             """,
-            content.toString()));
+            removeLastEscapedNewLine(content.toString())));
         content = null;
       }
       
@@ -423,7 +429,12 @@ class build {
     for(var path: paths) {
       var rawFilename = removeExtension(path.getFileName().toString());
 
-      var lines = readAllLines(path);
+      List<String> lines;
+      try(var stream = Files.lines(path)) {
+        // collect the lines, removing the header (some texts followed by some bank lines)
+        lines = stream.dropWhile(LineKind.is(LineKind.TEXT)).dropWhile(LineKind.is(LineKind.BLANK)).collect(Collectors.toList());
+      }
+      
       generator.generate(lines, rawFilename);
     }
   }

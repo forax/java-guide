@@ -1,4 +1,3 @@
-
 # Numbers
 This chapter in not specific to Java but more on how integers and floating point numbers
 works on CPUs like Intel 64 bits or ARM 64 bits.

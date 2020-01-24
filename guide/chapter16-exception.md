@@ -1,4 +1,3 @@
-
 # Exception
 
 In Java, an exception is a mechanism to signal that the

@@ -1,4 +1,3 @@
-
 # Basic Types
 Java has two kinds of type,
 - primitive types that are directly mapped to CPU basic types

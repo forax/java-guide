@@ -1,4 +1,3 @@
-
 # List and Map
 In Java, the most used data structures are List (an indexed list) and Map (a dictionary)
 

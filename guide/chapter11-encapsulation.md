@@ -1,4 +1,3 @@
-
 # Class and encapsulation
 
 Let's say i want to create a library of books,

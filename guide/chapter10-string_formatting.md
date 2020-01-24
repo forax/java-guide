@@ -1,4 +1,3 @@
-
 # String formatting
 There are several ways to concatenate/format objects to strings in Java,
 mostly depending if there are a fixed number of values or

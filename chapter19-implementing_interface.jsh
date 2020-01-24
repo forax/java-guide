@@ -2,143 +2,23 @@
 // then cut and paste the following lines to see how it works
 // To exit jshell type /exit
 
-// # Interface
-// Java is a typed language, even if you don't explicitly write a type
-// the compiler you compute the type of every variables
-// Once you start to want to mix several records, you need to declare
-// common type between records, such type are known as interface
+// # Implementing Interface
+// Interfaces one of the tent pole concept of Java, so a designer of library/application
+// you have a large choice when you want to implement an interface.
 
-// ### The problem
-// let say we have a Square and Rectangle, and both have a method `area()`
-record Square(int side) {
-  public double area() {
-    return side * side;
-  }
-}
-record Rectangle(int width, int height) {
-  public double area() {
-    return width * height;
-  }
-}
+## Structural Types
+### lambda
+### method reference
 
-// let create a list of a square and a rectangle
-var figures = List.of(new Square(2), new Rectangle(3, 4));
+## Class-like
+### record
+### enum
+### class
+### local class
 
-// try to loop over the elements of the figures to print the area doesn't compile
-/* for(var figure: figures) {
-     System.out.println(figure.area());
-}*/
+## Abstract Class
 
-// The problem is that compiler try to find the type of the element of the list
-// and find that they are java.lang.Object, and Object has no method area()
-// so it doens't compile
-
-// the idea is to introduce a type Figure has a common type for Square and Rectangle
-interface Figure {
-  public double area();
-}
-
-// and declare that a Square and a Rectangle are a kind of Figure
-// using the keyword 'implements'
-record Square(int side) implements Figure {
-  public double area() {
-    return side * side;
-  }
-}
-record Rectangle(int width, int height) implements Figure {
-  public double area() {
-    return width * height;
-  }
-}
-
-// Now, the list is correctly typed as a list of figure (List<Figure>)
-// so looping over the figures to call area() works
-var figures = List.of(new Square(2), new Rectangle(3, 4));
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
-
-// An interface is a common type that you need to declare when you want to
-// call the same method on different records
-// At runtime, when you call a method of the interface, the interpreter calls
-// the correct implementation (this is called polymorphism)
-
-// Technically, we have already used interfaces, List is an interface too
+## Dynamic Proxy
 
 
-// ## Implementing an interface
-// In Java, not only record can implement an interface, 
-// you have three other syntax
-// - anonymous class
-// - lambda
-// - method reference
-
-// ### Anonymous class
-var anotherFigure = new Figure() {
-  public double area() {
-    return 4;
-  }
-};
-
-// An anonymous class allow you to only provide the code of the methods of the interface
-// note that the syntax is a little weird because you may call new on a Figure but infact,
-// you ask to create something that implements Figure not a figure by itself.
-
-// you may think that this syntax is useless because you can not have the area computed
-// from the values of some components like with a record, but if you create an anonymous class
-// inside a method you can use the parameters of the method inside the anonymous class
-Figure rectangularTriangle(int width, int height) {
-  return new Figure() {
-    public double area() {
-      return width * height / 2.0;
-    }
-  };
-};
-
-var figures = List.of(new Square(2), rectangularTriangle(3, 4));
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
-
-
-// ### Lambda
-// In case of the interface is itself an interface with only one abstract method,
-// we calls that interface a functional interface, you have even a shorter syntax
-Figure anotherFigure = () -> 4;
-
-// and rewrite the method rectangularTriangle() like this
-Figure rectangularTriangle(int width, int height) {
-  return () -> width * height / 2.0;
-}
-
-var figures = List.of(new Square(2), rectangularTriangle(3, 4));
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
-
-
-// ### Method Reference
-// In case of the method already exists instead of 
-// calling it inside a lambda, we can make a reference on it using the operator ::
-// (notice that EquilaterlaTriangle doesn't implement Figure)
-record EquilateralTriangle(int side) {
-  double area() {
-    return Math.sqrt(3) * side * side / 4.0;
-  }
-}
-var equilateral = new EquilateralTriangle(2);
-
-// so instead of
-var figures = List.<Figure>of(new Square(2), () -> equilateral.area());
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
-
-// you can use a method reference
-var figures = List.<Figure>of(new Square(2), equilateral::area);
-for(var figure: figures) {
-  System.out.println(figure.area());
-}
-
-
-// More about lambdas and method references in the following chapter
+## But everything is not an interface

@@ -1,4 +1,3 @@
-
 # Generics
 Generics are way to propagate types from when a value is created to when the value is used.
 Historically, Java did not have a way to specify generics, by backward compatibility,

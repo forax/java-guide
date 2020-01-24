@@ -1,4 +1,3 @@
-
 # Wrapper types
 Primitive types are not objects, but all data structures in Java (list, map, etc)
 are storing objects, so we need a mechanism to see all primitive values as objects.

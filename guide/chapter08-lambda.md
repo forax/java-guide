@@ -1,4 +1,3 @@
-
 if you have not read the previous chapter on interfaces, starts by it first
 
 # Lambda and Method reference 

@@ -1,4 +1,3 @@
-
 # Enum
 An enum is a kind of class where all instances are known and can be enumerated
 

@@ -1,4 +1,3 @@
-
 # Inheritance
 
 Historically, inheritance have been the way to sell Object Oriented Programming.

@@ -92,7 +92,7 @@ System.out.println(String.join(", ", strings));
 
 
 ### Concatenation with a StringJoiner
-If you don't have a list of strings but a list of objects, you can use the
+If you don't have a list of strings by a list of objects, you can use the
 `StringJoiner` which let you specify a separator and is implemented
 using expandable buffer of strings (`StringJoiner.add` only accepts strings).
 

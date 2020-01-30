@@ -20,7 +20,7 @@ All the codes run with Java 14 with the preview features enabled.
 10. [encapsulation.md](guide/chapter11-encapsulation.md)
 11. [equals_hashCode_toString.md](guide/chapter12-equals_hashCode_toString.md)
 12. [contract.md](guide/chapter13-contract.md)
-13. [modifable_vs_mutalble.md](guide/chapter13-modifable_vs_mutalble.md)
+13. [modifiable_vs_mutable.md](guide/chapter13-modifiable_vs_mutable.md)
 14. [null_and_optional.md](guide/chapter14-null_and_optional.md)
 15. [inheritance.md](guide/chapter15-inheritance.md)
 16. [exception.md](guide/chapter16-exception.md)

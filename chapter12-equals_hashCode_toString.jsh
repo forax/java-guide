@@ -125,32 +125,4 @@ System.out.println(user1);
 
 // For a record, the methods `equals()`/`hashCode()` and `toString()` are already provided
 // so usually you don't have to provide a new implementation.
-// But arrays are not correctly supported
-// - `equals()` will calls `Object.equals()` on the array instead of `Arrays.equals()`
-// - `hashCode()` will calls `Object.hashCode()` on the array instead of `Arrays.hashCode()`
 
-// Here is an example of `equals()`/`hashCode()` and `toString()` if a field is an array
-record User(String login, char[] password) {
-  public User {
-    login = Objects.requireNonNull(login);
-    password = password.clone();
-  }
-  public char[] password() { // don't show the password
-    return "*".repeat(password.length).toCharArray();
-  }
-  public boolean equals(Object o) {
-    return o instanceof User user &&
-      login.equals(user.login) && Arrays.equals(password, user.password);
-  }
-  public int hashCode() {
-    return Objects.hash(login, Arrays.hashCode(password));
-  }
-  public String toString() {
-    return "User " + login + " " + "*".repeat(password.length);
-  }
-}
-var user1 = new User("bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
-var user2 = new User("bob", "df15cb4e019ec2eac654fb2e486c56df285c8c7b".toCharArray());
-System.out.println(user1.equals(user2));
-System.out.println(user1.hashCode() == user2.hashCode());
-System.out.println(user1);

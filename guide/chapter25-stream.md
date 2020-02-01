@@ -7,19 +7,20 @@ By example, to count the number of persons with a name starting by 'E',
 one can write
 ```java
 var names = List.of("Evan", "Helen", "Ebo");
-var sum = 0;
+var count = 0;
 for(var name: names) {
   if (name.startsWith("E")) {
-    sum++;
+    count++;
   }
 }
-System.out.println(sum);
+System.out.println(count);
 ```
 
 But using a stream, it's simpler
 ```java
 var names = List.of("Evan", "Helen", "Ebo");
-var sum = names.stream().filter(name -> name.startsWith("E")).count();
+var count = names.stream().filter(name -> name.startsWith("E")).count();
+System.out.println(count);
 ```
 
 

@@ -111,18 +111,18 @@ System.out.println(friends.stream().flatMapToInt(friends -> friends.kidAges().st
 // ### flatMap is a generalization of filter and map
 // `filter()` result in a stream with 0 or 1 value, `map()` result in a stream with one transformed value so
 // both can be simulated with `flatMap()`.
-
-// so filter can be simulated by a flatMap like this
+// So instead of
 record Employee(String name, int age) { }
 var employees = List.of(new Employee("Bob", 55), new Employee("Ana", 32));
 System.out.println(employees.stream().filter(e -> e.age() < 30).count());
 System.out.println(Arrays.toString(employees.stream().map(Employee::name).toArray()));
 
-// and map can be written like this
+// one can write
 System.out.println(employees.stream().flatMap(e -> (e.age() < 30)? Stream.of(e): Stream.empty()).count());
 System.out.println(Arrays.toString(employees.stream().flatMap(e -> Stream.of(e.name())).toArray()));
 
-// While flatMap can simulate filter and map, they are implemented in a more effective way
+// While flatMap can simulate filter and map, please use `filter()` and `map()` directly because 
+// the code is more readable and they are implemented in a more effective way.
 
 
 // ## Distinct, sorted, min and max

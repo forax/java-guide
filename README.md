@@ -1,9 +1,14 @@
 # java-guide
 A guide to modern Java (Java 17)
 
-This is a Work in progress, it should be ready when the next LTS of Java (Java 17) will be released.
+This guide is about learning Java from scratch if you know a bit of C or JavaScript.
 
+This is a Work in progress, it should be ready when the next LTS of Java (Java 17) will be released.
 All the codes run with Java 14 with the preview features enabled.
+
+> Note: if you are looking to only what's new in Java 14
+> [I have set of slides for that](https://github.com/forax/do-synthetic-methods-dream-of-electric-switch-expressions).
+
 
 ## Content
 

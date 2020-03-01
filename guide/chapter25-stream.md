@@ -1,7 +1,7 @@
 # Stream
 A stream is an API that defines a query on a source of values.
-It's an abstraction of loops over the values using a declarative API
-(what result you want and not how to compute it).
+It's an abstraction of loops over values using a declarative API,
+an API that describe the result you want and not how to compute it.
 
 By example, to count the number of persons with a name starting by 'E',
 one can write
@@ -22,6 +22,14 @@ var names = List.of("Evan", "Helen", "Ebo");
 var count = names.stream().filter(name -> name.startsWith("E")).count();
 System.out.println(count);
 ```
+
+
+### Why using streams instead of loops
+The main reason is that it makes the code more readable,
+obviously once you are used to read stream query,
+- by allowing to easily compose operations
+- by removing the declaration of intermediary local variables/states
+  (the variable `count` in the example above).
 
 
 ## Sources

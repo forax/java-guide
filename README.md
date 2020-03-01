@@ -129,5 +129,5 @@ from the jshell files using a small Java script.
 
 Using java 14
 ```
-  java --enable-preview build/build.java
+  java --source 14 --enable-preview build/build.java
 ```

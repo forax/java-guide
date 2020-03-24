@@ -72,9 +72,32 @@ All other types are objects, there are two special types, String and arrays
 that are object but considered as built-in by the compiler
 
 ### String
-String that stores a text (a sequence of characters)
+A String that stores a text (a sequence of characters) is delimited
+by two doublequotes
 ```java
 var text = "hello"; 
+System.out.println(text);
+```
+
+a String can also span several lines, it's called a __text block__
+and starts and ends with 3 double quotes
+```java
+var multilineText = """
+   This is
+   a multilines string
+   """;
+System.out.println(multilineText);
+```
+
+The indentation is determined by the alignment compared to position of the last """
+By example, to have an indentation of two spaces
+```java
+var multilineText = """
+     This is
+     a multilines string
+     indented by two spaces
+   """;
+System.out.println(multilineText);
 ```
 
 Strings have a lot of methods, here is some of them
@@ -87,6 +110,11 @@ to upper/lower case
 ```java
 System.out.println("hello".toUpperCase());
 System.out.println("hello".toLowerCase());
+```
+
+repeat the same pattern
+```java
+System.out.println("|*|".repeat(3));
 ```
 
 char at an index (starting with index 0)

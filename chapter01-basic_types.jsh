@@ -58,8 +58,27 @@ System.out.println(intValue);
 // that are object but considered as built-in by the compiler
 
 // ### String
-// String that stores a text (a sequence of characters)
+// A String that stores a text (a sequence of characters) is delimited
+// by two doublequotes
 var text = "hello"; 
+System.out.println(text);
+
+// a String can also span several lines, it's called a __text block__
+// and starts and ends with 3 double quotes
+var multilineText = """
+   This is
+   a multilines string
+   """;
+System.out.println(multilineText);
+
+// The indentation is determined by the alignment compared to position of the last """
+// By example, to have an indentation of two spaces
+var multilineText = """
+     This is
+     a multilines string
+     indented by two spaces
+   """;
+System.out.println(multilineText);
 
 // Strings have a lot of methods, here is some of them
 // length of a String
@@ -68,6 +87,9 @@ System.out.println("hello".length());
 // to upper/lower case
 System.out.println("hello".toUpperCase());
 System.out.println("hello".toLowerCase());
+
+// repeat the same pattern
+System.out.println("|*|".repeat(3));
 
 // char at an index (starting with index 0)
 System.out.println("hello".charAt(0));

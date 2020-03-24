@@ -135,10 +135,10 @@ System.out.println(Double.isNaN(Double.NaN));
 
 
 ### Record and NaN
-To avoid the issue of _x not equals to x_ to propagate to a whole record,
-the implementation of `equals()` for a record checks the raw bytes of the double after
-all NaN (yes internally there are several possible representation of NaN) being
-collapsed into one so testing if two records are equals works as expected !
+To avoid the issue of a record r not equals to itself because it has a component
+that contains NaN the implementation of `equals()` for a record checks
+the raw bytes of the double after all NaN (yes internally there are several possible
+representation of NaN) are collapsed into one so testing if two records are equals works as expected !
 ```java
 record MagicBeer(double content) { }
 var beer1 = new MagicBeer(Double.NaN);

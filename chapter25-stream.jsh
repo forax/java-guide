@@ -326,6 +326,7 @@ System.out.println(Arrays.stream(squareRoots).limit(10).boxed().collect(toList()
 // ## Limitations
 
 // ### Reusing stream objects
+// You can not reuse a stream for several queries
 var stream = Stream.of(1, 2, 3);
 System.out.println(stream.count());
 System.out.println(stream.count());

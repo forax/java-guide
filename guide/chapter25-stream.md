@@ -394,6 +394,7 @@ You have to use specialized method (resp `findFirst()` and `forEachOrdered()`) t
 ## Limitations
 
 ### Reusing stream objects
+You can not reuse a stream for several queries
 ```java
 var stream = Stream.of(1, 2, 3);
 System.out.println(stream.count());

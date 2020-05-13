@@ -410,22 +410,23 @@ class build {
     return filename.substring(index + 1);
   }
   
-  private interface Generator<T> {
-    void generate(List<String> lines, T attachment) throws IOException;
+  @FunctionalInterface
+  private interface Action<T> {
+    void execute(List<String> lines, T attachment) throws IOException;
     
-    default Generator<T> and(Generator<T> generator) {
+    default Action<T> and(Action<? super T> action) {
       return (lines, attachment) -> {
-        generate(lines, attachment);
-        generator.generate(lines, attachment);
+        execute(lines, attachment);
+        action.execute(lines, attachment);
       };
     }
     
-    static Generator<String> write(Generator<Path> writeMethod, Path folder, String extension) {
-      return (lines, rawFilename) -> writeMethod.generate(lines, folder.resolve(rawFilename + extension));
+    static Action<String> create(Action<Path> action, Path folder, String extension) {
+      return (lines, rawFilename) -> action.execute(lines, folder.resolve(rawFilename + extension));
     }
   }
   
-  private static void generate(List<Path> paths, Generator<String> generator) throws IOException {
+  private static void generate(List<Path> paths, Action<String> action) throws IOException {
     for(var path: paths) {
       var rawFilename = removeExtension(path.getFileName().toString());
 
@@ -435,7 +436,7 @@ class build {
         lines = stream.dropWhile(LineKind.is(LineKind.TEXT)).dropWhile(LineKind.is(LineKind.BLANK)).collect(Collectors.toList());
       }
       
-      generator.generate(lines, rawFilename);
+      action.execute(lines, rawFilename);
     }
   }
   
@@ -454,7 +455,7 @@ class build {
     }
   }
   
-  private static /*record*/ class Config {
+  private static record Config(Optional<Kind> index, Set<Kind> kinds, Map<Kind, Path> folderMap) {
     private enum Kind {
       MARKDOWN(".md", build::writeMarkDown),
       NOTEBOOK(".ipynb", build::writeJupyter),
@@ -469,12 +470,12 @@ class build {
       
       private final String propertyName;
       private final String extension;
-      private final Generator<Path> generator;
+      private final Action<Path> action;
       
-      private Kind(String extension, Generator<Path> generator) {
+      private Kind(String extension, Action<Path> action) {
         this.propertyName = name().toLowerCase();
         this.extension = extension;
-        this.generator = generator;
+        this.action = action;
       }
       
       Path folder(Properties properties) {
@@ -484,16 +485,6 @@ class build {
     
     private static Optional<String> getProperty(Properties properties, String propertyName) {
       return Optional.ofNullable(properties.getProperty(propertyName));
-    }
-    
-    private final Optional<Kind> index;
-    private final Set<Kind> kinds; 
-    private final Map<Kind, Path> folderMap;
-    
-    private Config(Optional<Kind> index, Set<Kind> kinds, Map<Kind, Path> folderMap) {
-      this.index = index;
-      this.kinds = kinds;
-      this.folderMap = folderMap;
     }
     
     Path folder(Kind kind) {
@@ -523,8 +514,8 @@ class build {
       createDirectories(config.folder(kind));
     }
     
-    // create generator
-    var generator = config.kinds.stream().map(k -> Generator.write(k.generator, config.folder(k), k.extension)).reduce(Generator::and).orElseThrow();
+    // create action
+    var generator = config.kinds.stream().map(k -> Action.create(k.action, config.folder(k), k.extension)).reduce(Action::and).orElseThrow();
 
     // gather files and generate    
     var files = gatherFiles(Path.of("."), name -> name.endsWith(".jsh"));

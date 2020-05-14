@@ -125,4 +125,14 @@ System.out.println(user1);
 
 // For a record, the methods `equals()`/`hashCode()` and `toString()` are already provided
 // so usually you don't have to provide a new implementation.
-
+record User(String name, int age) {
+  public User {
+    Objects.requireNonNull(name);
+  }
+  // the compiler automatically adds equals/hashCode/toString !
+}
+var user1 = new User("Bob", 31);
+var user2 = new User("Bob", 31);
+System.out.println(user1.equals(user2));
+System.out.println(user1.hashCode() == user2.hashCode());
+System.out.println(user1);

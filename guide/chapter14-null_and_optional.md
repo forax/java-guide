@@ -59,7 +59,7 @@ a `Person` with a name null so a `NullPointerException` is thrown __consistently
 So in Java, the idea to avoid the spurious is `NullPointerException` to never let
 a user code to get a null
 - do not allow to create an object with null fields
-- never return null from a method (using an Optional or an empty collection instead)
+- never return null from a method (use an Optional or an empty collection instead)
 
 
 ## Defensive programming
@@ -87,7 +87,13 @@ You may sometimes want to pass null to a public method or return null from a met
 but it should be an exceptional case and it should be documented
 
 A good example is `Map.get(key)` that is used a lot and is specified to return `null`
-if the key is not stored in the map. Prefer to use `Map.getOrDefault()` instead.
+if the key is not stored in the map. refer to use `Map.getOrDefault()` instead
+```java
+var map = Map.of("John", 5, "Paul", 7);
+System.out.println(map.get("Lena"));
+System.out.println(map.getOrDefault("Lena", 0));
+```
+
 See chapter 'list and map' for more information.
 
 

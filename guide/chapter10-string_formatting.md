@@ -19,7 +19,7 @@ most readable (ok, when your are used to) and the fastest
 
 ### Concatenation with +
 Just do a '+' between the different values,
-this code is heavily optimized and will allow only one String
+this code is heavily optimized and will allocate only one String
 ```java
 System.out.println(bob.name() + ", " + ana.name() + ", " + jul.name());
 ```

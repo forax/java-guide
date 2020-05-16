@@ -21,7 +21,7 @@ var jul = new Friend("jul");
 
 // ### Concatenation with +
 // Just do a '+' between the different values,
-// this code is heavily optimized and will allow only one String
+// this code is heavily optimized and will allocate only one String
 System.out.println(bob.name() + ", " + ana.name() + ", " + jul.name());
 
 

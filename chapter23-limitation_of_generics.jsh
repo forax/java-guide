@@ -7,16 +7,39 @@
 
 // ## No reification
 
-In Java, generics are purely a compiler construct, the type arguments of a generics
-are not available at runtime. 
+// In Java, generics are purely a compiler construct, the type arguments of a generics
+// are not available at runtime. 
+// - for a type variable (`T`, `E`, etc), the actual value at the execution, the type argument is not present at runtime. 
+// - for a parameterized type (`List&gt;String&lt;`) the type argument (`String` here) is not available too
 
-For a type variable (`T`, `E`, etc), the actual value at the execution, the type argument
-is not present at runtime. For a parameterized type (`List&gt;String&lt;`
+// ### No type argument
 
-- instanceof 
-- cast
-- 
-- array creation
+// Which means that all operations that requires the type argument at runtime doesn't work.
+// So the compiler doesn't allow you to write
+// - `new T(...)` 
+// - `new T[5]`
+// - `instanceof T` and `instanceof Foo<String>`
+// - `catch(T ..)` and `catch(Foo<String>)`, moreover 
+
+// ### Unchecked Warnings
+
+// You can still write a cast like `(T)` or `(Foo<String>)`,
+// but the complier will warn you that this is not a safe cast.
+
+// An example of cast that works
+List<Object> objectList = List.of("foo", "bar");
+List<String> stringList = (List<String>) (List<?>) objectList; // warning, this is dangerous
+                                                               // but it works in practice
+
+// An example of cast that doesn't work
+List<String> stringList = new ArrayList<>();
+stringList.add("foo");
+List<Object> objectList = (List<Object>) (List<?>) stringList; // dangerous, don't work !
+objectList.add(4321);
+System.out.println(stringList.get(1));               // fail at runtime
+
+// Hopefully, those casts are rare in practice because casts in general are rare
+// mostly because if you have a cast it means that you have lost the type at some point.
 
 
 // ## Array of parameterized type
@@ -44,7 +67,6 @@ objectArray[0] = 3;   // ArrayStoreException
 // In practice, this code is occurs rarely, if you consider a String[] as a Object[],
 // usually, it's for getting the value out of the array not to change the value of
 // the array. Anyway, it's unsafe.
-
 
 
 // ### varargs

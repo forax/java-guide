@@ -1,7 +1,7 @@
 # Interface
 Java is a typed language, even if you don't explicitly write a type
 the compiler you compute the type of every variables
-Once you start to want to mix several records, you need to declare
+Once you start to want to mix several records, you may need to declare
 common type between records, such type are known as interface
 
 ## The problem
@@ -33,7 +33,7 @@ for(var figure: figures) {
 
 The problem is that compiler try to find the type of the element of the list
 and find that they are java.lang.Object, and Object has no method area()
-so it doens't compile
+so the code does not compile
 
 
 ### Interface and abstract method
@@ -76,7 +76,7 @@ for(var figure: figures) {
 
 An interface is a common type that you need to declare when you want to
 call the same method on different records
-At runtime, when you call a method of the interface, the interpreter calls
+At runtime, when you call a method of the interface, the virtual machine calls
 the correct implementation (this is called polymorphism)
 
 
@@ -112,14 +112,14 @@ System.out.println(new Rectangle(3, 4).isBig());
 
 Because a default method is declared on the interface, all records that
 implement that interface will have that method. Default methods are named like this
-because if the record doesn't define the method itself, the method will be provided
-by default. 
+because if a record that implements the interface doesn't define the method,
+the method will be provided by default.
 
 
 ## Functional interface
 An interface with only one abstract method is equivalent to a function type.
 We name this kind of interfaces, _functional_ interfaces.
-They can be implemented by supplementary constructs.
+They can be implemented by two special constructs.
 
 ### Lambda
 The parameter are declared in between the parenthesis and the body of the method

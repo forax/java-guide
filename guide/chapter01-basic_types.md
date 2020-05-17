@@ -52,7 +52,7 @@ var result = value + value;
 
 ### primitive conversions
 You have automatic conversions if there is no loose of precision
-unless it's to convert to double or float which you are always allowed.
+and converting to double or float is always allowed
 ```java
 int intValue = 13;
 long longValue = intValue;

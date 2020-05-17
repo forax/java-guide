@@ -113,7 +113,7 @@ System.out.println(Double.NaN);
 ```
 
 ### NaN
-Not a Number is very weird, because by definition, it's the number which is not equals to itself
+Not a Number is very weird, because by definition, it's the number which is not equal to itself
 
 Don't use == to test NaN, it will not work
 ```java
@@ -128,7 +128,7 @@ boolean isNotANumber(double x) {
 System.out.println(isNotANumber(Double.NaN));
 ```
 
-The method isNotANumber already exist in Double, `Double.isNaN()`
+An equivalent static method to isNotANumber already exist in Double, `Double.isNaN()`
 ```java
 System.out.println(Double.isNaN(Double.NaN));
 ```

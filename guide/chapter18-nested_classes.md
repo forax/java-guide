@@ -183,7 +183,7 @@ Object box = new Object() {
 System.out.println(box.sum);  // doesn't compile
 ```
 
-If we are using var, it works !
+using `var`, it works !
 ```java
 var box = new Object() {
   int sum;

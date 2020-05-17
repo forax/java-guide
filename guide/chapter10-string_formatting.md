@@ -53,7 +53,7 @@ String concatenate(List<?> list) {
   var string = "";
   var separator = "";
   for(var item: list) {
-    string = string + separator + item;
+    string = string + separator + item;  // creates two many strings, ahhhh
     separator = ", ";
   } 
   return string;
@@ -79,7 +79,8 @@ System.out.println(concatenate(strings));
 System.out.println(concatenate(friends));
 ```
 
-> Don't use '+' inside a `append()`, you already have a StringBuilder, so use append() instead
+> Don't use '+' inside a call to  `append()`, you already have a StringBuilder,
+so use append() instead
 
 
 ### Concatenation with String.join()

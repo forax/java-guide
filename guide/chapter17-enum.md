@@ -153,7 +153,7 @@ enum FileListMode {
   DIRECTORY(path -> NORMAL.test(path) && Files.isDirectory(path))
   ;
   private final FilePredicate predicate;
-  private FileListMode(FilePredicate predicate) {
+  FileListMode(FilePredicate predicate) {
     this.predicate = predicate;
   }
   public boolean test(Path path) throws IOException {

@@ -24,6 +24,8 @@ System.out.println(x);
 // ## If
 
 // ### Test with `if`
+// the construct `if` execute the block of code that follow if the condition in between
+// the parenthesis is true
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -32,6 +34,8 @@ void oldEnough(int age) {
 oldEnough(22);
 
 // ### Test with `if ... else`
+// you can append the construct `else` after an `if` to execute a block of code
+// if the condition is not true
 void oldEnough(int age) {
   if (age >= 21) {
     System.out.println("you are old enough to drink a beer");
@@ -141,6 +145,7 @@ printKind(new Car(4));
 // ## Loops
 
 // ### `while` loop
+// a `while` loop execute the block of code while the condition in between parenthesis is true
 void printFirstIntegers(int n) {
   var i = 0;
   while(i < n) {
@@ -151,6 +156,8 @@ void printFirstIntegers(int n) {
 printFirstIntegers(5);
 
 // ### `for` loop
+// a for loop is a convenient way to write a `while` loop in case you do a while on a variable,
+// so instead of using the `while` loop above, one can write this for loop
 void printFirstIntegers(int n) {
   for(var i = 0; i < n; i++) {
     System.out.println(i);
@@ -158,7 +165,11 @@ void printFirstIntegers(int n) {
 }
 printFirstIntegers(5);
 
+
+
 // ### `for` loop on array or list
+// Java as a special loop for iterating over the content of an array or a list,
+// it using the keyword `for`, but the declared variable contains each element one by one
 var list = List.of("iron man", "captain america", "black panther");
 for(var value: list) {
   System.out.println(value);

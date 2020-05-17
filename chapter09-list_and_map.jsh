@@ -74,14 +74,14 @@ countries.forEach(country -> System.out.println(country));
 var unmodifiableList = List.copyOf(modifiableCountries);
 System.out.println(unmodifiableList);
 
-// To create a modifiable list from an unmodifiable one using ArrayList(List)
+// To create a modifiable list from an unmodifiable one using `new ArrayList(List)`
 // In that case you don't have to specify the type of the elements
 // the compiler already knows the type of list hence the <> (diamond)
 var modifiableList = new ArrayList<>(unmodifiableList);
 System.out.println(modifiableList);
 
 // ### Useful patterns
-// To remove some elements depending on a predicate
+// To remove some elements depending on a predicate (if something is true)
 var elements = new ArrayList<>(List.of("table", "chair", "stool"));
 elements.removeIf(element -> element.charAt(0) == 'c');
 System.out.println(elements);
@@ -171,7 +171,8 @@ persons.forEach(person -> group.computeIfAbsent(person.name(), name -> new Array
                                 .add(person));
 System.out.println(group);
 
-// to count the number of occurrence, use `merge()`
+// to count the number of occurrence, use `merge()` that takes a key, a value and the function
+// to call if there is already an existing value to combine them
 var letters = List.of("a", "b", "e", "b");
 var occurenceMap = new HashMap<String, Integer>();
 letters.forEach(letter -> occurenceMap.merge(letter, 1, Integer::sum));
@@ -179,4 +180,4 @@ System.out.println(occurenceMap);
 
 
 // ### More on transformations
-// To do more transformations of lists and maps, the Stream API is richer
+// To do more transformations of lists and maps, use the Stream API.

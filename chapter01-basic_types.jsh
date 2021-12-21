@@ -85,8 +85,9 @@ System.out.println(multilineText);
 System.out.println("hello".length());
 
 // to upper/lower case
-System.out.println("hello".toUpperCase());
-System.out.println("hello".toLowerCase());
+// Locale.ROOT here ask for a result independent of the OS language
+System.out.println("hello".toUpperCase(Locale.ROOT));
+System.out.println("hello".toLowerCase(Locale.ROOT));
 
 // repeat the same pattern
 System.out.println("|*|".repeat(3));

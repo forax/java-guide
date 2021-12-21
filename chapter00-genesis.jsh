@@ -31,7 +31,7 @@ System.out.println("the value of colorName is " + colorName);
 
 // ## A record is a user defined type
 // here Light is defined as containing two components: a color (typed as a String) and
-// an intensity (typed as a 64 bits floating number double).
+// an intensity (typed as a 64-bit floating number double).
 record Light(String color, double intensity) {}
 
 // ### Object creation with `new`

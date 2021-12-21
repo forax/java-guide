@@ -4,7 +4,7 @@
 
 // # Numbers
 // This chapter in not specific to Java but more on how integers and floating point numbers
-// works on CPUs like Intel 64 bits or ARM 64 bits.
+// work on CPUs like Intel 64-bit or ARM 64-bit.
 
 
 // ## Integers
@@ -65,7 +65,7 @@ System.out.println(0.1 + 0.2);
 // so you may think the value is fully represented that but that's just an illusion
 System.out.println(1.0 / 3.0);
 
-// On way to see the trick is to ask a float, a 32 bits, to be printed as a double, 64 bits.
+// On way to see the trick is to ask a float (32-bit), to be printed as a double (64-bit).
 System.out.println(1.0f / 3.0f);
 System.out.println(Float.toString(1.0f / 3.0f));
 System.out.println(Double.toString(1.0f / 3.0f));  // damn i'm unmasked

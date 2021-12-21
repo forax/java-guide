@@ -5,7 +5,7 @@ objects like String that have a name that starts with an uppercase letter.
 ## Types
 A primitive type is stored as value while an object is stored as
 a reference (the address of the object in memory).
-In Java, `var` create a new variable
+In Java, `var` creates a new variable
 ```java
 var maxIntensity = 1.0;   // it's a value
 var colorName = "black";  // it's a reference to String somewhere in memory
@@ -43,8 +43,8 @@ record Light(String color, double intensity) {}
 ```
 
 ### Object creation with `new`
-To create an object in memory, we use the operator `new` followed by the value of each record components
-the following instruction create a Light with "blue" as color and 1.0 as intensity.
+To create an object in memory, we use the operator `new` followed by the value of each record component.
+The following instruction creates a Light with "blue" as color and 1.0 as intensity.
 ```java
 var blueLight = new Light("blue", 1.0);
 System.out.println(blueLight);
@@ -72,7 +72,7 @@ System.out.println(blueLight);
 ```
 
 ### equals()
-In Java, you can ask if two objects are equals, using the method equals(Object).
+In Java, you can ask if two objects are equal, using the method equals(Object).
 The return value is a boolean (a primitive type that is either true or false).
 ```java
 var redLight = new Light("red", 0.5);
@@ -101,4 +101,4 @@ To interact with an object, we are using methods that are functions that you
 call on an object using the operator `.`.
 A Record defines methods to access the value of a component, and also
 `toString()` to get the textual representation of an object and
-`equals()` and `hashCode()` to test if two objects are equals.
+`equals()` and `hashCode()` to test if two objects are equal.

@@ -1,7 +1,7 @@
 # Basic Types
 Java has two kinds of type,
 - primitive types that are directly mapped to CPU basic types
-- reference types that address of the object in memory
+- reference types that have the address of the object in memory
 
 ## Primitive types 
 primitive types, written in lower case, have no method
@@ -17,33 +17,33 @@ var anotherResult = false;
 var firstLetter = 'j';
 ```
 
-### int (signed 32 bits integer)
+### int (signed 32-bit integer)
 ```java
 var numberOfLegs = 2;
 ```
 
-### double (64 bits floating point)
+### double (64-bit floating point)
 ```java
 var cost = 3.78;
 ```
 
 ### long and float
 some more exotic types that requires a suffix (`L` or `f`)
-long (64 bits integers) and float (32 bits floating point numbers)
+long (64-bit integers) and float (32-bit floating point numbers)
 ```java
 var longValue = 123L;
 var floatValue = 123.5f;
 ```
 
 ### byte and short
-you also have byte (a signed 8 bits integer) and short (a signed 16 bits short integer)
-that are only useful to take less memory when defining an object
+you also have byte (a signed 8-bit integer) and short (a signed 16-bit short integer)
+that are only useful to use less memory when defining an object
 ```java
 record CompactHeader(byte tag, short version) {}
 ```
 
-when used in variables, they are promoted to 32 bits integer
-in the following code result is a 32 bits integer (so an int)
+when used in variables, they are promoted to a 32-bit integer.
+In the following code, `result` is a 32-bit integer (so an int)
 ```java
 short value = 12;
 var result = value + value;

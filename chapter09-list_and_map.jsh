@@ -174,9 +174,9 @@ System.out.println(group);
 // to count the number of occurrence, use `merge()` that takes a key, a value and the function
 // to call if there is already an existing value to combine them
 var letters = List.of("a", "b", "e", "b");
-var occurenceMap = new HashMap<String, Integer>();
-letters.forEach(letter -> occurenceMap.merge(letter, 1, Integer::sum));
-System.out.println(occurenceMap);
+var occurrenceMap = new HashMap<String, Integer>();
+letters.forEach(letter -> occurrenceMap.merge(letter, 1, Integer::sum));
+System.out.println(occurrenceMap);
 
 
 // ### More on transformations

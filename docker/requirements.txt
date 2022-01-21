@@ -5,7 +5,7 @@ defusedxml==0.6.0
 entrypoints==0.3
 importlib-metadata==0.23
 ipykernel==5.1.2
-ipython==7.10.2
+ipython==7.16.3
 ipython-genutils==0.1.0
 Jinja2==2.10.1
 json5==0.8.5

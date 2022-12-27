@@ -18,7 +18,7 @@ MarkupSafe==1.1.1
 mistune==0.8.3
 nbconvert==6.5.1
 nbformat==4.4.0
-notebook==5.7.8
+notebook==6.4.12
 pandocfilters==1.4.1
 prometheus-client==0.7.1
 ptyprocess==0.6.0

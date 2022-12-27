@@ -27,7 +27,7 @@ pyrsistent==0.15.6
 python-dateutil==2.8.0
 pyzmq==18.0.2
 Send2Trash==1.4.2
-setuptools==41.2.0
+setuptools==65.5.1
 six==1.12.0
 terminado==0.8.2
 testpath==0.3.1

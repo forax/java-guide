@@ -12,7 +12,7 @@ json5==0.8.5
 jsonschema==3.2.0
 jupyter-client==5.3.3
 jupyter-core==4.11.2
-jupyterlab==1.2.4
+jupyterlab==1.2.21
 jupyterlab-server==1.0.6
 MarkupSafe==1.1.1
 mistune==0.8.3

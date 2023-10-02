@@ -48,13 +48,13 @@ All the codes run with Java 14 with the preview features enabled.
 Each chapter comes with executable examples that you can run using jshell.
 
 To get the examples, just clone this repository
-```
-  git clone http://github.com/forax/java-guide
+```shell
+git clone http://github.com/forax/java-guide
 ```
 
 Then run jshell (at least Java 14 version)
-```
-   jshell --enable-preview
+```shell
+jshell --enable-preview
 ```
 
 Then you can copy paste the examples inside jshell and see by yourself.
@@ -73,51 +73,51 @@ You can run it directly in your browser
 You need to have docker already installed, then
 
 - get the docker image from dockerhub
-  ```
-    docker pull forax/java-guide
+  ```shell
+  docker pull forax/java-guide
   ```
 - run the docker image in a container
+  ```shell
+  docker run -p 8888:8888 forax/java-guide
   ```
-    docker run -p 8888:8888 forax/java-guide
+- open your browser using the `tokenId` printed on the console
+  ```shell
+  firefox http://localhost:8888/?token=tokenId
   ```
- - open your browser using the `tokenId` printed on the console
-   ```
-     firefox http://localhost:8888/?token=tokenId
-   ```
 
 
 ### or install everything on your laptop
 You need to have python3 and Java 14 already installed, then
 
 - clone this repository
-  ```
-    git clone http://github.com/forax/java-guide
-    cd java-guide
+  ```shell
+  git clone http://github.com/forax/java-guide
+  cd java-guide
   ```
 - install [jupyter](https://jupyter.org/install)
-  ```
-    pip install notebook
+  ```shell
+  pip install notebook
   ```
 - install the [ijava 1.3.0](https://github.com/SpencerPark/IJava) kernel (from Spencer Park)
-  ```
+  ```shell
   wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip
   python3 install.py --sys-prefix
   ```
-- patch it with the repository file `kernel.json`
+- patch it with the repository file `kernel.json`<br>
   list all kernels to see if the java kernel is installed
-  ```
+  ```shell
   jupyter kernelspec list
   ```
   then copy the file `kernel.json` from the folder `docker` to the java kernel directory
-  ```
+  ```shell
   cp docker/kernel.json /path/to/jupyter/kernels/java
   ```
 - set the env compiler option enabling the preview features
-  ```
+  ```shell
   export IJAVA_COMPILER_OPTS="--enable-preview -source 14"
   ```
 - run the notebook
-  ```
+  ```shell
   cd jupyter
   jupyter notebook
   ```
@@ -128,6 +128,6 @@ The markdown files (.md) and the jupyter files (.ipynb) are derived/generated
 from the jshell files using a small Java script.
 
 Using java 14
-```
-  java --source 14 --enable-preview build/build.java
+```shell
+java --source 14 --enable-preview build/build.java
 ```

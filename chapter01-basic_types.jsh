@@ -55,7 +55,7 @@ System.out.println(intValue);
 
 // ## Objects
 // All other types are objects, there are two special types, String and arrays
-// that are object but considered as built-in by the compiler
+// that are objects but considered as built-in by the compiler
 
 // ### String
 // A String that stores a text (a sequence of characters) is delimited
@@ -80,12 +80,13 @@ var multilineText = """
    """;
 System.out.println(multilineText);
 
-// Strings have a lot of methods, here is some of them
+// Strings have a lot of methods, here is some of them:
+
 // length of a String
 System.out.println("hello".length());
 
 // to upper/lower case
-// Locale.ROOT here ask for a result independent of the OS language
+// Locale.ROOT here asks for a result independent of the OS language
 System.out.println("hello".toUpperCase(Locale.ROOT));
 System.out.println("hello".toLowerCase(Locale.ROOT));
 
@@ -120,7 +121,7 @@ var intArray = new int[2];
 // Because a value like `2` or `3` can be an numeric type
 // (an `int`, a `long`, a `short`, etc)
 // you have to specify the type of the array when you create it
-var intArray = new int[] {2, 3 };
+var intArray = new int[] { 2, 3 };
 var longArray = new long[] { 2, 3 };
 
 // you can use the operator [] to access or change the value
@@ -138,7 +139,7 @@ intArray[-1] = 42;   // throws IndexOutOfBoundsException
 var arrayLength = intArray.length;
 System.out.println(arrayLength);
 
-// arrays have methods like \toString()` or `equals()` but
+// arrays have methods like `toString()` or `equals()` but
 // they are not implemented correctly, we will see later why
 System.out.println(intArray);
 System.out.println(new int[] {42}.equals(new int[] {42}));
